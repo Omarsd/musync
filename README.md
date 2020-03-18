@@ -7,4 +7,5 @@
 ## Integrantes
 
 - **Omar Serrano Doukkali**
+- **Oscar Diaz**
 
