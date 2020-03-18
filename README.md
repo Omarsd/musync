@@ -6,5 +6,5 @@
 
 ## Integrantes
 
-**Omar Serrano Doukkali**
+- **Omar Serrano Doukkali**
 
