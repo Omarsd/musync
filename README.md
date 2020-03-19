@@ -6,6 +6,13 @@
 
 ## Integrantes
 
-- **Omar Serrano Doukkali**
-- **Oscar Diaz**
+| Integrante            | Rol              |
+| --------------------- | ---------------- |
+| Omar Serrano Doukkali | Jefe de Proyecto |
+| Oscar Díaz            | Programador      |
+|                       |                  |
+|                       |                  |
+|                       |                  |
+|                       |                  |
+|                       |                  |
 
