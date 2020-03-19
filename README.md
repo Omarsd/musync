@@ -1,5 +1,5 @@
 # Musync
-
+![MuSync](https://i.imgur.com/nKIjsNZ.jpg)
 ## Introducción
 
 
