@@ -6,13 +6,13 @@
 
 ## Integrantes
 
-| Integrante              | Rol               |
-| ----------------------- | ----------------- |
-| Omar Serrano Doukkali   | Jefe de Proyecto  |
-| Oscar Díaz              | Programador       |
-| Juan Manuel Salas Pérez | Analista de datos |
-|                         |                   |
-|                         |                   |
-|                         |                   |
-|                         |                   |
+| Integrante              | Rol                       |
+| ----------------------- | ------------------------- |
+| Omar Serrano Doukkali   | Jefe de Proyecto          |
+| Oscar Díaz              | Programador               |
+| Juan Manuel Salas Pérez | Analista de Datos         |
+| Adrián Laguna Machuca   | Responsable de Requisitos |
+|                         |                           |
+|                         |                           |
+|                         |                           |
 
