@@ -14,5 +14,5 @@
 | Adrián Laguna Machuca   | Responsable de Requisitos |
 | Oscar Bracero Ramírez   | Tester                    |                   
 | Francesca Ugazio        | Diseñadora                |
-|                         |                           |
-
+| Rubén Castro Ruiz       | Programador               |
+| ----------------------- | ------------------------- |
