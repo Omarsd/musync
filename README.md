@@ -15,4 +15,3 @@
 | Oscar Bracero Ramírez   | Tester                    |                   
 | Francesca Ugazio        | Diseñadora                |
 | Rubén Castro Ruiz       | Programador               |
-| ----------------------- | ------------------------- |
