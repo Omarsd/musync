@@ -13,6 +13,6 @@
 | Juan Manuel Salas Pérez | Analista de Datos         |
 | Adrián Laguna Machuca   | Responsable de Requisitos |
 | Oscar Bracero Ramírez   | Tester                    |                   
-|                         |                           |
+| Francesca Ugazio        | Diseñadora                |
 |                         |                           |
 
