@@ -41,11 +41,11 @@ Universidad de Málaga
 * 6 [Apendices](#6-apendices) 
   
 ## Versiones
-| Name                  | Date       | Reason For Changes              | Version |
-| --------------------- | ---------- | ------------------------------- | ------- |
-| Omar Serrano Doukkali | 04/05/2020 | Creación del documento de grupo | 0.8     |
-|                       |            |                                 |         |
-|                       |            |                                 |         |
+| Name                  | Date       | Reason For Changes                      | Version |
+| --------------------- | ---------- | --------------------------------------- | ------- |
+| Omar Serrano Doukkali | 04/05/2020 | Creación del documento de grupo         | 0.8     |
+| Omar Serrano Doukkali | 07/05/2020 | Descripción de la mayoría de requisitos | 0.8.5   |
+|                       |            |                                         |         |
 
 ## 1. Introducción
 ### 1.1 Objetivo del documento
@@ -223,14 +223,15 @@ Para ver una lista de navegadores compatibles con Ionic pinche [aquí](https://i
 | RF10  | Ver perfil propio       | Un músico podrá ver su propio perfil                         | Fundamental | RF8                | Funcional    |
 | RF11  | Editar perfil           | Un músico podrá editar su propio perfil                      | Deseable    | RF10               | Funcional    |
 | RF12  | Valorar usuario         | Un músico podrá valorar a otro                               | Fundamental | RF8                | Funcional    |
-| RF13  | Reportar músico         | Un músico podrá reportar a otro músico                       | Opcional    | RF8                | Funcional    |
-| RF14  | Sistema de mensajería   | Un músico podrá contactar con otro sobre anuncios            | Opcional    | RF2/RF8            | Funcional    |
+| RF13  | Reportar músico         | Un músico podrá reportar a otro músico                       | Opcional    | RF8 y RF15         | Funcional    |
+| RF14  | Sistema de mensajería   | Un músico podrá contactar con otro sobre anuncios            | Opcional    | RF2 y RF8          | Funcional    |
 | RF15  | Ver perfil músico       | Un usuario podrá ver el perfil de un músico                  | Fundamental | RF2/RF17           | Funcional    |
-| RF16  | Eliminar cuenta         | Un músico podrá eliminar su cuenta                           | Fundamental | RF10               | Funcional    |
+| RF16  | Eliminar cuenta         | Un músico podrá eliminar su cuenta                           | Fundamental | RF8 y RF10         | Funcional    |
 | RF17  | Buscar músico           | Un administrador podrá buscar músico                         | Deseable    | RF8                | Funcional    |
-| RF18  | Banear músico           | Un administrador podrá banear un músico temporal o permanentemente | Deseable    | RF17               | Funcional    |
-| RF19  | Ver anuncios reportados | Un administrador podrá ver los anuncios reportados por los usuarios | Deseable    | RF8 y RF6          | Funcional    |
-| RF20  | Banear anuncio          | Un administrador podrá banear un anuncio                     | Deseable    | RF2/RF19           | Funcional    |
+| RF18  | Ver anuncios reportados | Un administrador podrá ver los anuncios reportados por los usuarios | Deseable    | RF8 y RF6          | Funcional    |
+| RF19  | Ver músicos reportados  | Un administrador podrá ver los músicos que han sido reportados por los usuarios | Deseable    | RF8 y RF13         | Funcional    |
+| RF20  | Banear músico           | Un administrador podrá banear un músico temporal o permanentemente | Deseable    | RF8 y RF17/RF15    | Funcional    |
+| RF21  | Banear anuncio          | Un administrador podrá banear un anuncio                     | Deseable    | RF8 y RF2/RF19     | Funcional    |
 | RNFS1 | Cifrado contraseñas     | Las contraseñas deberán almacenarse en su versión *hash*     | Fundamental | Ninguna            | No Funcional |
 | RNFS2 | Cifrado comunicaciones  | Las comunicaciones deberán ser cifradas por https            | Fundamental | Ninguna            | No Funcional |
 | RNFF1 | Control de usabilidad   | Se realizarán pruebas para medir la facilidad de usabilidad de la aplicación. | Deseable    | Ninguna            | No Funcional |
@@ -511,11 +512,13 @@ Fundamental
 
 #### RF13 - Reportar músico 
 
+Un músico podrá reportar a otro. El botón aparecerá en el perfil del músico ajeno. Al pinchar aparecerá un formulario donde el músico que reporta podrá escribir una razón para que la vea el administrador.
 
+En caso de crear el sistema de mensajería, se añadirá el botón de reporte en la parte de arriba de la conversación con dicho músico.
 
 ##### Dependencias 
 
-Login(RF8)
+Login(RF8) y Ver perfil músico(RF15)
 
 ##### Prioridad 
 
@@ -523,13 +526,13 @@ Opcional
 
 ##### Justificación
 
-
+En caso de que un músico incumpla las normas de la aplicación, o su comportamiento hacia otros no sea el correcto, parece lógico que los músicos afectados puedan reportarlo, para que así un administrador pueda ver el caso y tomar medidas al respecto.
 
 
 
 #### RF14  - Sistema de mensajería
 
-
+Los músicos podrán mandar mensajes entre sí para así cerrar sus tratos de una manera eficiente. El botón se mostrará en el perfil de usuario ajeno, y el botón para acceder a los chats aparecerán en el menú de usuario.
 
 ##### Dependencias 
 
@@ -541,13 +544,13 @@ Opcional
 
 ##### Justificación
 
-
+Implementar un sistema de mensajería eficiente sería un añadido muy importante para la aplicación, ya que facilitaría a los usuarios cerrar tratos y haría la aplicación mucho más dinámica y llamativa.
 
 
 
 #### RF15 - Ver perfil músico
 
-
+Un usuario podrá pinchar en el perfil de un músico para ver detalles de éste. Este botón aparecerá cuando un usuario pincha en un anuncio, solo pudiendo ver perfiles de músicos que hayan subido uno.
 
 ##### Dependencias 
 
@@ -559,17 +562,17 @@ Fundamental
 
 ##### Justificación
 
-
+Al ser los anuncios la pieza clave de la aplicación, se debe permitir a los usuarios interactuar y ver los perfiles ajenos de los usuarios que suben anuncios.
 
 
 
 #### RF16 - Eliminar cuenta 
 
-
+Un músico puede eliminar su cuenta de la aplicación. El botón aparecerá en la vista de su perfil.
 
 ##### Dependencias 
 
-Ver perfil propio(RF10)
+Login (RF8) y Ver perfil propio(RF10)
 
 ##### Prioridad 
 
@@ -577,13 +580,13 @@ Fundamental
 
 ##### Justificación
 
-
+Un usuario registrado debe poder eliminar su cuenta y sus datos de cualquier lugar en los que éstos se alojen. Es un requisito fundamental para cumplir la LOPD.
 
 
 
 #### RF17 - Buscar músico 
 
-
+El administrador tendrá una vista para realizar una búsqueda de usuarios. Esta vista será accesible desde un botón con el mismo nombre que el requisito en la barra superior.
 
 ##### Dependencias 
 
@@ -599,27 +602,9 @@ Deseable
 
 
 
-#### RF18 - Banear músico
+#### RF18 - Ver anuncios reportados 
 
-
-
-##### Dependencias 
-
-Buscar músico(RF17)
-
-##### Prioridad 
-
-Deseable
-
-##### Justificación
-
-
-
-
-
-#### RF19 - Ver anuncios reportados 
-
-
+El administrador tendrá un botón que le llevará a una vista que mostrará todos los anuncios que han sido reportados por los usuarios además del motivo del reporte.
 
 ##### Dependencias 
 
@@ -631,23 +616,61 @@ Deseable
 
 ##### Justificación
 
+Cuando se da la opción a los usuarios de reportar anuncios que consideren inadecuados, después se ha de brindar al administrador alguna clase de vista sobre esos anuncios. En aplicaciones de gran tamaño no es viable para un administrador tener que adivinar los anuncios reportados, sino tener una vista sobre éstos.
 
 
 
+#### RF19 - Ver músicos reportados
 
-#### RF20 - Banear anuncio
-
-
+El administrador tendrá un botón que le llevará a una vista que mostrará todos los músicos que han sido reportados por los usuarios además del motivo del reporte.
 
 ##### Dependencias 
 
-Login(RF8) y Ver anuncios reportados(19)/Ver anuncio(2)
+Login(RF8) y  Reportar músico(RF13)
 
 ##### Prioridad 
 
 Deseable
 
 ##### Justificación
+
+Es normal que en aplicaciones donde usuarios interactúan entre sí se forme alguna disputa, o haya usuarios que infringen las normas de uso de la aplicación. Cuando das la posibilidad a un músico para reportar a otro, el siguiente paso es darle al administrador una vista de todos los reportados.
+
+
+
+#### RF20 - Banear músico
+
+El administrador tendrá un botón para banear a un músico al acceder a su perfil, le hayan reportado o no. En caso de reporte, aparecerá una lista de usuarios que han reportado y el motivo.
+
+##### Dependencias 
+
+Login(RF8) y Ver músicos reportados (RF17)/Ver perfil músico(RF15)
+
+##### Prioridad 
+
+Deseable
+
+##### Justificación
+
+Es importante en una aplicación que un administrador tenga control sobre los usuarios. Algunos usuarios harán uso indebido de la aplicación, por lo que debe existir la opción de echarlos de la misma para no repercutir negativamente en los demás usuarios.
+
+
+
+#### RF21 - Banear anuncio
+
+Un administrador podrá banear un anuncio desde la vista de "Ver anuncio". En esa vista verá los detalles del anuncio, además de una lista con los motivos del reporte y los usuarios que lo reportaron. También podrá reportar un anuncio aunque no haya habido reportes de usuarios.
+
+##### Dependencias 
+
+Login(RF8) y Ver anuncios reportados(RF19)/Ver anuncio(RF2)
+
+##### Prioridad 
+
+Deseable
+
+##### Justificación
+
+Al dar la posibilidad de reportar anuncios inadecuados, hay que brindar al administrador la posibilidad de banearlos.
 
 
 
