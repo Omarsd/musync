@@ -1,20 +1,35 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar color="primary">
     <ion-title>
-      Blank
+      Musync
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content>
+  <div class="title-block">
+    <div class="heading">MuSync - Menu</div>
   </div>
+  <ion-searchbar></ion-searchbar>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Anuncios
+      </ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let anuncio of (anuncios | async)">
+      <ion-thumbnail slot="start">
+        <img src="../../assets/img/music.png">
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{anuncio.titulo}}</h2>
+        <p>{{anuncio.descripcion}}</p>
+      </ion-label>
+      <ion-button fill="outline" slot="end" [routerLink]="'/ver-anuncio/'+anuncio.id">Ver</ion-button>
+    </ion-item>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="'/crear-anuncio'">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

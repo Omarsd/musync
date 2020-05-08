@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Anuncio: {{anuncio.titulo}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card color="secondary">
+    <ion-card-header>
+      <ion-card-subtitle>{{anuncio.createdAt | date: 'short'}}</ion-card-subtitle>
+      <ion-card-title>{{anuncio.titulo}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p align="justify">{{anuncio.descripcion}}</p>
+      <br>
+      <ion-button slot="start" color="warning" [routerLink]="'/act-anuncio/' + anuncio.id">Editar</ion-button>
+      <ion-button slot="end" color="danger" (click)="deleteAnuncio()">Eliminar</ion-button>
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>
