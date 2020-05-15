@@ -513,10 +513,6 @@ Tener la posibilidad de decirle al sistema que tu anuncio ya está cogido es una
 
 
 
-````
-AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI 
-````
-
 #### RF13 - Valorar músico
 
 Una vez que un músico ha aceptado a otro en un anuncio, éste último podrá valorar al músico cuando acabe la fecha del anuncio. Entrando en el anuncio tendrá un botón para valorar al músico, en una escala de 0 a 5.
@@ -696,15 +692,6 @@ Deseable
 ##### Justificación
 
 Al dar la posibilidad de reportar anuncios inadecuados, hay que brindar al administrador la posibilidad de banearlos.
-
-
-
-````
-AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI AQUI 
-````
-
-
-
 
 
 ### 4.3 Calidad de Servicio
