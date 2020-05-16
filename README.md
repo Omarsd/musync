@@ -1,7 +1,15 @@
 # Musync
 ![MuSync](https://i.imgur.com/nKIjsNZ.jpg)
-## Introducción
-
+## Tareas a realizar
+- [ ] Login
+- [ ] Registrarse
+- [ ] Listar anuncios
+- [ ] Crear anuncio
+- [ ] Ver anuncio
+- [ ] Eliminar anuncio
+- [ ] Editar anuncio 
+- [X] `Una X para tachar una tarea` 
+- [ ] 
 
 
 ## Integrantes
