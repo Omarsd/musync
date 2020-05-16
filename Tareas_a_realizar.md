@@ -1,9 +1,0 @@
-- [ ] Login
-- [ ] Registrarse
-- [ ] Listar anuncios
-- [ ] Crear anuncio
-- [ ] Ver anuncio
-- [ ] Eliminar anuncio
-- [ ] Editar anuncio 
-- [ ] 
-- [ ] 
