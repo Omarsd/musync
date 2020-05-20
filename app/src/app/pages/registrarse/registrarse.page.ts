@@ -3,6 +3,8 @@ import { AlertController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
+import { Usuario } from 'src/app/model/usuario';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-registrarse',
@@ -11,12 +13,26 @@ import { Router } from '@angular/router';
 })
 export class RegistrarsePage implements OnInit {
 
-  nick:             string = ""
-  email:            string = ""
-  password:         string = ""
-  confirm_password: string = ""
+  usuario: Usuario = {
+    
+    nick: '',
+    nombreCompleto: '',
+    email: '',
+    cp: '',
+    rol: 'musico',
+    baneado: '0',
+    fechaBaneo: null,
+    fechaDesbaneo: null
+    
 
-  constructor(public auth: AngularFireAuth, public alertController: AlertController, public router: Router) { }
+  };
+  password: string = ''
+  confirm_password: string = ''
+
+  constructor(public auth: AngularFireAuth, 
+    public alertController: AlertController, 
+    public router: Router, 
+    public usuarioService: UsuarioService) { }
 
   ngOnInit() {
   }
@@ -32,7 +48,7 @@ export class RegistrarsePage implements OnInit {
   }
 
   async registrarse(){
-    const { nick, email, password, confirm_password } = this
+    const { password, confirm_password } = this
 
     if (password !== confirm_password){
       this.presentAlert("Error","Contraseñas don't match")//this.presentAlert("Error","Las contraseñas no son iguales.")
@@ -41,8 +57,10 @@ export class RegistrarsePage implements OnInit {
 
       try {
       
-        const res = await this.auth.auth.createUserWithEmailAndPassword(email, password)
+        const res = await this.auth.auth.createUserWithEmailAndPassword(this.usuario.email, password)
 
+
+        this.usuarioService.addUsuario(this.usuario, res.user.uid)
         console.log(res)
 
         this.router.navigate(['/login']);

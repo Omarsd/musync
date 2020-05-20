@@ -44,7 +44,9 @@ export class FirebaseService {
   }
 
   updateAnuncio(anuncio: Anuncio): Promise<void> {
-    return this.anuncioColl.doc(anuncio.id).update({ titulo: anuncio.titulo, descripcion: anuncio.descripcion });
+    return this.anuncioColl.doc(anuncio.id).update({ 
+      titulo: anuncio.titulo, 
+      descripcion: anuncio.descripcion });
   }
 
   deleteAnuncio(id: string): Promise<void> {

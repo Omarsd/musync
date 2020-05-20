@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, Observer} from 'rxjs';
 import {Anuncio} from '../model/Anuncio';
-import {FirebaseService} from '../services/firebase.service';
+import {FirebaseService} from '../services/anuncio.service';
+import { UsuarioService } from '../services/usuario.service';
+import { Usuario } from '../model/usuario';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +11,17 @@ import {FirebaseService} from '../services/firebase.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit{
+
+  usuario:Usuario  
   private anuncios: Observable<Anuncio[]>;
-  constructor(private fbService: FirebaseService) {}
+
+  constructor(private fbService: FirebaseService,
+    private userService: UsuarioService) {
+      
+  }
 
   ngOnInit(): void {
+    //this.usuario = this.userService.getUsuario(indexedDB)
     this.anuncios = this.fbService.getAllAnuncio();
   }
 

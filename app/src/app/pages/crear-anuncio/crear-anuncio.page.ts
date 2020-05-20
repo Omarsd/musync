@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Anuncio } from 'src/app/model/Anuncio';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FirebaseService } from 'src/app/services/firebase.service';
+import { FirebaseService } from 'src/app/services/anuncio.service';
 import { ToastController } from '@ionic/angular';
 
 @Component({

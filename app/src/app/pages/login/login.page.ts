@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,7 +15,9 @@ export class LoginPage implements OnInit {
   password:   string = ""
 
   //Cargamos el objeto de la clase AngularFireAuth para la autenticacion
-  constructor(public auth: AngularFireAuth, public alertController: AlertController, public router: Router) { }
+  constructor(public auth: AngularFireAuth, 
+    public alertController: AlertController, 
+    public router: Router) { }
 
   ngOnInit() {
   }
