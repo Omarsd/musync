@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginPage implements OnInit {
   //Cargamos el objeto de la clase AngularFireAuth para la autenticacion
   constructor(public auth: AngularFireAuth, 
     public alertController: AlertController, 
-    public router: Router) { }
+    public router: Router,
+    public usuarioService: UsuarioService) { }
 
   ngOnInit() {
   }
@@ -41,6 +43,16 @@ export class LoginPage implements OnInit {
       // Le pasamos a firebase el email y contraseña para que valide. El resultado va a "res". Si falla, va al catch
       const res = await this.auth.auth.signInWithEmailAndPassword(email, password)
       console.log(res)
+      let data = this.usuarioService.getUsuario(res.user.uid)
+
+      let tmp:string 
+
+      data.subscribe(result => {
+        console.log(result)
+        localStorage.setItem("usuario",result.id)
+      },err =>  {
+        console.log(err)
+      })
 
       this.router.navigate(['/home']);
       //Esto es para autenticarse con google. Hay que activarlo en firebase.google.com

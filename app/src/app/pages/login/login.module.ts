@@ -8,6 +8,8 @@ import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
 
+import { UsuarioService } from 'src/app/services/usuario.service';
+
 @NgModule({
   imports: [
     CommonModule,
