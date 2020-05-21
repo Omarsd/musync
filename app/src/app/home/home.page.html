@@ -9,6 +9,13 @@
 <ion-content>
   <div class="title-block">
     <div class="heading">MuSync - Menu</div>
+    
+    <!-- Estos son los botones que cambian con respecto a la variable "logedout" -->
+    <ion-button *ngIf="!logedout" style="float: right;" fill="solid" color="danger" (click)="logout()">Desconectarse</ion-button>
+    <ion-button *ngIf="logedout" style="float: right;" fill="solid" color="danger" (click)="goToLogin()">Login</ion-button>
+    <ion-button *ngIf="logedout" style="float: right;" fill="solid" color="danger" (click)="goToSignIn()">Registrarse</ion-button>
+    
+
   </div>
   <ion-searchbar></ion-searchbar>
   <ion-list>
