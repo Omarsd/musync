@@ -7,33 +7,27 @@ import { isNullOrUndefined } from "util";
 import { map } from "rxjs/operators";
 
 @Injectable({
-  providedIn: 'root'
+providedIn: 'root'
 })
 
-// ESTE ES EL GUARD QUE NO TE DEJA VER SI ESTAS LOGUEADO
+// ESTE ES EL GUARD QUE NO TE DEJA VER SI (ESTAS LOGUEADO)
 export class NoAuthGuard implements CanActivate {
-  
-  constructor(private AFauth : AngularFireAuth,
-              private router : Router){}
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+	constructor(private AFauth : AngularFireAuth,
+				private router : Router){}
 
-      return this.AFauth.authState.pipe(map( auth =>{
-
-        if(isNullOrUndefined(auth)){
-          return true
-        }else{
-          this.router.navigate(['/home'])
-          return false
-        }
-
-      }))
-     
-      
-    }
-    
-      
-  }
-
+	canActivate(
+		next: ActivatedRouteSnapshot,
+		state: RouterStateSnapshot
+	): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+		return this.AFauth.authState.pipe(map( auth =>{
+			if(isNullOrUndefined(auth)){
+				return true
+			}
+			else{
+				this.router.navigate(['/home'])
+				return false
+			}
+		}))	
+	}
+}
