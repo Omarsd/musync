@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { AuthService } from "../../services/auth.service";
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,7 @@ export class LoginPage implements OnInit {
   constructor(public auth: AngularFireAuth, 
     public alertController: AlertController, 
     public router: Router,
-    public AFauth: AuthService) { }
+    public usuarioService: UsuarioService) { }
 
   ngOnInit() {
   }
@@ -37,8 +37,7 @@ export class LoginPage implements OnInit {
 
   async login(){
 
-    this.AFauth.login(this.email, this.password)
-/*     const { email, password } = this
+    const { email, password } = this
     
     try {
       // Le pasamos a firebase el email y contraseña para que valide. El resultado va a "res". Si falla, va al catch
@@ -62,8 +61,8 @@ export class LoginPage implements OnInit {
         console.dir(err)
         if(err.code = "auth/user-not-found"){
           this.presentAlert()
-        } 
-    }*/
+        }
+    }
 
 
   }
