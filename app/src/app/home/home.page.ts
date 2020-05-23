@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Observable, Observer} from 'rxjs';
 import {Anuncio} from '../model/Anuncio';
 import {FirebaseService} from '../services/anuncio.service';
-import { UsuarioService } from '../services/usuario.service';
 import { Usuario } from '../model/usuario';
 import { AuthService } from "../services/auth.service";
 import { isNullOrUndefined } from 'util';

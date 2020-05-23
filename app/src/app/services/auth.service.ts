@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Router } from '@angular/router';
-import { isNullOrUndefined } from 'util';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +14,6 @@ export class AuthService {
   //Ya pondremos los errores que vayan saliendo
 
   login(email:string, password:string){
-
     
     return new Promise((resolve, rejected) => {
       this.AFauth.auth.signInWithEmailAndPassword(email, password).then(user => {
@@ -33,13 +30,12 @@ export class AuthService {
 
   isAuthenticated(){
     
-    this.AFauth.authState.subscribe(auth => {
-      if (isNullOrUndefined(auth)){
-        return false
-      } else{
+    this.AFauth.auth.onAuthStateChanged(function(user) {
+      if (user) {
         return true
+      } else {
+        return false
       }
-    })
-
+    });
   }
 }
