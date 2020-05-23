@@ -1,17 +1,42 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Nuevo anuncio</ion-title>
-  </ion-toolbar>
+	<ion-toolbar color="primary">
+		<ion-title>Nuevo anuncio</ion-title>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-list>
-  <ion-item>
-    <ion-input placeholder="Titulo..." [(ngModel)]="anuncio.titulo"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-textarea rows="6" [(ngModel)]="anuncio.descripcion" placeholder="Descripcion..."></ion-textarea>
-  </ion-item>
-</ion-list>
-  <ion-button color="primary" expand="full" (click)="addAnuncio()">Crear</ion-button>
+	<ion-list>
+		<ion-item>
+			<ion-input placeholder="Titulo..." [(ngModel)]="anuncio.titulo"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-textarea rows="6" [(ngModel)]="anuncio.descripcion" placeholder="Descripcion..."></ion-textarea>
+		</ion-item>
+		<ion-item>
+			<ion-datetime [(ngModel)]="anuncio.fechaEvento" displayFormat="DD MM YYYY"
+				placeholder="Fecha del evento..."></ion-datetime>
+		</ion-item>
+		<ion-item>
+			<ion-input [(ngModel)]="anuncio.instrumento" placeholder="Instrumento..."></ion-input>
+		</ion-item>
+		<ion-radio-group value="tipo" [(ngModel)]="anuncio.tipoDemanda">
+			<ion-list-header>
+				<ion-label>Tipo</ion-label>
+			</ion-list-header>
+
+			<ion-item>
+				<ion-label>Oferta</ion-label>
+				<ion-radio slot="start" value="0"></ion-radio>
+			</ion-item>
+
+			<ion-item>
+				<ion-label>Demanda</ion-label>
+				<ion-radio slot="start" value="1"></ion-radio>
+			</ion-item>
+		</ion-radio-group>
+		<ion-item>
+			<ion-input [(ngModel)]="anuncio.ubicacion" placeholder="ubicacion..."></ion-input>
+		</ion-item>
+	</ion-list>
+	<ion-button color="primary" expand="full" (click)="addAnuncio()">Crear</ion-button>
 </ion-content>

@@ -1,6 +1,11 @@
 export interface Anuncio {
-    id?: any;
+	id?: any;
+	idMusico: any;
     titulo: string;
     descripcion: string;
-    createdAt: any;
+	createdAt: any;
+	fechaEvento: Date;
+	ubicacion: String;
+	intrumeto: String;
+	tipoDemanda: Boolean;
 }

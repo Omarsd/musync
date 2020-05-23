@@ -16,7 +16,7 @@ import { Router } from "@angular/router";
 })
 export class HomePage implements OnInit{
 
-  usuario:Usuario  
+  usuario:Usuario
   logedout:boolean
 
   private anuncios: Observable<Anuncio[]>;
@@ -25,9 +25,10 @@ export class HomePage implements OnInit{
     //private userService: UsuarioService,
     public authservice : AuthService,
     private AFauth : AngularFireAuth,
-    private router : Router) { }
+    private router : Router) {}
 
   ngOnInit(): void {
+	  this.authservice.getUser();
     //this.usuario = this.userService.getUsuario(indexedDB)
     this.anuncios = this.fbService.getAllAnuncio();
     
