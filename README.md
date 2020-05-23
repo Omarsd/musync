@@ -1,8 +1,9 @@
 # Musync
 ![MuSync](https://i.imgur.com/nKIjsNZ.jpg)
 ## Tareas a realizar
-- [ ] Login
-- [ ] Registrarse
+- [X] Login
+- [X] Registrarse
+- [X] Cerrar sesión
 - [ ] Listar anuncios
 - [ ] Crear anuncio
 - [ ] Ver anuncio
