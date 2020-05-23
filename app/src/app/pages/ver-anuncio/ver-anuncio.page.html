@@ -14,8 +14,8 @@
     <ion-card-content>
       <p align="justify">{{anuncio.descripcion}}</p>
       <br>
-      <ion-button slot="start" color="warning" [routerLink]="'/act-anuncio/' + anuncio.id">Editar</ion-button>
-      <ion-button slot="end" color="danger" (click)="deleteAnuncio()">Eliminar</ion-button>
+      <ion-button *ngIf="owned" slot="start" color="warning" [routerLink]="'/act-anuncio/' + anuncio.id">Editar</ion-button>
+      <ion-button *ngIf="owned" slot="end" color="danger" (click)="deleteAnuncio()">Eliminar</ion-button>
     </ion-card-content>
 
   </ion-card>
