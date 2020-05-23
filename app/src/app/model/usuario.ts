@@ -8,8 +8,8 @@ export interface Usuario {
     email: string,
     cp: string,
     rol: string,
-    baneado: string,
-    fechaBaneo: Date,
-    fechaDesbaneo: Date
+    baneado?: string,
+    fechaBaneo?: Date,
+    fechaDesbaneo?: Date
 
 }
