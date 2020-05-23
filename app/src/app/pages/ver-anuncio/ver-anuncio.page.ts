@@ -3,6 +3,9 @@ import { Anuncio } from 'src/app/model/Anuncio';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/anuncio.service';
 import { AngularFireAuth } from "@angular/fire/auth";
+import { ActualizarAnuncioComponent } from "../../components/actualizar-anuncio/actualizar-anuncio.component";
+import { ModalController } from "@ionic/angular";
+
 
 @Component({
 selector: 'app-ver-anuncio',
@@ -30,7 +33,8 @@ export class VerAnuncioPage implements OnInit {
 	constructor(private activatedRoute: ActivatedRoute,
 		private fbService: FirebaseService,
 		private router: Router,
-		private AFauth: AngularFireAuth ) { }
+		private AFauth: AngularFireAuth,
+		private modal: ModalController ) { }
 
 	ngOnInit() {
 		this.AFauth.auth.onAuthStateChanged(
@@ -80,4 +84,14 @@ export class VerAnuncioPage implements OnInit {
 		);
 	}
 
+	actualizarAnuncio(){
+		this.modal.create({
+			component: ActualizarAnuncioComponent,
+			componentProps : {
+				anuncio :this.anuncio,
+				owned: this.owned,
+				uid: this.uid
+			}	
+		}).then((modal) => modal.present())
+	}
 }

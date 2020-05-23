@@ -13,5 +13,8 @@
       <ion-textarea rows="6" [(ngModel)]="anuncio.descripcion" placeholder="..."></ion-textarea>
     </ion-item>
   </ion-list>
-  <ion-button color="primary" expand="full" (click)="updateAnuncio()">Actualizar</ion-button>
+  <ion-button fill="solid" color="danger" (click)="salir()">
+    <ion-icon name="close" color="warning"></ion-icon> Cancelar
+  </ion-button>
+  <ion-button  color="primary" (click)="updateAnuncio()">Actualizar</ion-button>
 </ion-content>

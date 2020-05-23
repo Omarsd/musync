@@ -19,11 +19,6 @@ const routes: Routes = [
 		canActivate : [AuthGuard]
 	},
 	{
-		path: 'act-anuncio/:id',
-		loadChildren: () => import('./pages/act-anuncio/act-anuncio.module').then( m => m.ActAnuncioPageModule),
-		canActivate : [AuthGuard]
-	},
-	{
 		path: 'ver-anuncio/:id',
 		loadChildren: () => import('./pages/ver-anuncio/ver-anuncio.module').then( m => m.VerAnuncioPageModule)
 	},
