@@ -41,48 +41,5 @@ export class AuthService {
 			}
 		})
 	}
-
-	getUser() : Usuario {
-		var usuario: Usuario = {
-			id: '',
-			nick : '',
-			nombreCompleto: '',
-			email: '',
-			cp: '',
-			rol: '',
-			baneado: '',
-			fechaBaneo: null,
-			fechaDesbaneo: null
-		}
-
-		var uid:string
-
-		this.AFauth.auth.onAuthStateChanged(
-			function (user) {
-				if (user) {
-					// User is signed in.
-					uid = user.uid;
-					console.log(uid)
-					console.log("1");
-					console.log(usuario);
-					console.log(user);
-					return this.usuarioService.getUsuario(uid).subscribe(
-						user => {
-							usuario = user
-							console.log("2");
-							console.log(usuario);
-						}
-					)
-				}
-				else {
-					// No user is signed in.
-					console.log("el usuario no ha iniciado sesion.");
-				}
-			}
-		);
-		
-		
-		return usuario;
-	}
 	
 }

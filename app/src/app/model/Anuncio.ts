@@ -6,6 +6,6 @@ export interface Anuncio {
 	createdAt: any;
 	fechaEvento: Date;
 	ubicacion: String;
-	intrumeto: String;
+	instrumento: String;
 	tipoDemanda: Boolean;
 }

@@ -28,7 +28,6 @@ export class HomePage implements OnInit{
     private router : Router) {}
 
   ngOnInit(): void {
-	  this.authservice.getUser();
     //this.usuario = this.userService.getUsuario(indexedDB)
     this.anuncios = this.fbService.getAllAnuncio();
     

@@ -24,3 +24,11 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+// Barras laterales tipo milanuncios.
+@media (min-width: 800px) {
+	.ion-page {
+		padding: 0 20%;
+		background-color: rgb(77, 124, 86);
+	  }
+	}
