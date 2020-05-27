@@ -26,9 +26,8 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 // Barras laterales tipo milanuncios.
-@media (min-width: 800px) {
 	:not(app-actualizar-anuncio).ion-page {
-		padding: 0 20%;
-		background-color: rgb(77, 124, 86);
+		max-width: 1000px;
+		margin: auto;
 	  }
-	}
+	:root {background-color: rgb(77, 124, 86);}
