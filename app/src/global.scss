@@ -27,7 +27,7 @@
 
 // Barras laterales tipo milanuncios.
 @media (min-width: 800px) {
-	.ion-page {
+	:not(app-actualizar-anuncio).ion-page {
 		padding: 0 20%;
 		background-color: rgb(77, 124, 86);
 	  }

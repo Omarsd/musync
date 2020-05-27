@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit} from '@angular/core';
 import { FirebaseService } from 'src/app/services/anuncio.service';
 import { Anuncio } from 'src/app/model/Anuncio';
 import { NavParams, ModalController } from "@ionic/angular";
@@ -26,6 +25,18 @@ export class ActualizarAnuncioComponent implements OnInit {
 		tipoDemanda:  null,
 	}
 
+	anuncioTMP: Anuncio = {
+		id : '',
+		idMusico : '',
+    	titulo:  '',
+		descripcion:  '',
+		createdAt:  '',
+		fechaEvento:  null,
+		ubicacion:  '',
+		instrumento:  '',
+		tipoDemanda:  null,
+	}
+
 	owned : boolean;
 	uid : string;
 
@@ -39,7 +50,7 @@ export class ActualizarAnuncioComponent implements OnInit {
 		this.anuncio = this.navparams.get('anuncio')
 		this.owned = this.navparams.get('owned')
 		this.uid = this.navparams.get('uid')
-
+		Object.assign(this.anuncioTMP,this.anuncio)
 		console.log(this.anuncio)
 	}
 
@@ -48,7 +59,8 @@ export class ActualizarAnuncioComponent implements OnInit {
 	}
 
 	updateAnuncio() {
-		this.fbService.updateAnuncio(this.anuncio).then(() => {
+		this.fbService.updateAnuncio(this.anuncioTMP).then(() => {
+		Object.assign(this.anuncio, this.anuncioTMP)	
 		this.salir();
 		}, err => {
 		});
