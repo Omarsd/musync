@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Anuncio } from 'src/app/model/Anuncio';
-import { Usuario } from 'src/app/model/usuario';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/anuncio.service';
-import { UsuarioService } from 'src/app/services/usuario.service';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { ActualizarAnuncioComponent } from "../../components/actualizar-anuncio/actualizar-anuncio.component";
 import { ModalController } from "@ionic/angular";
@@ -17,18 +15,6 @@ styleUrls: ['./ver-anuncio.page.scss'],
 
 export class VerAnuncioPage implements OnInit {
 
-	usuario: Usuario = {
-		id: '',
-		nick: '',
-		nombreCompleto: '',
-		email: '',
-		cp: '',
-		rol: '',
-		baneado: '',
-		fechaBaneo: null,
-		fechaDesbaneo: null
-	}
-
 	anuncio: Anuncio = {
 		id : '',
 		idMusico : '',
@@ -41,16 +27,14 @@ export class VerAnuncioPage implements OnInit {
 		tipoDemanda:  null,
 	}
 
-	rate: number = 3;
 	owned: boolean;
 	uid: string;
 
 	constructor(private activatedRoute: ActivatedRoute,
-				private fbService: FirebaseService,
-				private router: Router,
-				private AFauth: AngularFireAuth,
-				private modal: ModalController,
-				private usuarioService: UsuarioService ) { }
+		private fbService: FirebaseService,
+		private router: Router,
+		private AFauth: AngularFireAuth,
+		private modal: ModalController ) { }
 
 	ngOnInit() {
 		this.AFauth.auth.onAuthStateChanged(
@@ -58,6 +42,7 @@ export class VerAnuncioPage implements OnInit {
 			  if (user) {
 				// User is signed in.
 				this.uid = user.uid
+				console.log(this.uid)
 			  }
 			  else {
 				// No user is signed in.
@@ -74,25 +59,16 @@ export class VerAnuncioPage implements OnInit {
 			this.fbService.getAnuncio(id).subscribe(
 				data => {
 					this.anuncio = data;
-					
 					if(data.idMusico == this.uid){
 						this.owned = true
 					} else{
 						this.owned = false
 					}
-					
-					this.usuarioService.getUsuario(this.anuncio.idMusico).subscribe(
-						data => {
-							this.usuario = data;	
-						}
-					);
-					
 				},
 				err => {
 					this.router.navigate(['/no-encontrado'])
 				}
 			);
-			
 		}
 	}
 
@@ -118,9 +94,4 @@ export class VerAnuncioPage implements OnInit {
 			}	
 		}).then((modal) => modal.present())
 	}
-
-	logRatingChange(rating){
-        console.log("changed rating: ",rating);
-        // do your stuff
-    }
 }
