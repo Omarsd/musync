@@ -24,37 +24,37 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  async presentAlert() {
+  async presentAlert(header: string, message: string) {
     const alert = await this.alertController.create({
-      header: 'Error',
-      message: 'usuario/contraseña no válidos.',
+      header: header,
+      message: message,
       buttons: ['OK']
     });
 
     await alert.present();
   }
 
-
   async login(){
-
-    this.AFauth.login(this.email, this.password)
-/*     const { email, password } = this
-    
     try {
-      // Le pasamos a firebase el email y contraseña para que valide. El resultado va a "res". Si falla, va al catch
-      const res = await this.auth.auth.signInWithEmailAndPassword(email, password)
-      console.log(res)
+    this.AFauth.login(this.email, this.password)
+    }catch (err) {
+    console.dir(err)
+    if(err.code = "auth/user-not-found"){
+      this.presentAlert("Error","usuario no encontrado")
+    }
 
-      this.router.navigate(['/home']);
-      //Esto es para autenticarse con google. Hay que activarlo en firebase.google.com
-      //this.auth.auth.signInWithPopup(new auth.GoogleAuthProvider());
-    } catch (err) {
-        console.dir(err)
-        if(err.code = "auth/user-not-found"){
-          this.presentAlert()
-        } 
-    }*/
-
-
+    }
   }
+
+  loginGoogle(){
+    try {
+      this.AFauth.loginGoogle()
+    } catch (err) {
+      if(err.code == "auth/web-storage-unsupported"){
+        this.presentAlert("Error navegador", "Este navegador no permite guardar cookies de terceros")
+      }
+    }
+    
+  }
+
 }
