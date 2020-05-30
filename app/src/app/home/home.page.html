@@ -3,7 +3,43 @@
   <div class="title-block">
     <div class="heading">MuSync - Menu</div>
   </div>
-  <ion-searchbar (ionInput)="filtrarAnuncios($event)"></ion-searchbar>
+  <ion-searchbar placeholder="Búsqueda rápida" animated (ionInput)="busquedaRapida($event)"></ion-searchbar>
+  <ion-card>
+    <ion-item>
+      <ion-label position="floating">Title</ion-label>
+      <ion-input [(ngModel)]="criterios.titulo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-datetime displayFormat="DD MM YYYY"
+				placeholder="Fecha de..." [(ngModel)]="criterios.deFecha"></ion-datetime>
+      <ion-datetime displayFormat="DD MM YYYY"
+				placeholder="Fecha hasta..." [(ngModel)]="criterios.aFecha"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Instrumento</ion-label>
+      <ion-input [(ngModel)]="criterios.instrumento"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Lugar</ion-label>
+      <ion-input [(ngModel)]="criterios.ubicacion"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-input [(ngModel)]="criterios.descripcion"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-segment [(ngModel)]="criterios.tipoDemanda">
+        <ion-segment-button value="0">
+          <ion-label>Oferta</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="1">
+          <ion-label>Demanda</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-item>
+    <ion-button fill="solid" expand="block" color="dark" (click)="busquedaAnuncios()">Buscar</ion-button>
+    <ion-button fill="solid" expand="block" color="primary" (click)="borrarFiltro()">Borrar filtros</ion-button>
+  </ion-card>
   <ion-list>
     <ion-list-header>
       <ion-label>Anuncios
@@ -15,6 +51,7 @@
       </ion-thumbnail>
       <ion-label>
         <h1>{{anuncio.titulo}}</h1>
+        <h2>Fecha: {{anuncio.fechaEvento |  date:'dd/MM/yyyy'}}</h2>
         <h2>Instrumento: {{anuncio.instrumento}}</h2>
         <h2>
           <ion-icon name="pin"></ion-icon> 

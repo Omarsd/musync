@@ -19,21 +19,14 @@
 		<ion-item>
 			<ion-input [(ngModel)]="anuncio.instrumento" placeholder="Instrumento..."></ion-input>
 		</ion-item>
-		<ion-radio-group value="tipo" [(ngModel)]="anuncio.tipoDemanda">
-			<ion-list-header>
-				<ion-label>Tipo</ion-label>
-			</ion-list-header>
-
-			<ion-item>
-				<ion-label>Oferta</ion-label>
-				<ion-radio slot="start" value="0"></ion-radio>
-			</ion-item>
-
-			<ion-item>
-				<ion-label>Demanda</ion-label>
-				<ion-radio slot="start" value="1"></ion-radio>
-			</ion-item>
-		</ion-radio-group>
+		<ion-segment [(ngModel)]="anuncio.tipoDemanda">
+        <ion-segment-button value="0">
+          <ion-label>Oferta</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="1">
+          <ion-label>Demanda</ion-label>
+        </ion-segment-button>
+      </ion-segment>
 		<ion-item>
 			<ion-input [(ngModel)]="anuncio.ubicacion" placeholder="ubicacion..."></ion-input>
 		</ion-item>
