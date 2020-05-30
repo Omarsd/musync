@@ -95,5 +95,15 @@ export class BarraNavegacionComponent {
 	logout(){
 		this.authservice.logout()
 		this.logedout = true
+		this.usuario = {
+			nick: '',
+			nombreCompleto: '',
+			email: '',
+			cp: '',
+			rol: '',
+			baneado: '',
+			fechaBaneo: null,
+			fechaDesbaneo: null
+		  }
 	}
 }
