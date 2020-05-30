@@ -44,14 +44,19 @@ const routes: Routes = [
 		path: 'administrador',
 		loadChildren: () => import('./pages/administrador/administrador.module').then( m => m.AdministradorPageModule)
 	},
+	{
+		path: 'perfil',
+		loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+	},
+	{
+		path: 'mensajes',
+		loadChildren: () => import('./pages/mensajes/mensajes.module').then( m => m.MensajesPageModule)
+	},
 	//'**' Es para cuando se entra en una ruta que no está declarada
 	{
 		path: '**',
 		redirectTo: 'no-encontrado'
 	}
-	
-
-
 ];
 
 @NgModule({

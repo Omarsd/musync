@@ -87,7 +87,7 @@ export class HomePage implements OnInit{
     })
 
     
-      }
+  }
   
 
   async busquedaAnuncios(){
@@ -138,14 +138,6 @@ export class HomePage implements OnInit{
   logout(){
     this.authservice.logout()
     this.logedout = true
-  }
-
-  goToSignIn(){
-    this.router.navigate(['/registrarse']);
-  }
-
-  goToLogin(){
-    this.router.navigate(['/login']);
   }
 
 }
