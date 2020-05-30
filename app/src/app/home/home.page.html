@@ -1,20 +1,3 @@
-<ion-header>
-
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Musync
-	</ion-title>
-	
-    <!-- Estos son los botones que cambian con respecto a la variable "logedout" -->
-    <ion-button *ngIf="!logedout" slot="end" color="danger" (click)="logout()">Desconectarse</ion-button>
-    <ion-button *ngIf="logedout" slot="end" color="success" (click)="goToSignIn()">Registrarse</ion-button>
-    <ion-button *ngIf="logedout" slot="end" color="blue" (click)="goToLogin()">Login</ion-button>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
 
   <div class="title-block">

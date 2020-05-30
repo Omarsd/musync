@@ -1,0 +1,31 @@
+<ion-menu side="start" menuId="first" contentId="content1">
+	<ion-header>
+		<ion-toolbar>
+			<ion-title>Navigate</ion-title>
+		</ion-toolbar>
+	</ion-header>
+	<ion-content>
+		<ion-list *ngFor="let pages of navigate">
+			<ion-menu-toggle auto-hide="true">
+				<ion-item [routerLink]="pages.url" routerDirection="forward">
+					<ion-icon [name]="pages.icon" slot="start"></ion-icon>
+					{{pages.title}} 
+				</ion-item>
+			</ion-menu-toggle>
+		</ion-list>
+	</ion-content>
+</ion-menu>
+
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-title>Musync</ion-title>
+
+		<!-- Estos son los botones que cambian con respecto a la variable "logedout" -->
+		<ion-button *ngIf="!logedout" slot="end" color="danger" (click)="logout()">Desconectarse</ion-button>
+		<ion-button *ngIf="logedout" slot="end" color="success" [routerLink]="['/registrase']">Registrarse</ion-button>
+		<ion-button *ngIf="logedout" slot="end" color="blue" [routerLink]="['/login']">Login</ion-button>
+	</ion-toolbar>
+</ion-header>
