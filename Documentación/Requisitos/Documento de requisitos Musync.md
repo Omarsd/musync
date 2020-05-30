@@ -46,7 +46,7 @@ Universidad de Málaga
 | Omar Serrano Doukkali | 04/05/2020 | Creación del documento de grupo                              | 0.8     |
 | Omar Serrano Doukkali | 07/05/2020 | Descripción de la mayoría de requisitos                      | 0.8.5   |
 | Omar Serrano Doukkali | 08/05/2020 | Terminados los requisitos por el momento y resueltos 2 de los 3 puntos del issue del profesor | 0.9     |
-|                       |            |                                                              |         |
+| Adrián Laguna Machuca | 30/05/2020 | Revisión para comprobar que los requisitos están acordes a la actualidad|  0.10  |
 
 ## 1. Introducción
 ### 1.1 Objetivo del documento
@@ -123,7 +123,7 @@ Las funciones de las que dispone la aplicación son la administración de usuari
 
 * Administración de usuarios:  Los usuarios podrán registrarse, iniciar sesión, cerrar la sesión y editar su usuario. En la edición del usuario entran el nombre de usuario, la contraseña, la imagen de perfil, la descripción y los instrumentos que tocan. Además si no desean pertenecer mas a Musync, eliminar su usuario.    
 
-*  Soporte para administradores: Los administradores pueden ver y banear usuarios, así como ver y eliminar publicaciones, ya sea temporal o permanentemente. Cuentan con un visor de reportes, que los músicos notifican, pero son los administradores los que toman las medidas.     
+*  Soporte para administradores: Los administradores pueden ver y banear usuarios, ya sea temporal o permanentemente, así como ver y eliminar publicaciones. Cuentan con un visor de reportes, que los músicos notifican, pero son los administradores los que toman las medidas.     
 
 * Músicos: Los músicos pueden listar y crear anuncios, además de editar y eliminar sus propios anuncios en el sistema, responder a aquellos en los que estén interesados y notificar a los administradores de infracciones de usuarios o publicaciones. Los usuarios cuentan con un sistema de calificación entre ellos en el que se evalúan mediante la relección que mantienen.
 
@@ -151,19 +151,22 @@ Para más detalles, puede consultar la [referencia 1](#14-referencias).
     * Login.
     * Ver anuncio.
     * Buscar anuncio.
-    * Editar perfil.
+    * Editar perfil propio.
     * Reportar anuncio.
     * Reportar usuario.
     * Borrar cuenta propia.
     * Añadir anuncio.
     * Borrar anuncio propio.
+    * Responder anuncio ajeno.
+    * Responder mensajes.
+    * Asignar a otro músico a un anuncio propio.
   * Administrador
     * Login.
     * Ver anuncio.
     * Buscar anuncio.
-    * Borrar cuenta ajena.
+    * Banear temporal o permanentemente cuenta ajena.
     * Borrar anuncio ajeno.
-    * Reportar usuario.
+    * Acceder a reportes.
 
 ### 2.5 Suposiciones y dependencias
 
@@ -212,28 +215,27 @@ Para ver una lista de navegadores compatibles con Ionic pinche [aquí](https://i
 ### 4.1 Precedencia y prioridad
 | Id    | Nombre                  | Descripción                                                  | Prioridad   | Precedencia        | Tipo         |
 | ----- | ----------------------- | ------------------------------------------------------------ | ----------- | ------------------ | ------------ |
-| RF1   | Crear anuncio           | Un músico podrá crear un anuncio                             | Fundamental | RF8                | Funcional    |
+| RF1   | Crear anuncio           | Un músico podrá crear un anuncio.                             | Fundamental | RF8                | Funcional    |
 | RF2   | Buscar anuncio          | Un usuario podrá buscar anuncios por categorías y métodos de filtrado. | Fundamental | Ninguna            | Funcional    |
 | RF3   | Ver anuncio             | Un usuario podrá ver anuncios.                               | Fundamental | Ninguna/RF2        | Funcional    |
-| RF4   | Editar anuncio          | Un músico podrá editar su anuncio                            | Fundamental | RF3 y RF8          | Funcional    |
-| RF5   | Eliminar anuncio        | Un músico podrá eliminar su anuncio                          | Fundamental | RF3 y RF8          | Funcional    |
-| RF6   | Reportar anuncio        | Un usuario podrá reportar un anuncio                         | Deseable    | RF3 y RF8          | Funcional    |
+| RF4   | Editar anuncio          | Un músico podrá editar su anuncio.                            | Fundamental | RF3 y RF8          | Funcional    |
+| RF5   | Eliminar anuncio        | Un músico podrá eliminar su anuncio o un administrador podrá eliminar cualquiera.     | Fundamental | RF3 y RF8          | Funcional  |
+| RF6   | Reportar anuncio        | Un usuario podrá reportar un anuncio.                         | Deseable    | RF3 y RF8          | Funcional    |
 | RF7   | Registrarse             | Un usuario podrá registrarse.                                | Fundamental | Ninguna            | Funcional    |
 | RF8   | Login                   | Un músico o administrador podrán identificarse en el sistema. | Fundamental | RF7                | Funcional    |
-| RF9   | Cerrar sesión           | Un músico o administrador podrá cerrar su sesión.            | Fundamental | RF8                | Funcional    |
-| RF10  | Ver perfil propio       | Un músico podrá ver su propio perfil                         | Fundamental | RF8                | Funcional    |
-| RF11  | Editar perfil           | Un músico podrá editar su propio perfil                      | Deseable    | RF10               | Funcional    |
+| RF9   | Cerrar sesión           | Un músico o administrador podrán cerrar su sesión.            | Fundamental | RF8                | Funcional    |
+| RF10  | Ver perfil propio       | Un músico podrá ver su propio perfil.                         | Fundamental | RF8                | Funcional    |
+| RF11  | Editar perfil           | Un músico podrá editar su propio perfil.                      | Deseable    | RF10               | Funcional    |
 | RF12  | Asignar a anuncio       | Un músico podrá asignar a otro a su anuncio.                 | Deseable    | RF1 y RF3          | Funcional    |
-| RF13  | Valorar músico          | Un músico podrá valorar a otro                               | Deseable    | RF8                | Funcional    |
-| RF14  | Reportar músico         | Un músico podrá reportar a otro músico                       | Opcional    | RF8 y RF16         | Funcional    |
-| RF15  | Sistema de mensajería   | Un músico podrá contactar con otro sobre anuncios            | Opcional    | RF3 y RF8          | Funcional    |
-| RF16  | Ver perfil músico       | Un usuario podrá ver el perfil de un músico                  | Fundamental | RF3/RF18           | Funcional    |
-| RF17  | Eliminar cuenta         | Un músico podrá eliminar su cuenta                           | Fundamental | RF8 y RF10         | Funcional    |
-| RF18  | Buscar músico           | Un administrador podrá buscar músico                         | Deseable    | RF8                | Funcional    |
-| RF19  | Ver anuncios reportados | Un administrador podrá ver los anuncios reportados por los usuarios | Deseable    | RF8 y RF6          | Funcional    |
-| RF20  | Ver músicos reportados  | Un administrador podrá ver los músicos que han sido reportados por los usuarios | Deseable    | RF8 y RF14         | Funcional    |
-| RF21  | Banear músico           | Un administrador podrá banear un músico temporal o permanentemente | Deseable    | RF8 y RF18/RF16    | Funcional    |
-| RF22  | Banear anuncio          | Un administrador podrá banear un anuncio                     | Deseable    | RF8 y RF2/RF20     | Funcional    |
+| RF13  | Valorar músico          | Un músico podrá valorar a otro.                               | Deseable    | RF8                | Funcional    |
+| RF14  | Reportar músico         | Un músico podrá reportar a otro músico.                       | Opcional    | RF8 y RF16         | Funcional    |
+| RF15  | Sistema de mensajería   | Un músico podrá contactar con otro sobre anuncios.            | Opcional    | RF3 y RF8          | Funcional    |
+| RF16  | Ver perfil músico       | Un usuario podrá ver el perfil de un músico.                  | Fundamental | RF3/RF18           | Funcional    |
+| RF17  | Eliminar cuenta         | Un músico podrá eliminar su cuenta.                           | Fundamental | RF8 y RF10         | Funcional    |
+| RF18  | Buscar músico           | Un administrador podrá buscar músico.                         | Deseable    | RF8                | Funcional    |
+| RF19  | Ver anuncios reportados | Un administrador podrá ver los anuncios reportados por los usuarios. | Deseable    | RF8 y RF6          | Funcional    |
+| RF20  | Ver músicos reportados  | Un administrador podrá ver los músicos que han sido reportados por los usuarios. | Deseable    | RF8 y RF14         | Funcional    |
+| RF21  | Banear músico           | Un administrador podrá banear un músico temporal o permanentemente. | Deseable    | RF8 y RF18/RF16    | Funcional    |
 | RNFS1 | Cifrado contraseñas     | Las contraseñas deberán almacenarse en su versión *hash*     | Fundamental | Ninguna            | No Funcional |
 | RNFS2 | Cifrado comunicaciones  | Las comunicaciones deberán ser cifradas por https            | Fundamental | Ninguna            | No Funcional |
 | RNFF1 | Control de usabilidad   | Se realizarán pruebas para medir la facilidad de usabilidad de la aplicación. | Deseable    | Ninguna            | No Funcional |
@@ -344,7 +346,7 @@ Editar anuncios es una función fundamental para un usuario que interaccione con
 
 #### RF5 -   Eliminar anuncio
 
-Un usuario podrá eliminar su anuncio.
+Un músico podrá eliminar su anuncio o un administrador podrá eliminar cualquiera.
 
 ##### Dependencias 
 
@@ -675,23 +677,6 @@ Deseable
 
 Es importante en una aplicación que un administrador tenga control sobre los usuarios. Algunos usuarios harán uso indebido de la aplicación, por lo que debe existir la opción de echarlos de la misma para no repercutir negativamente en los demás usuarios.
 
-
-
-#### RF22 - Banear anuncio
-
-Un administrador podrá banear un anuncio desde la vista de "Ver anuncio". En esa vista verá los detalles del anuncio, además de una lista con los motivos del reporte y los usuarios que lo reportaron. También podrá reportar un anuncio aunque no haya habido reportes de usuarios.
-
-##### Dependencias 
-
-Login(RF8) y Ver anuncios reportados(RF19)/Ver anuncio(RF3)
-
-##### Prioridad 
-
-Deseable
-
-##### Justificación
-
-Al dar la posibilidad de reportar anuncios inadecuados, hay que brindar al administrador la posibilidad de banearlos.
 
 
 ### 4.3 Calidad de Servicio
