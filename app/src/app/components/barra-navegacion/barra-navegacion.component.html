@@ -22,7 +22,11 @@
 			<ion-menu-button></ion-menu-button>
 		</ion-buttons>
 		<ion-title>Musync</ion-title>
-
+		
+		<ion-chip routerLink="/perfil" slot="end" *ngIf="!logedout">
+			<ion-icon ios="ios-person" md="md-person"></ion-icon>
+			<ion-label>Perfil</ion-label>
+		</ion-chip>
 		<!-- Estos son los botones que cambian con respecto a la variable "logedout" -->
 		<ion-button *ngIf="!logedout" slot="end" color="danger" (click)="logout()">Desconectarse</ion-button>
 		<ion-button *ngIf="logedout" slot="end" color="success" [routerLink]="['/registrase']">Registrarse</ion-button>
