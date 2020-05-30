@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {Anuncio} from '../model/Anuncio';
 import {AngularFirestore, AngularFirestoreCollection, DocumentReference} from '@angular/fire/firestore';
 import {map, take} from 'rxjs/operators';
+import { formatDate } from '@angular/common';
 
 
 @Injectable({
@@ -13,7 +14,14 @@ export class FirebaseService {
   private anuncioColl: AngularFirestoreCollection<Anuncio>;
 
   constructor(private afs: AngularFirestore) {
-    this.anuncioColl = this.afs.collection<Anuncio>('anuncios');
+    //console.log(this.datepipe.transform(Date.now()),'')
+    this.anuncioColl = this.afs.collection<Anuncio>('anuncios', ref => {
+      // Compose a query using multiple .where() methods
+
+      return ref.orderBy("fechaEvento","desc").endAt(formatDate(Date.now(),'yyyy-MM-dd',"en-US"))
+        
+    });
+  
     this.anuncios = this.anuncioColl.snapshotChanges().pipe(
         map(actions => {
           return actions.map(a => {

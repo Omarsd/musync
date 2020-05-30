@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { isNullOrUndefined } from 'util';
-import { map } from 'rxjs/operators';
 import { AngularFireAuth } from "@angular/fire/auth";
 import * as firebase from "firebase/app"
 import { Usuario } from '../model/usuario';
