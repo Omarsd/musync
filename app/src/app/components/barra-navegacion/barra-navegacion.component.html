@@ -25,7 +25,7 @@
 
 		<!-- Estos son los botones que cambian con respecto a la variable "logedout" -->
 		<ion-button *ngIf="!logedout" slot="end" color="danger" (click)="logout()">Desconectarse</ion-button>
-		<ion-button *ngIf="logedout" slot="end" color="success" [routerLink]="['/registrase']">Registrarse</ion-button>
+		<ion-button *ngIf="logedout" slot="end" color="success" [routerLink]="['/registrarse']">Registrarse</ion-button>
 		<ion-button *ngIf="logedout" slot="end" color="blue" [routerLink]="['/login']">Login</ion-button>
 	</ion-toolbar>
 </ion-header>

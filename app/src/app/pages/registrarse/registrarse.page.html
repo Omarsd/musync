@@ -1,36 +1,39 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Registrarse</ion-title>
-  </ion-toolbar>
+	<ion-toolbar>
+		<ion-title>Registrarse</ion-title>
+	</ion-toolbar>
 </ion-header>
 <ion-content padding>
-  <ion-list>
+	<ion-list>
+		<ion-item>
+			<ion-label position="floating">Nick</ion-label>
+			<ion-input [(ngModel)]="usuario.nick"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Nombre completo</ion-label>
+			<ion-input [(ngModel)]="usuario.nombreCompleto"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Codigo postal</ion-label>
+			<ion-input [(ngModel)]="usuario.cp"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Email</ion-label>
+			<ion-input type="email" [(ngModel)]="usuario.email"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Contraseña</ion-label>
+			<ion-input type="password" [(ngModel)]="password"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Repita contraseña</ion-label>
+			<ion-input type="password" [(ngModel)]="confirm_password"></ion-input>
+		</ion-item>
+	</ion-list>
 
-    <ion-item>
-      <ion-label position="floating">Nick</ion-label>
-      <ion-input [(ngModel)]="usuario.nick"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Nombre completo</ion-label>
-      <ion-input [(ngModel)]="usuario.nombreCompleto"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Codigo postal</ion-label>
-      <ion-input [(ngModel)]="usuario.cp"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" [(ngModel)]="usuario.email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input type="password" [(ngModel)]="password"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Repita contraseña</ion-label>
-      <ion-input type="password" [(ngModel)]="confirm_password"></ion-input>
-    </ion-item>
-  </ion-list>
+	<ion-button fill="solid" expand="block" color="dark" (click)="registrarse()">Registrarse</ion-button>
 
-  <ion-button fill="solid" expand="block" color="dark" (click)="registrarse()">Enviar</ion-button>
+	
+	<ion-button fill="solid" expand="block" color="dark" (click)="loginGoogle()">Registrarse con Google</ion-button>
+
 </ion-content>
