@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
 import { Usuario } from '../../model/usuario';
-
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
+import { UsuarioService } from "../../services/usuario.service";
 import { AuthService } from "../../services/auth.service";
 import { FirebaseService } from '../../services/anuncio.service';
 import { isNullOrUndefined } from 'util';
@@ -20,14 +18,23 @@ import { Router } from "@angular/router";
 export class BarraNavegacionComponent {
 	navigate : any;
 
-	usuario:Usuario
+	usuario:Usuario = {
+		nick: '',
+		nombreCompleto: '',
+		email: '',
+		cp: '',
+		rol: '',
+		baneado: '',
+		fechaBaneo: null,
+		fechaDesbaneo: null
+	  }
 	logedout:boolean
 
 	constructor(
 		private platform: Platform,
 		private splashScreen: SplashScreen,
 		private statusBar: StatusBar,
-		
+		private userService: UsuarioService,
 		private fbService: FirebaseService,
         public authservice : AuthService,
         private AFauth : AngularFireAuth,
@@ -51,8 +58,14 @@ export class BarraNavegacionComponent {
 			else{
 				this.logedout = false
 				// Obtener usuario
-				this.usuario = this.authservice.usuario
-				console.log(this.usuario)
+				/* this.usuario = this.authservice.usuario
+				console.log(this.usuario) */
+				this.userService.getUsuario(auth.uid).subscribe(
+					data => {
+					  this.usuario = data;
+					  console.log(this.usuario.rol)
+					}
+				  );
 			}
 		})
 	}

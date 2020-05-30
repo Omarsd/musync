@@ -23,6 +23,7 @@
 		</ion-buttons>
 		<ion-title>Musync</ion-title>
 		
+		<ion-button *ngIf="usuario.rol == 'administrador'" slot="end" color="danger" [routerLink] = "['/administrador']">Anuncios reportados</ion-button>
 		<ion-chip routerLink="/perfil" slot="end" *ngIf="!logedout">
 			<ion-icon ios="ios-person" md="md-person"></ion-icon>
 			<ion-label>Perfil</ion-label>
