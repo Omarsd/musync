@@ -40,11 +40,17 @@ const routes: Routes = [
 		path: 'no-encontrado',
 		loadChildren: () => import('./pages/no-encontrado/no-encontrado.module').then( m => m.NoEncontradoPageModule)
 	},
+	{
+		path: 'perfil',
+		loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+	},
 	//'**' Es para cuando se entra en una ruta que no está declarada
 	{
 		path: '**',
 		redirectTo: 'no-encontrado'
-	}
+	},
+ 
+
 
 ];
 
