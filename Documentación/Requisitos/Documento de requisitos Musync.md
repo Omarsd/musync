@@ -123,9 +123,9 @@ Las funciones de las que dispone la aplicación son la administración de usuari
 
 * Administración de usuarios:  Los usuarios podrán registrarse, iniciar sesión, cerrar la sesión y editar su usuario. En la edición del usuario entran el nombre de usuario, la contraseña, la imagen de perfil, la descripción y los instrumentos que tocan. Además si no desean pertenecer mas a Musync, eliminar su usuario.    
 
-*  Soporte para administradores: Los administradores pueden reportar usuarios y publicaciones, si un usuarios ha sido reportado reiteradas veces, también se podrá eliminar la cuenta por completo. Cuentan con un visor de reportes, que los músicos notifican, pero son los administradores los que toman la decisión.     
+*  Soporte para administradores: Los administradores pueden ver y banear usuarios, así como ver y eliminar publicaciones, ya sea temporal o permanentemente. Cuentan con un visor de reportes, que los músicos notifican, pero son los administradores los que toman las medidas.     
 
-* Músicos: Los músicos pueden listar y crear anuncios, además de editar y eliminar sus propios anuncios en el sistema y notificar a los administradores de infracciones de usuarios o publicaciones. Los usuarios cuentan con un sistema de calificación entre ellos en el que se evalúan mediante la relección que mantienen.
+* Músicos: Los músicos pueden listar y crear anuncios, además de editar y eliminar sus propios anuncios en el sistema, responder a aquellos en los que estén interesados y notificar a los administradores de infracciones de usuarios o publicaciones. Los usuarios cuentan con un sistema de calificación entre ellos en el que se evalúan mediante la relección que mantienen.
 
 Para más detalles, puede consultar la [referencia 1](#14-referencias).
 
