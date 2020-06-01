@@ -3,8 +3,11 @@
 	<div class="title-block">
 		<div class="heading">MuSync - Menu</div>
 	</div>
+
 	<ion-searchbar placeholder="Búsqueda rápida" animated (ionInput)="busquedaRapida($event)"></ion-searchbar>
 	<ion-card>
+	<ion-card-title (click)="expandir()">Búsqueda avanzada</ion-card-title>
+	<app-expandable expandHeight="1000px" [expanded]="expandido">
 		<ion-item>
 			<ion-label position="floating">Título</ion-label>
 			<ion-input [(ngModel)]="criterios.titulo"></ion-input>
@@ -39,6 +42,7 @@
 		</ion-item>
 		<ion-button fill="solid" expand="block" color="dark" (click)="busquedaAnuncios()">Buscar</ion-button>
 		<ion-button fill="solid" expand="block" color="primary" (click)="borrarFiltro()">Borrar filtros</ion-button>
+	</app-expandable>
 	</ion-card>
 	<ion-list>
 		<ion-list-header>

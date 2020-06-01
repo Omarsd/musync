@@ -7,8 +7,8 @@
 <ion-content>
 	<ion-card color="secondary">
 		<ion-card-header>
-			<ion-card-subtitle>{{anuncio.fechaEvento | date: 'short'}}</ion-card-subtitle>
 			<ion-card-title>{{anuncio.titulo}}</ion-card-title>
+			<ion-card-subtitle>{{anuncio.fechaEvento | date: 'short'}}</ion-card-subtitle>
 		</ion-card-header>
 
 		<ion-card-content>
@@ -24,6 +24,15 @@
 		</ion-card-content>
 
 		<ion-card-content>
+			<h2 *ngIf="anuncio.tipoDemanda == '0'">
+				Oferta
+			</h2>
+			<h2 *ngIf="anuncio.tipoDemanda == '1'">
+				Demanda
+			</h2>
+		</ion-card-content>
+
+		<ion-card-content>
 			<ion-button *ngIf="owned" slot="start" color="warning" (click)="actualizarAnuncio()">Editar</ion-button>
 			<ion-button *ngIf="owned" slot="end" color="danger" (click)="deleteAnuncio()">Eliminar</ion-button>
 		</ion-card-content>
@@ -31,7 +40,7 @@
 
 	<ion-card color="primary">
 		<ion-card-header>
-			
+
 			<ion-card-title>
 				<ion-chip routerLink="/perfil/{{usuario.id}}">
 					<ion-icon ios="ios-person" md="md-person"></ion-icon>
