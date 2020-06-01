@@ -24,9 +24,9 @@
 		<ion-title>Musync</ion-title>
 		
 		<ion-button *ngIf="usuario.rol == 'administrador'" slot="end" color="danger" [routerLink] = "['/administrador']">Anuncios reportados</ion-button>
-		<ion-chip routerLink="/perfil" slot="end" *ngIf="!logedout">
+		<ion-chip routerLink="/perfil/{{usuario.id}}" slot="end" *ngIf="!logedout">
 			<ion-icon ios="ios-person" md="md-person"></ion-icon>
-			<ion-label>Perfil</ion-label>
+			<ion-label>{{usuario.nombreCompleto}}</ion-label>
 		</ion-chip>
 		<!-- Estos son los botones que cambian con respecto a la variable "logedout" -->
 		<ion-button *ngIf="!logedout" slot="end" color="danger" (click)="logout()">Desconectarse</ion-button>

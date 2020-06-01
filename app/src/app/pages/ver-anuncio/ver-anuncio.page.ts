@@ -10,9 +10,9 @@ import { ModalController } from "@ionic/angular";
 
 
 @Component({
-selector: 'app-ver-anuncio',
-templateUrl: './ver-anuncio.page.html',
-styleUrls: ['./ver-anuncio.page.scss'],
+	selector: 'app-ver-anuncio',
+	templateUrl: './ver-anuncio.page.html',
+	styleUrls: ['./ver-anuncio.page.scss'],
 })
 
 export class VerAnuncioPage implements OnInit {
@@ -30,42 +30,44 @@ export class VerAnuncioPage implements OnInit {
 	}
 
 	anuncio: Anuncio = {
-		id : '',
-		idMusico : '',
-    	titulo:  '',
-		descripcion:  '',
-		createdAt:  '',
-		fechaEvento:  null,
-		ubicacion:  '',
-		instrumento:  '',
-		tipoDemanda:  null,
+		id: '',
+		idMusico: '',
+		titulo: '',
+		descripcion: '',
+		createdAt: '',
+		fechaEvento: null,
+		ubicacion: '',
+		instrumento: '',
+		tipoDemanda: null,
 	}
 
 	rate: number = 3;
 	owned: boolean;
 	uid: string;
 
-	constructor(private activatedRoute: ActivatedRoute,
-				private fbService: FirebaseService,
-				private router: Router,
-				private AFauth: AngularFireAuth,
-				private modal: ModalController,
-				private usuarioService: UsuarioService ) { }
+	constructor(
+		private activatedRoute: ActivatedRoute,
+		private fbService: FirebaseService,
+		private router: Router,
+		private AFauth: AngularFireAuth,
+		private modal: ModalController,
+		private usuarioService: UsuarioService
+	) { }
 
 	ngOnInit() {
 		this.AFauth.auth.onAuthStateChanged(
 			user => {
-			  if (user) {
-				// User is signed in.
-				this.uid = user.uid
-			  }
-			  else {
-				// No user is signed in.
-				console.log("el usuario no ha iniciado sesion.");
-			  }
+				if (user) {
+					// User is signed in.
+					this.uid = user.uid
+				}
+				else {
+					// No user is signed in.
+					console.log("el usuario no ha iniciado sesion.");
+				}
 			}
-		  );
-	  
+		);
+
 	}
 
 	ngAfterViewInit(): void {
@@ -74,25 +76,26 @@ export class VerAnuncioPage implements OnInit {
 			this.fbService.getAnuncio(id).subscribe(
 				data => {
 					this.anuncio = data;
-					
-					if(data.idMusico == this.uid){
+					this.anuncio.id = id;
+
+					if (data.idMusico == this.uid) {
 						this.owned = true
-					} else{
+					} else {
 						this.owned = false
 					}
-					
+
 					this.usuarioService.getUsuario(this.anuncio.idMusico).subscribe(
 						data => {
-							this.usuario = data;	
+							this.usuario = data;
 						}
 					);
-					
+
 				},
 				err => {
 					this.router.navigate(['/no-encontrado'])
 				}
 			);
-			
+
 		}
 	}
 
@@ -108,25 +111,25 @@ export class VerAnuncioPage implements OnInit {
 		);
 	}
 
-	actualizarAnuncio(){
+	actualizarAnuncio() {
 		this.modal.create({
 			component: ActualizarAnuncioComponent,
-			componentProps : {
-				anuncio :this.anuncio,
+			componentProps: {
+				anuncio: this.anuncio,
 				owned: this.owned,
 				uid: this.uid
-			}	
+			}
 		}).then((modal) => modal.present())
 	}
 
-	logRatingChange(rating){
-        console.log("changed rating: ",rating);
-        // do your stuff
+	logRatingChange(rating) {
+		console.log("changed rating: ", rating);
+		// do your stuff
 	}
-	
-	enviarMensaje(){
 
-		
+	enviarMensaje() {
+
+
 		let datos = {
 			idAnuncio: this.anuncio.id,
 			idReceptor: this.anuncio.idMusico,
@@ -134,12 +137,12 @@ export class VerAnuncioPage implements OnInit {
 		}
 		let navigationExtras: NavigationExtras = {
 			state: {
-			  datos: datos
+				datos: datos
 			}
-		  };
+		};
 
-		  console.log(navigationExtras.state)
-		  this.router.navigate(['/mensajes'], navigationExtras);
-		
+		console.log(navigationExtras.state)
+		this.router.navigate(['/mensajes'], navigationExtras);
+
 	}
 }

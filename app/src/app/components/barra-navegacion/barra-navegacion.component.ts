@@ -18,8 +18,9 @@ import { Router } from "@angular/router";
 export class BarraNavegacionComponent {
 	navigate : any;
 
-	usuario:Usuario = {
-		nick: '',
+	uid: String;
+	usuario: Usuario = {
+		nick: 'perfil',
 		nombreCompleto: '',
 		email: '',
 		cp: '',
@@ -38,7 +39,7 @@ export class BarraNavegacionComponent {
 		private fbService: FirebaseService,
         public authservice : AuthService,
         private AFauth : AngularFireAuth,
-        private router : Router
+		private router : Router
 	) {
 		this.sideMenu();
 		this.initializeApp();
@@ -56,6 +57,7 @@ export class BarraNavegacionComponent {
 				this.logedout = true
 			}
 			else{
+				this.uid = auth.uid
 				this.logedout = false
 				// Obtener usuario
 				/* this.usuario = this.authservice.usuario
@@ -72,8 +74,8 @@ export class BarraNavegacionComponent {
 
 	initializeApp() {
 		this.platform.ready().then(() => {
-		this.statusBar.styleDefault();
-		this.splashScreen.hide();
+			this.statusBar.styleDefault();
+			this.splashScreen.hide();
 		});
 	}
 

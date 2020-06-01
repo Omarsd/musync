@@ -42,15 +42,18 @@ const routes: Routes = [
 	},
 	{
 		path: 'administrador',
-		loadChildren: () => import('./pages/administrador/administrador.module').then( m => m.AdministradorPageModule)
+		loadChildren: () => import('./pages/administrador/administrador.module').then( m => m.AdministradorPageModule),
+		canActivate : [AuthGuard]	// Crear un nuevo guardian para comprobar el rol administrador?
 	},
 	{
-		path: 'perfil',
-		loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+		path: 'perfil/:id',
+		loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule),
+		canActivate : [AuthGuard]
 	},
 	{
 		path: 'mensajes',
-		loadChildren: () => import('./pages/mensajes/mensajes.module').then( m => m.MensajesPageModule)
+		loadChildren: () => import('./pages/mensajes/mensajes.module').then( m => m.MensajesPageModule),
+		canActivate : [AuthGuard]
 	},
 	//'**' Es para cuando se entra en una ruta que no está declarada
 	{
