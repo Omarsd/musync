@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Actualizar {{anuncio.titulo}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-input placeholder="..." [(ngModel)]="anuncioTMP.titulo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea rows="6" [(ngModel)]="anuncioTMP.descripcion" placeholder="..."></ion-textarea>
+    </ion-item>
+  </ion-list>
+  <ion-button fill="solid" color="danger" (click)="salir()">
+    <ion-icon name="close" color="warning"></ion-icon> Cancelar
+  </ion-button>
+  <ion-button  color="primary" (click)="updateAnuncio()">Actualizar</ion-button>
+</ion-content>

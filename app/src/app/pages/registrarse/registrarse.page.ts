@@ -51,7 +51,7 @@ export class RegistrarsePage implements OnInit {
     const { password, confirm_password } = this
 
     if (password !== confirm_password){
-      this.presentAlert("Error","Contraseñas don't match")//this.presentAlert("Error","Las contraseñas no son iguales.")
+      this.presentAlert("Error","Las contraseñas no son iguales.")
         console.log("error")
     }else{
 
@@ -67,8 +67,11 @@ export class RegistrarsePage implements OnInit {
       } catch (err) {
         console.dir(err)
         
-        // Hay que crear un if para "auth/weak-password" y alert
-        // "auth/email-already-in-use" y alert
+        if(err.code="auth/weak-password"){
+          this.presentAlert("Error","La contraseña es demasiado débil. Pruebe con más de 6 caracteres")
+        } else if(err.code="auth/email-already-in-use"){
+          this.presentAlert("Error","Email ya en uso.")
+        }
       }
       
     }

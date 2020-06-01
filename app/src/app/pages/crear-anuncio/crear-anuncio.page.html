@@ -1,17 +1,35 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Nuevo anuncio</ion-title>
-  </ion-toolbar>
+	<ion-toolbar color="primary">
+		<ion-title>Nuevo anuncio</ion-title>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-list>
-  <ion-item>
-    <ion-input placeholder="Titulo..." [(ngModel)]="anuncio.titulo"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-textarea rows="6" [(ngModel)]="anuncio.descripcion" placeholder="Descripcion..."></ion-textarea>
-  </ion-item>
-</ion-list>
-  <ion-button color="primary" expand="full" (click)="addAnuncio()">Crear</ion-button>
+	<ion-list>
+		<ion-item>
+			<ion-input placeholder="Titulo..." [(ngModel)]="anuncio.titulo"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-textarea rows="6" [(ngModel)]="anuncio.descripcion" placeholder="Descripcion..."></ion-textarea>
+		</ion-item>
+		<ion-item>
+			<ion-datetime [(ngModel)]="anuncio.fechaEvento" displayFormat="DD MM YYYY"
+				placeholder="Fecha del evento..."></ion-datetime>
+		</ion-item>
+		<ion-item>
+			<ion-input [(ngModel)]="anuncio.instrumento" placeholder="Instrumento..."></ion-input>
+		</ion-item>
+		<ion-segment [(ngModel)]="anuncio.tipoDemanda">
+        <ion-segment-button value="0">
+          <ion-label>Oferta</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="1">
+          <ion-label>Demanda</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+		<ion-item>
+			<ion-input [(ngModel)]="anuncio.ubicacion" placeholder="ubicacion..."></ion-input>
+		</ion-item>
+	</ion-list>
+	<ion-button color="primary" expand="full" (click)="addAnuncio()">Crear</ion-button>
 </ion-content>

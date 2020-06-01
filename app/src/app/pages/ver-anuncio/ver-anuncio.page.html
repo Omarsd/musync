@@ -1,22 +1,65 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Anuncio: {{anuncio.titulo}}</ion-title>
-  </ion-toolbar>
+	<ion-toolbar color="primary">
+		<ion-title>Anuncio: {{anuncio.titulo}}</ion-title>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card color="secondary">
-    <ion-card-header>
-      <ion-card-subtitle>{{anuncio.createdAt | date: 'short'}}</ion-card-subtitle>
-      <ion-card-title>{{anuncio.titulo}}</ion-card-title>
-    </ion-card-header>
+	<ion-card color="secondary">
+		<ion-card-header>
+			<ion-card-subtitle>{{anuncio.fechaEvento | date: 'short'}}</ion-card-subtitle>
+			<ion-card-title>{{anuncio.titulo}}</ion-card-title>
+		</ion-card-header>
 
-    <ion-card-content>
-      <p align="justify">{{anuncio.descripcion}}</p>
-      <br>
-      <ion-button slot="start" color="warning" [routerLink]="'/act-anuncio/' + anuncio.id">Editar</ion-button>
-      <ion-button slot="end" color="danger" (click)="deleteAnuncio()">Eliminar</ion-button>
-    </ion-card-content>
+		<ion-card-content>
+			<p align="justify">{{anuncio.descripcion}}</p>
 
-  </ion-card>
+		</ion-card-content>
+
+		<ion-card-content>
+			<h2>
+				<ion-icon name="pin"></ion-icon>
+				{{anuncio.ubicacion}}
+			</h2>
+		</ion-card-content>
+
+		<ion-card-content>
+			<ion-button *ngIf="owned" slot="start" color="warning" (click)="actualizarAnuncio()">Editar</ion-button>
+			<ion-button *ngIf="owned" slot="end" color="danger" (click)="deleteAnuncio()">Eliminar</ion-button>
+		</ion-card-content>
+	</ion-card>
+
+	<ion-card color="primary">
+		<ion-card-header>
+			<ion-card-title>Usuario: {{usuario.nick}}</ion-card-title>
+			<ion-card-title>
+
+				<fieldset class="rating">
+					<input type="radio" id="star5" name="rating" value="5" />
+					<label class="full" for="star5" title="Awesome - 5 stars"></label>
+					<input type="radio" id="star4half" name="rating" value="4 and a half" />
+					<label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+					<input type="radio" id="star4" name="rating" value="4" />
+					<label class="full" for="star4" title="Pretty good - 4 stars"></label>
+					<input type="radio" id="star3half" name="rating" value="3 and a half" />
+					<label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+					<input type="radio" id="star3" name="rating" value="3" />
+					<label class="full" for="star3" title="Meh - 3 stars"></label>
+					<input type="radio" id="star2half" name="rating" value="2 and a half" />
+					<label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+					<input type="radio" id="star2" name="rating" value="2" />
+					<label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+					<input type="radio" id="star1half" name="rating" value="1 and a half" />
+					<label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+					<input type="radio" id="star1" name="rating" value="1" />
+					<label class="full" for="star1" title="Sucks big time - 1 star"></label>
+					<input type="radio" id="starhalf" name="rating" value="half" />
+					<label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+				</fieldset>
+				
+			</ion-card-title>
+		</ion-card-header>
+	</ion-card>
+
+	<ion-button color="primary" expand="full" (click)="enviarMensaje()">Enviar mensaje</ion-button>
 </ion-content>

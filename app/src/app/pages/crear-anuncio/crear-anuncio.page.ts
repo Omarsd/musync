@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Anuncio } from 'src/app/model/Anuncio';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/anuncio.service';
-import { ToastController } from '@ionic/angular';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-crear-anuncio',
@@ -12,19 +12,37 @@ import { ToastController } from '@ionic/angular';
 export class CrearAnuncioPage implements OnInit {
 
   anuncio: Anuncio = {
+	idMusico: '',
     titulo: '',
     descripcion: '',
-    createdAt: new Date().getTime()
+	createdAt: new Date().getTime(),
+	fechaEvento: null,
+	instrumento: '',
+	tipoDemanda: null,
+	ubicacion: ''
   };
 
   constructor(
-      private activatedRoute: ActivatedRoute,
-      private fbService: FirebaseService,
-      private toastCtrl: ToastController,
+	  private fbService: FirebaseService,
+	  private AFauth: AngularFireAuth,
       private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
+	this.AFauth.auth.onAuthStateChanged(
+		user => {
+		  if (user) {
+			// User is signed in.
+			this.anuncio.idMusico = user.uid
+			console.log(this.anuncio)
+		  }
+		  else {
+			// No user is signed in.
+			console.log("el usuario no ha iniciado sesion.");
+		  }
+		}
+	  );
   }
 
   addAnuncio() {
