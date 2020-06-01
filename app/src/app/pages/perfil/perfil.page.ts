@@ -13,7 +13,7 @@ import { Anuncio } from 'src/app/model/Anuncio';
 	styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
-
+	private today: Date= new Date()
 	private uid: string;
 	private owned: Boolean;
 
@@ -108,7 +108,7 @@ export class PerfilPage implements OnInit {
 										id: doc.id,
 										createdAt: doc.data().createdAt,
 										descripcion: doc.data().descripcion,
-										fechaEvento: doc.data().fechaEvento,
+										fechaEvento: new Date(doc.data().fechaEvento),
 										idMusico: doc.data().idMusico,
 										instrumento: doc.data().instrumento,
 										tipoDemanda: doc.data().tipoDemanda,

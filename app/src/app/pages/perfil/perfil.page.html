@@ -24,6 +24,9 @@
 					</ion-thumbnail>
 					<ion-label>
 						<h1>{{anuncio.titulo}}</h1>
+						<ion-text *ngIf="anuncio.fechaEvento < today" color="danger">
+							<h2>anuncio caducado</h2>
+						</ion-text>
 						<h2>Fecha: {{anuncio.fechaEvento |  date:'dd/MM/yyyy'}}</h2>
 						<h2>Instrumento: {{anuncio.instrumento}}</h2>
 						<h2>
@@ -31,7 +34,7 @@
 						</h2>
 						<p *ngIf="anuncio.descripcion.length > 150">{{anuncio.descripcion | slice:0:150}}...</p>
 						<p *ngIf="anuncio.descripcion.length <= 150">{{anuncio.descripcion}}</p>
-
+						
 					</ion-label>
 					<ion-button fill="outline" slot="end" [routerLink]="'/ver-anuncio/'+anuncio.id">Ver</ion-button>
 				</ion-item>
