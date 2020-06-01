@@ -104,8 +104,17 @@ export class PerfilPage implements OnInit {
 								this.hayAnuncios = true;
 								var i = 0;
 								snapshot.forEach(doc => {
-									var anuncio = doc.data();
-									anuncio.id = doc.id;
+									var anuncio : Anuncio = {
+										id: doc.id,
+										createdAt: doc.data().createdAt,
+										descripcion: doc.data().descripcion,
+										fechaEvento: doc.data().fechaEvento,
+										idMusico: doc.data().idMusico,
+										instrumento: doc.data().instrumento,
+										tipoDemanda: doc.data().tipoDemanda,
+										titulo: doc.data().titulo,
+										ubicacion: doc.data().ubicacion
+									}
 									this.anuncios[i++] = anuncio;
 								});
 							}
