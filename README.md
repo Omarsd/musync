@@ -5,10 +5,10 @@
 - [X] Registrarse
 - [X] Cerrar sesión
 - [ ] Listar anuncios
-- [ ] Crear anuncio
-- [ ] Ver anuncio
-- [ ] Eliminar anuncio
-- [ ] Editar anuncio 
+- [X] Crear anuncio
+- [X] Ver anuncio
+- [X] Eliminar anuncio
+- [X] Editar anuncio 
 - [X] `Una X para tachar una tarea` 
 - [ ] 
 
