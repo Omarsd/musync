@@ -7,28 +7,34 @@
 <ion-content>
 	<ion-list>
 		<ion-item>
-			<ion-input placeholder="Titulo..." [(ngModel)]="anuncio.titulo"></ion-input>
+			<ion-label position="floating">Titulo: </ion-label>
+			<ion-input [(ngModel)]="anuncio.titulo"></ion-input>
 		</ion-item>
 		<ion-item>
-			<ion-textarea rows="6" [(ngModel)]="anuncio.descripcion" placeholder="Descripcion..."></ion-textarea>
+			<ion-label position="floating">Descripcion: </ion-label>
+			<ion-textarea rows="6" [(ngModel)]="anuncio.descripcion"></ion-textarea>
 		</ion-item>
 		<ion-item>
-			<ion-datetime [(ngModel)]="anuncio.fechaEvento" displayFormat="DD MM YYYY"
-				placeholder="Fecha del evento..."></ion-datetime>
+			<ion-label position="floating">Fecha del evento: </ion-label>
+			<ion-datetime [(ngModel)]="anuncio.fechaEvento" min="{{today.getFullYear()}}" max="{{today.getFullYear()+2}}" displayFormat="DD MM YYYY"></ion-datetime>
 		</ion-item>
 		<ion-item>
-			<ion-input [(ngModel)]="anuncio.instrumento" placeholder="Instrumento..."></ion-input>
+			<ion-label position="floating">Instrumento: </ion-label>
+			<ion-input [(ngModel)]="anuncio.instrumento"></ion-input>
 		</ion-item>
-		<ion-segment [(ngModel)]="anuncio.tipoDemanda">
-        <ion-segment-button value="0">
-          <ion-label>Oferta</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="1">
-          <ion-label>Demanda</ion-label>
-        </ion-segment-button>
-      </ion-segment>
 		<ion-item>
-			<ion-input [(ngModel)]="anuncio.ubicacion" placeholder="ubicacion..."></ion-input>
+			<ion-segment [(ngModel)]="anuncio.tipoDemanda">
+				<ion-segment-button value="0">
+					<ion-label>Oferta</ion-label>
+				</ion-segment-button>
+				<ion-segment-button value="1">
+					<ion-label>Demanda</ion-label>
+				</ion-segment-button>
+			</ion-segment>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Ubicación: </ion-label>
+			<ion-input [(ngModel)]="anuncio.ubicacion"></ion-input>
 		</ion-item>
 	</ion-list>
 	<ion-button color="primary" expand="full" (click)="addAnuncio()">Crear</ion-button>
