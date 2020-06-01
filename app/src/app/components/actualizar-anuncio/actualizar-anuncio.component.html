@@ -12,6 +12,24 @@
     <ion-item>
       <ion-textarea rows="6" [(ngModel)]="anuncioTMP.descripcion" placeholder="..."></ion-textarea>
     </ion-item>
+    <ion-item>
+      <ion-input placeholder="..." [(ngModel)]="anuncioTMP.ubicacion"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="..." [(ngModel)]="anuncioTMP.instrumento"></ion-input>
+    </ion-item>
+    <ion-item>
+			<ion-datetime [(ngModel)]="anuncioTMP.fechaEvento" displayFormat="DD MM YYYY"
+				placeholder="Fecha del evento..."></ion-datetime>
+		</ion-item>
+    <ion-segment [(ngModel)]="anuncio.tipoDemanda">
+        <ion-segment-button value="0">
+          <ion-label>Oferta</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="1">
+          <ion-label>Demanda</ion-label>
+        </ion-segment-button>
+      </ion-segment>
   </ion-list>
   <ion-button fill="solid" color="danger" (click)="salir()">
     <ion-icon name="close" color="warning"></ion-icon> Cancelar
