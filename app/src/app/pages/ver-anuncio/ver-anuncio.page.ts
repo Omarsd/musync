@@ -133,7 +133,7 @@ export class VerAnuncioPage implements OnInit {
 		let datos = {
 			idAnuncio: this.anuncio.id,
 			idReceptor: this.anuncio.idMusico,
-			idEmisor: this.usuario.id
+			idEmisor: this.uid
 		}
 		let navigationExtras: NavigationExtras = {
 			state: {

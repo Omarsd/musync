@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Conversacion } from '../model/conversacion';
-import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference, Query } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
@@ -48,5 +48,25 @@ export class MensajeriaService {
 
 	deleteConversacion(id: string): Promise<void> {
 		return this.conversacionColl.doc(id).delete();
+	}
+
+	getNumConversaciones(idAnuncio, idEmisor): Query{
+		// Create a reference to the cities collection
+		var ref = this.afs.firestore.collection("conversaciones");
+
+		// Create a query against the collection.
+		var query = ref.where("idAnuncio", "==", idAnuncio).where("idEmisor", "==", idEmisor)
+		
+		return query
+	}
+
+	getUserConversaciones(idEmisor, idReceptor): Query {
+		var ref = this.afs.firestore.collection("conversaciones");
+
+		// Create a query against the collection.
+		var query = ref.where("idReceptor", "==", idReceptor)
+		var query = ref.where("idEmisor", "==", idEmisor)
+		
+		return query
 	}
 }

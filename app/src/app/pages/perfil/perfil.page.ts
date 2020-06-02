@@ -59,7 +59,7 @@ export class PerfilPage implements OnInit {
 		this.AFauth.auth.onAuthStateChanged(
 			user => {
 				if (user) {
-					// User is signed in.
+					// usuario logeado
 					this.uid = user.uid
 
 					this.usuarioServ.getUsuario(this.uid).subscribe(
@@ -70,7 +70,7 @@ export class PerfilPage implements OnInit {
 					);
 				}
 				else {
-					// No user is signed in.
+					// usuario no logeado
 					this.router.navigate(['/home'])
 				}
 			}

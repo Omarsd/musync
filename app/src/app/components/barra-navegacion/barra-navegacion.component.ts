@@ -85,12 +85,17 @@ export class BarraNavegacionComponent {
 				title : "Home",
 				url   : "/home",
 				icon  : "home"
+			},			
+			{
+				title : "Mensajes",
+				url   : "/mensajes",
+				icon  : "chatboxes"
 			},
 			{
 				title : "About",
 				url   : "/about",
 				icon  : "chatboxes"
-			}
+			},
 		]
 	}
 
