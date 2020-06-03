@@ -1,7 +1,7 @@
-<ion-menu side="start" menuId="first" contentId="content1">
+<ion-menu side="start" menuId="first" type="push" contentId="content1">
 	<ion-header>
 		<ion-toolbar>
-			<ion-title>Navigate</ion-title>
+			<ion-title>Navegación</ion-title>
 		</ion-toolbar>
 	</ion-header>
 	<ion-content>
@@ -9,7 +9,7 @@
 			<ion-menu-toggle auto-hide="true">
 				<ion-item [routerLink]="pages.url" routerDirection="forward">
 					<ion-icon [name]="pages.icon" slot="start"></ion-icon>
-					{{pages.title}} 
+					{{pages.title}}
 				</ion-item>
 			</ion-menu-toggle>
 		</ion-list>
@@ -21,7 +21,7 @@
 		<ion-buttons slot="start">
 			<ion-menu-button></ion-menu-button>
 		</ion-buttons>
-		<ion-title>Musync</ion-title>
+		<ion-title class="ion-text-left">Musync</ion-title>
 		
 		<ion-button *ngIf="usuario.rol == 'administrador'" slot="end" color="danger" [routerLink] = "['/administrador']">Anuncios reportados</ion-button>
 		<ion-chip routerLink="/perfil/{{usuario.id}}" slot="end" *ngIf="!logedout">

@@ -16,7 +16,7 @@ import { Router } from "@angular/router";
 	styleUrls: ['./barra-navegacion.component.scss'],
 })
 export class BarraNavegacionComponent {
-	navigate : any;
+	navigate: any;
 
 	uid: String;
 	usuario: Usuario = {
@@ -28,8 +28,8 @@ export class BarraNavegacionComponent {
 		baneado: '',
 		fechaBaneo: null,
 		fechaDesbaneo: null
-	  }
-	logedout:boolean
+	}
+	logedout: boolean
 
 	constructor(
 		private platform: Platform,
@@ -37,26 +37,26 @@ export class BarraNavegacionComponent {
 		private statusBar: StatusBar,
 		private userService: UsuarioService,
 		private fbService: FirebaseService,
-        public authservice : AuthService,
-        private AFauth : AngularFireAuth,
-		private router : Router
+		private authservice: AuthService,
+		private AFauth: AngularFireAuth,
+		private router: Router
 	) {
 		this.sideMenu();
 		this.initializeApp();
 
 		//Si esta logueado, pone logedout a false. esto cambia los botones "registrarse", "login" y "logout"
-		if(this.authservice.isAuthenticated){
+		if (this.authservice.isAuthenticated) {
 			this.logedout = false
 		}
-		else{
+		else {
 			this.logedout = true
 		}
-		
+
 		this.AFauth.authState.subscribe(auth => {
-			if (isNullOrUndefined(auth)){
+			if (isNullOrUndefined(auth)) {
 				this.logedout = true
 			}
-			else{
+			else {
 				this.uid = auth.uid
 				this.logedout = false
 				// Obtener usuario
@@ -64,10 +64,10 @@ export class BarraNavegacionComponent {
 				console.log(this.usuario) */
 				this.userService.getUsuario(auth.uid).subscribe(
 					data => {
-					  this.usuario = data;
-					  console.log(this.usuario.rol)
+						this.usuario = data;
+						console.log(this.usuario.rol)
 					}
-				  );
+				);
 			}
 		})
 	}
@@ -82,24 +82,24 @@ export class BarraNavegacionComponent {
 	sideMenu() {
 		this.navigate = [
 			{
-				title : "Home",
-				url   : "/home",
-				icon  : "home"
-			},			
-			{
-				title : "Mensajes",
-				url   : "/mensajes",
-				icon  : "chatboxes"
+				title: "Menú",
+				url: "/home",
+				icon: "home"
 			},
 			{
-				title : "About",
-				url   : "/about",
-				icon  : "chatboxes"
+				title: "Mensajes",
+				url: "/mensajes",
+				icon: "chatboxes"
+			},
+			{
+				title: "Sobre nosotros",
+				url: "/about",
+				icon: "people"
 			},
 		]
 	}
 
-	logout(){
+	logout() {
 		this.authservice.logout()
 		this.logedout = true
 		this.usuario = {
@@ -111,6 +111,8 @@ export class BarraNavegacionComponent {
 			baneado: '',
 			fechaBaneo: null,
 			fechaDesbaneo: null
-		  }
+		}
 	}
+
+
 }

@@ -33,8 +33,12 @@
 		</ion-card-content>
 
 		<ion-card-content>
-			<ion-button *ngIf="owned" slot="start" color="warning" (click)="actualizarAnuncio()">Editar</ion-button>
-			<ion-button *ngIf="owned" slot="end" color="danger" (click)="deleteAnuncio()">Eliminar</ion-button>
+			<ion-button *ngIf="owned" slot="start" color="warning" (click)="actualizarAnuncio()">
+				<ion-icon name="create"></ion-icon> Editar
+			</ion-button>
+			<ion-button *ngIf="owned" slot="end" color="danger" (click)="deleteAnuncio()">
+				<ion-icon name="trash"></ion-icon> Eliminar
+			</ion-button>
 		</ion-card-content>
 	</ion-card>
 

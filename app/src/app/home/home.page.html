@@ -5,44 +5,51 @@
 	</div>
 
 	<ion-searchbar placeholder="Búsqueda rápida" animated (ionInput)="busquedaRapida($event)"></ion-searchbar>
-	<ion-card>
-	<ion-card-title (click)="expandir()">Búsqueda avanzada</ion-card-title>
-	<app-expandable expandHeight="1000px" [expanded]="expandido">
-		<ion-item>
-			<ion-label position="floating">Título</ion-label>
-			<ion-input [(ngModel)]="criterios.titulo"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-datetime displayFormat="DD MM YYYY" placeholder="Fecha de..." [(ngModel)]="criterios.deFecha">
-			</ion-datetime>
-			<ion-datetime displayFormat="DD MM YYYY" placeholder="Fecha hasta..." [(ngModel)]="criterios.aFecha">
-			</ion-datetime>
-		</ion-item>
-		<ion-item>
-			<ion-label position="floating">Instrumento</ion-label>
-			<ion-input [(ngModel)]="criterios.instrumento"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label position="floating">Lugar</ion-label>
-			<ion-input [(ngModel)]="criterios.ubicacion"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label position="floating">Descripción</ion-label>
-			<ion-input [(ngModel)]="criterios.descripcion"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-segment [(ngModel)]="criterios.tipoDemanda">
-				<ion-segment-button value="0">
-					<ion-label>Oferta</ion-label>
-				</ion-segment-button>
-				<ion-segment-button value="1">
-					<ion-label>Demanda</ion-label>
-				</ion-segment-button>
-			</ion-segment>
-		</ion-item>
-		<ion-button fill="solid" expand="block" color="dark" (click)="busquedaAnuncios()">Buscar</ion-button>
-		<ion-button fill="solid" expand="block" color="primary" (click)="borrarFiltro()">Borrar filtros</ion-button>
-	</app-expandable>
+	<ion-card class="ion-padding">
+		<ion-card-title (click)="expandir()">
+			<ion-icon name="funnel"></ion-icon> 
+			Búsqueda avanzada 
+			<ion-icon *ngIf="!expandido" name="arrow-down"></ion-icon>
+			<ion-icon *ngIf="expandido" name="arrow-up"></ion-icon>
+		</ion-card-title>
+		<app-expandable expandHeight="1000px" [expanded]="expandido">
+			<ion-item>
+				<ion-label position="floating">Título</ion-label>
+				<ion-input [(ngModel)]="criterios.titulo"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label position="floating">Descripción</ion-label>
+				<ion-input [(ngModel)]="criterios.descripcion"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-segment [(ngModel)]="criterios.tipoDemanda">
+					<ion-label>Tipo: </ion-label>
+					<ion-segment-button value="0">
+						<ion-label>Oferta</ion-label>
+					</ion-segment-button>
+					<ion-segment-button value="1">
+						<ion-label>Demanda</ion-label>
+					</ion-segment-button>
+				</ion-segment>
+			</ion-item>
+			<ion-item>
+				<ion-label position="floating">Ubicación: </ion-label>
+				<ion-input [(ngModel)]="criterios.ubicacion"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label position="floating">Instrumento</ion-label>
+				<ion-input [(ngModel)]="criterios.instrumento"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label slot="start">Fecha: </ion-label>
+				<ion-item slot="start">
+					<ion-datetime displayFormat="DD MM YYYY" placeholder="Fecha desde..." [(ngModel)]="criterios.deFecha" min="{{today.getFullYear()}}" max="{{today.getFullYear()+2}}"></ion-datetime>
+					<ion-datetime displayFormat="DD MM YYYY" placeholder="Fecha hasta..." [(ngModel)]="criterios.aFecha" min="{{today.getFullYear()}}" max="{{today.getFullYear()+2}}"></ion-datetime>
+				</ion-item>
+			</ion-item>
+			<ion-button fill="solid" expand="block" color="dark" (click)="busquedaAnuncios()">Buscar</ion-button>
+			<ion-button fill="solid" expand="block" color="primary" (click)="borrarFiltro()">Borrar filtros</ion-button>
+		</app-expandable>
 	</ion-card>
 	<ion-list>
 		<ion-list-header>
