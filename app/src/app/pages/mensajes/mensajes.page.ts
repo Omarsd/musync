@@ -60,12 +60,29 @@ export class MensajesPage implements OnInit {
     this.AFauth.auth.onAuthStateChanged(
 			user => {
 				if (user) {
+          let i = 0;
           // User is signed in.
           this.uid = user.uid
-          this.mensajeriaServ.getUserConversaciones(user.uid, user.uid).get()
+          this.mensajeriaServ.getUserEmisorConversaciones(user.uid).get()
           .then(snapshot =>{
             console.log(snapshot)
-            let i = 0;
+            
+            snapshot.forEach(doc => {
+              var conversacion : Conversacion = {
+                idConversacion: doc.id,
+                idAnuncio: doc.data().idAnuncio,
+                idEmisor: doc.data().idEmisor,
+                idReceptor: doc.data().idReceptor,
+                mensajes: doc.data().mensajes
+              }
+              this.conversaciones[i++] = conversacion;
+            });
+            console.log(this.conversaciones)
+          })
+
+          this.mensajeriaServ.getUserReceptorConversaciones(user.uid).get()
+          .then(snapshot =>{
+            console.log(snapshot)
             snapshot.forEach(doc => {
               var conversacion : Conversacion = {
                 idConversacion: doc.id,

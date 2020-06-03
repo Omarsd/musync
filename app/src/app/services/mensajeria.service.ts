@@ -60,13 +60,23 @@ export class MensajeriaService {
 		return query
 	}
 
-	getUserConversaciones(idEmisor, idReceptor): Query {
+	getUserEmisorConversaciones(idReceptor): Query {
 		var ref = this.afs.firestore.collection("conversaciones");
 
 		// Create a query against the collection.
 		var query = ref.where("idReceptor", "==", idReceptor)
+		
+		return query
+	}
+
+	getUserReceptorConversaciones(idEmisor): Query {
+		var ref = this.afs.firestore.collection("conversaciones");
+
+		// Create a query against the collection.
 		var query = ref.where("idEmisor", "==", idEmisor)
 		
 		return query
 	}
+
+	
 }
