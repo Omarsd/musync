@@ -81,21 +81,30 @@ export class BarraNavegacionComponent {
 	}
 
 	sideMenu() {
-		this.navigate = [
-			{
+		this.navigate = [				// he añadido la propiedad rol, con 3 estados: "", "musico" y "administrador"
+			{							// "" es para ambos roles y los otros dos, exclusivos para cada rol.
 				title: "Menú",
 				url: "/home",
-				icon: "home"
+				icon: "home",
+				rol: ""
 			},
 			{
 				title: "Mensajes",
 				url: "/mensajes",
-				icon: "chatboxes"
+				icon: "chatboxes",
+				rol: "musico"
+			},
+			{
+				title: "Administración",
+				url: "/administrador",
+				icon: "bug",
+				rol: "administrador"
 			},
 			{
 				title: "Sobre nosotros",
 				url: "/about",
-				icon: "people"
+				icon: "people",
+				rol: ""
 			},
 		]
 	}

@@ -6,12 +6,12 @@
 
 	<ion-searchbar placeholder="Búsqueda rápida" animated (ionInput)="busquedaRapida($event)"></ion-searchbar>
 	<ion-card class="ion-padding">
-		<ion-card-title (click)="expandir()">
+		<ion-button (click)="expandir()" color="light">
 			<ion-icon name="funnel"></ion-icon> 
 			Búsqueda avanzada 
 			<ion-icon *ngIf="!expandido" name="arrow-down"></ion-icon>
 			<ion-icon *ngIf="expandido" name="arrow-up"></ion-icon>
-		</ion-card-title>
+		</ion-button>
 		<app-expandable expandHeight="1000px" [expanded]="expandido">
 			<ion-item>
 				<ion-label position="floating">Título</ion-label>
@@ -47,8 +47,12 @@
 					<ion-datetime displayFormat="DD MM YYYY" placeholder="Fecha hasta..." [(ngModel)]="criterios.aFecha" min="{{today.getFullYear()}}" max="{{today.getFullYear()+2}}"></ion-datetime>
 				</ion-item>
 			</ion-item>
-			<ion-button fill="solid" expand="block" color="dark" (click)="busquedaAnuncios()">Buscar</ion-button>
-			<ion-button fill="solid" expand="block" color="primary" (click)="borrarFiltro()">Borrar filtros</ion-button>
+			<ion-button fill="solid" expand="block" color="dark" (click)="busquedaAnuncios()">
+				<ion-icon name="search"></ion-icon> Buscar
+			</ion-button>
+			<ion-button fill="solid" expand="block" color="primary" (click)="borrarFiltro()">
+				<ion-icon name="close"></ion-icon> Borrar filtros
+			</ion-button>
 		</app-expandable>
 	</ion-card>
 	<ion-list>
@@ -72,7 +76,7 @@
 			<ion-button fill="outline" slot="end" [routerLink]="'/ver-anuncio/'+anuncio.id">Ver</ion-button>
 		</ion-item>
 	</ion-list>
-	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+	<ion-fab *ngIf="usuario.rol != 'administrador'" vertical="bottom" horizontal="end" slot="fixed">
 		<ion-fab-button [routerLink]="'/crear-anuncio'">
 			<ion-icon name="add"></ion-icon>
 		</ion-fab-button>
