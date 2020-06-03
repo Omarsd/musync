@@ -15,15 +15,17 @@ import { AngularFireAuthModule,AngularFireAuth } from "@angular/fire/auth";
 import { FormsModule } from '@angular/forms';
 
 import { ActualizarAnuncioComponent } from "./components/actualizar-anuncio/actualizar-anuncio.component";
+import { ActualizarPerfilComponent } from "./components/actualizar-perfil/actualizar-perfil.component";
 import { BarraNavegacionComponent } from "./components/barra-navegacion/barra-navegacion.component";
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		ActualizarAnuncioComponent,
+		ActualizarPerfilComponent,
 		BarraNavegacionComponent
 	],
-	entryComponents: [ ActualizarAnuncioComponent ],
+	entryComponents: [ ActualizarAnuncioComponent, ActualizarPerfilComponent ],
 	imports: [
 		BrowserModule,
 		IonicModule.forRoot(),

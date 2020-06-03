@@ -35,6 +35,7 @@ export class HomePage implements OnInit {
 		nombreCompleto: '',
 		email: '',
 		cp: '',
+		descripcion: '',
 		rol: '',
 		baneado: '',
 		fechaBaneo: null,

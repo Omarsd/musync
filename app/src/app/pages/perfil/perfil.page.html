@@ -1,22 +1,30 @@
 <ion-header>
-	<ion-toolbar>
-		<ion-title>perfil</ion-title>
+	<ion-toolbar color="primary">
+		<ion-title>Perfil</ion-title>
 	</ion-toolbar>
 </ion-header>
 <ion-content>
-	<ion-card>
+	<ion-card color="primary">
+
 		<ion-card-header>
-
-			<ion-card-title>{{usuarioPerfil.nick}}</ion-card-title>
+			<ion-card-title><ion-icon name="person"></ion-icon>{{usuarioPerfil.nick}}</ion-card-title>
 			<ion-card-title>{{usuarioPerfil.nombreCompleto}}</ion-card-title>
-
+			<ion-card-title><ion-icon name="albums"></ion-icon>{{anuncios.length}} anuncios creados</ion-card-title>
+			<ion-card-title><ion-icon name="checkmark"></ion-icon>{{anunciosDisponibles}} anuncios disponibles</ion-card-title>
+			<ion-card-title><ion-icon name="pin"></ion-icon> {{usuarioPerfil.cp}}</ion-card-title>
+			<ion-card-title><ion-icon name="document"></ion-icon>{{usuarioPerfil.descripcion}}</ion-card-title>
 		</ion-card-header>
-		<ion-card-content>
 
+		<ion-card-content>
+			<ion-button *ngIf="owned" slot="start" color="warning" (click)="actualizarPerfil()">
+				<ion-icon name="create"></ion-icon> Editar Perfil
+			</ion-button>
+			<ion-button *ngIf="owned" slot="end" color="danger">
+				<ion-icon name="trash"></ion-icon> Eliminar Perfil
+			</ion-button>
 			<ion-list *ngIf="hayAnuncios">
 				<ion-list-header>
-					<ion-label>Anuncios
-					</ion-label>
+					<ion-label>Anuncios:</ion-label>
 				</ion-list-header>
 				<ion-item *ngFor="let anuncio of anuncios">
 					<ion-thumbnail slot="start">
@@ -29,18 +37,15 @@
 						</ion-text>
 						<h2>Fecha: {{anuncio.fechaEvento |  date:'dd/MM/yyyy'}}</h2>
 						<h2>Instrumento: {{anuncio.instrumento}}</h2>
-						<h2>
-							<ion-icon name="pin"></ion-icon>{{anuncio.ubicacion}}
-						</h2>
+						<h2><ion-icon name="pin"></ion-icon>{{anuncio.ubicacion}}</h2>
 						<p *ngIf="anuncio.descripcion.length > 150">{{anuncio.descripcion | slice:0:150}}...</p>
 						<p *ngIf="anuncio.descripcion.length <= 150">{{anuncio.descripcion}}</p>
-						
 					</ion-label>
 					<ion-button fill="outline" slot="end" [routerLink]="'/ver-anuncio/'+anuncio.id">Ver</ion-button>
 				</ion-item>
 			</ion-list>
-			<ion-text  *ngIf="!hayAnuncios">El usuario todavia no ha creado anuncios.</ion-text>
-
+			<ion-text *ngIf="!hayAnuncios">El usuario todavia no ha creado anuncios.</ion-text>
 		</ion-card-content>
+
 	</ion-card>
 </ion-content>

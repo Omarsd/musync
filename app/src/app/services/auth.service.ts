@@ -16,6 +16,7 @@ export class AuthService {
 		nombreCompleto: '',
 		email: '',
 		cp: '',
+		descripcion: '',
 		rol: 'musico',
 		baneado: '0',
 		fechaBaneo: null,

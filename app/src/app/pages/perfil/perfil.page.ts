@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ModalController } from "@ionic/angular";
 import { FirebaseService } from 'src/app/services/anuncio.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { ActualizarPerfilComponent } from "../../components/actualizar-perfil/actualizar-perfil.component";
 import { Usuario } from 'src/app/model/usuario';
 import { Anuncio } from 'src/app/model/Anuncio';
 
@@ -13,36 +14,39 @@ import { Anuncio } from 'src/app/model/Anuncio';
 	styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
-	private today: Date= new Date()
-	private uid: string;
-	private owned: Boolean;
+	today: Date= new Date()
+	anunciosDisponibles = 0
+	uid: string;
+	owned: Boolean;
 
-	private usuarioLogeado: Usuario = {
+	usuarioLogeado: Usuario = {
 		id: '',
 		nick: '',
 		nombreCompleto: '',
 		email: '',
 		cp: '',
+		descripcion: '',
 		rol: '',
 		baneado: '',
 		fechaBaneo: null,
 		fechaDesbaneo: null
 	}
 
-	private usuarioPerfil: Usuario = {
+	usuarioPerfil: Usuario = {
 		id: '',
 		nick: '',
 		nombreCompleto: '',
 		email: '',
 		cp: '',
+		descripcion: '',
 		rol: '',
 		baneado: '',
 		fechaBaneo: null,
 		fechaDesbaneo: null
 	}
 
-	private hayAnuncios: Boolean;
-	private anuncios: Anuncio[] = [];
+	hayAnuncios: Boolean;
+	anuncios: Anuncio[] = [];
 
 	constructor(
 		private AFauth: AngularFireAuth,
@@ -115,6 +119,7 @@ export class PerfilPage implements OnInit {
 										titulo: doc.data().titulo,
 										ubicacion: doc.data().ubicacion
 									}
+									if(anuncio.fechaEvento >= this.today) this.anunciosDisponibles++;
 									this.anuncios[i++] = anuncio;
 								});
 							}
@@ -130,6 +135,17 @@ export class PerfilPage implements OnInit {
 				}
 			);
 		}
+	}
+
+	actualizarPerfil() {
+		this.modal.create({
+			component: ActualizarPerfilComponent,
+			componentProps: {
+				perfil: this.usuarioPerfil,
+				owned: this.owned,
+				uid: this.uid
+			}
+		}).then((modal) => modal.present())
 	}
 
 }
