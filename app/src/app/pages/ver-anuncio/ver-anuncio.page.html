@@ -29,7 +29,7 @@
 			<ion-button *ngIf="owned" slot="start" color="warning" (click)="actualizarAnuncio()">
 				<ion-icon name="create"></ion-icon> Editar
 			</ion-button>
-			<ion-button *ngIf="owned" slot="end" color="danger" (click)="deleteAnuncio()">
+			<ion-button *ngIf="owned" slot="end" color="danger" (click)="alertConfirmarEliminar()">
 				<ion-icon name="trash"></ion-icon> Eliminar
 			</ion-button>
 		</ion-card-content>

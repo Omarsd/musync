@@ -6,7 +6,7 @@ import { FirebaseService } from 'src/app/services/anuncio.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { ActualizarAnuncioComponent } from "../../components/actualizar-anuncio/actualizar-anuncio.component";
-import { ModalController } from "@ionic/angular";
+import { ModalController, AlertController } from "@ionic/angular";
 
 
 @Component({
@@ -53,7 +53,8 @@ export class VerAnuncioPage implements OnInit {
 		private router: Router,
 		private AFauth: AngularFireAuth,
 		private modal: ModalController,
-		private usuarioService: UsuarioService
+		private usuarioService: UsuarioService,
+		private alertController: AlertController,
 	) { }
 
 	ngOnInit() {
@@ -156,5 +157,30 @@ export class VerAnuncioPage implements OnInit {
 		console.log(navigationExtras.state)
 		this.router.navigate(['/mensajes'], navigationExtras);
 
+	}
+
+	async alertConfirmarEliminar() {
+		const alert = await this.alertController.create({
+			header: 'Eliminar anuncio.',
+			message: 'Esta acción será <strong>insalvable</strong>.',
+			buttons: [
+				{
+					text: 'Cancelar',
+					role: 'cancel',
+					cssClass: 'secondary',
+					handler: () => {
+						console.log('El anuncio no se ha eliminado');
+					}
+				}, {
+					text: 'Eliminar',
+					handler: () => {
+						console.log('El anuncio será eliminado');
+						this.fbService.deleteAnuncio(this.anuncio.id)
+						this.router.navigate(['/home']);
+					}
+				}
+			]
+		});
+		await alert.present();
 	}
 }

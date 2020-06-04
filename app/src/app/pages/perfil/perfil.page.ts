@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ModalController } from "@ionic/angular";
+import { ModalController, AlertController } from "@ionic/angular";
 import { FirebaseService } from 'src/app/services/anuncio.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ActualizarPerfilComponent } from "../../components/actualizar-perfil/actualizar-perfil.component";
 import { Usuario } from 'src/app/model/usuario';
 import { Anuncio } from 'src/app/model/Anuncio';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
 	selector: 'app-perfil',
@@ -14,10 +15,10 @@ import { Anuncio } from 'src/app/model/Anuncio';
 	styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
-	today: Date= new Date()
+	today: Date = new Date()
 	uid: string;
 	owned: Boolean;
-	
+
 	usuarioPerfil: Usuario = {
 		id: '',
 		nick: '',
@@ -38,12 +39,13 @@ export class PerfilPage implements OnInit {
 	constructor(
 		private AFauth: AngularFireAuth,
 		private fbService: FirebaseService,
+		private authServ: AuthService,
 		private usuarioServ: UsuarioService,
 		private activatedRoute: ActivatedRoute,
 		private router: Router,
 		private modal: ModalController,
-
-	) {}
+		private alertController: AlertController,
+	) { }
 
 	ngOnInit() {
 		this.AFauth.auth.onAuthStateChanged(
@@ -89,7 +91,7 @@ export class PerfilPage implements OnInit {
 								else {
 									var i = 0;
 									snapshot.forEach(doc => {
-										var anuncio : Anuncio = {
+										var anuncio: Anuncio = {
 											id: doc.id,
 											createdAt: doc.data().createdAt,
 											descripcion: doc.data().descripcion,
@@ -100,7 +102,7 @@ export class PerfilPage implements OnInit {
 											titulo: doc.data().titulo,
 											ubicacion: doc.data().ubicacion
 										}
-										if(anuncio.fechaEvento >= this.today) this.anunciosDisponibles++;
+										if (anuncio.fechaEvento >= this.today) this.anunciosDisponibles++;
 										this.anuncios[i++] = anuncio;
 									});
 								}
@@ -123,7 +125,7 @@ export class PerfilPage implements OnInit {
 	ngAfterViewInit(): void {
 	}
 
-	esValido(texto:String) : Boolean{
+	esValido(texto: String): Boolean {
 		return (texto == null || texto == undefined || texto == '') ? false : true;
 	}
 
@@ -138,4 +140,30 @@ export class PerfilPage implements OnInit {
 		}).then((modal) => modal.present())
 	}
 
+
+
+	async alertConfirmarEliminar() {
+		console.log('¿Eliminar usuario?');
+		const alert = await this.alertController.create({
+			header: 'Eliminar usuario.',
+			message: 'Esta acción será <strong>insalvable</strong>.',
+			buttons: [
+				{
+					text: 'Cancelar',
+					role: 'cancel',
+					cssClass: 'secondary',
+					handler: () => {
+						console.log('El usuario no se ha eliminado');
+					}
+				}, {
+					text: 'Eliminar',
+					handler: () => {
+						console.log('El usuario será eliminado');
+						this.authServ.eliminarPerfil(this.usuarioPerfil.id)
+					}
+				}
+			]
+		});
+		await alert.present();
+	}
 }

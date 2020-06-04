@@ -58,6 +58,7 @@ export class UsuarioService {
 	}
 
 	deleteUsuario(id: string): Promise<void> {
-		return this.usuarioColl.doc(id).delete();
+		console.log('eliminar de la base de datos.', id)
+		return this.usuarioColl.doc(id).delete()
 	}
 }

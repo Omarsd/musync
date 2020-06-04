@@ -56,16 +56,26 @@
 						</div>
 					</ion-col>
 				</ion-row>
+				<ion-row>
+					<ion-col>
+						<div size="6">
+							<ion-button *ngIf="owned" expand="block" color="warning" (click)="actualizarPerfil()">
+								<ion-icon name="create"></ion-icon> Editar Perfil
+							</ion-button>
+						</div>
+					</ion-col>
+					<ion-col>
+						<div size="6">
+							<ion-button *ngIf="owned"expand="block" color="danger" (click)="alertConfirmarEliminar()">
+								<ion-icon name="trash"></ion-icon> Eliminar Perfil
+							</ion-button>
+						</div>
+					</ion-col>
+				</ion-row>
 			</ion-grid>
 		</ion-card-header>
 
 		<ion-card-content>
-			<ion-button *ngIf="owned" slot="start" color="warning" (click)="actualizarPerfil()">
-				<ion-icon name="create"></ion-icon> Editar Perfil
-			</ion-button>
-			<ion-button *ngIf="owned" slot="end" color="danger">
-				<ion-icon name="trash"></ion-icon> Eliminar Perfil
-			</ion-button>
 			<ion-list *ngIf="anuncios.length != 0" class="ion-no-padding">
 				<ion-list-header>
 					<ion-label>Anuncios:</ion-label>
@@ -75,13 +85,29 @@
 						<img src="../../assets/img/music.png">
 					</ion-thumbnail>
 					<ion-label>
-						<ion-text><h1>{{anuncio.titulo}}</h1></ion-text>
-						<ion-text *ngIf="anuncio.fechaEvento < today" color="danger"><h2>anuncio caducado</h2></ion-text>
-						<ion-text><h2>Fecha del evento: {{anuncio.fechaEvento |  date:'dd/MM/yyyy'}}</h2></ion-text>
-						<ion-text><h2>Instrumento: {{anuncio.instrumento}}</h2></ion-text>
-						<ion-text><h2><ion-icon name="pin"></ion-icon>{{anuncio.ubicacion}}</h2></ion-text>
-						<ion-text><p *ngIf="anuncio.descripcion.length > 150">{{anuncio.descripcion | slice:0:150}}...</p></ion-text>
-						<ion-text><p *ngIf="anuncio.descripcion.length <= 150">{{anuncio.descripcion}}</p></ion-text>
+						<ion-text>
+							<h1>{{anuncio.titulo}}</h1>
+						</ion-text>
+						<ion-text *ngIf="anuncio.fechaEvento < today" color="danger">
+							<h2>anuncio caducado</h2>
+						</ion-text>
+						<ion-text>
+							<h2>Fecha del evento: {{anuncio.fechaEvento |  date:'dd/MM/yyyy'}}</h2>
+						</ion-text>
+						<ion-text>
+							<h2>Instrumento: {{anuncio.instrumento}}</h2>
+						</ion-text>
+						<ion-text>
+							<h2>
+								<ion-icon name="pin"></ion-icon>{{anuncio.ubicacion}}
+							</h2>
+						</ion-text>
+						<ion-text>
+							<p *ngIf="anuncio.descripcion.length > 150">{{anuncio.descripcion | slice:0:150}}...</p>
+						</ion-text>
+						<ion-text>
+							<p *ngIf="anuncio.descripcion.length <= 150">{{anuncio.descripcion}}</p>
+						</ion-text>
 					</ion-label>
 					<ion-button color="light" fill="outline" slot="end" [routerLink]="'/ver-anuncio/'+anuncio.id">
 						Ver</ion-button>

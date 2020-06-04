@@ -92,5 +92,27 @@ export class AuthService {
 			}
 		})
 	}
-	
+
+	eliminarPerfil(id) {
+		console.log('El usuario será eliminado');
+
+		this.AFauth.auth.currentUser.delete()
+			.then(() => {
+				// User deleted.
+				this.usuarioService.deleteUsuario(id)
+					.then( () => {
+						console.log('Usuario completamente eliminado de la base de datos.');
+					})
+					.catch( err => {
+						console.log('err. ', err);
+					});
+				console.log('Usuario eliminado.');
+			})
+			.catch(error => {
+				// An error happened.
+				console.log('error', error)
+				this.AFauth.auth.signOut()
+				this.router.navigate(['/login']);
+			});
+	}
 }
