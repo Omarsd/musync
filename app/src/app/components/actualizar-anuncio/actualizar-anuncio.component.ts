@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from 'src/app/services/anuncio.service';
+import { AnunciosService } from 'src/app/services/anuncio.service';
 import { Anuncio } from 'src/app/model/Anuncio';
 import { NavParams, ModalController } from "@ionic/angular";
 
@@ -45,7 +45,7 @@ export class ActualizarAnuncioComponent implements OnInit {
 
 	constructor(private navparams: NavParams,
 		private modal: ModalController,
-		private fbService: FirebaseService) {
+		private anunciosService: AnunciosService) {
 	}
 
 	ngOnInit() {
@@ -61,7 +61,7 @@ export class ActualizarAnuncioComponent implements OnInit {
 	}
 
 	updateAnuncio() {
-		this.fbService.updateAnuncio(this.anuncioTMP).then(
+		this.anunciosService.updateAnuncio(this.anuncioTMP).then(
 			() => {
 				Object.assign(this.anuncio, this.anuncioTMP)
 				this.salir();
@@ -85,7 +85,7 @@ export class ActualizarAnuncioComponent implements OnInit {
 	  }
   
 	  constructor(private activatedRoute: ActivatedRoute, 
-		  private fbService: FirebaseService, 
+		  private anunciosService: FirebaseService, 
 		  private router: Router) {
 	  }
   
@@ -95,7 +95,7 @@ export class ActualizarAnuncioComponent implements OnInit {
 	  ngAfterViewInit(): void {
 		  const id = this.activatedRoute.snapshot.paramMap.get('id');
 		  if (id) {
-			  this.fbService.getAnuncio(id).subscribe(
+			  this.anunciosService.getAnuncio(id).subscribe(
 				  data => {
 					  this.anuncio = data;
 				  },
@@ -107,7 +107,7 @@ export class ActualizarAnuncioComponent implements OnInit {
 	  }
   
 	  updateAnuncio() {
-		  this.fbService.updateAnuncio(this.anuncio).then(() => {
+		  this.anunciosService.updateAnuncio(this.anuncio).then(() => {
 		  this.router.navigate(['/']);
 		  }, err => {
 		  });

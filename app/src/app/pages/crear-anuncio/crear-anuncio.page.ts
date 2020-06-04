@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Anuncio } from 'src/app/model/Anuncio';
 import { Router } from '@angular/router';
-import { FirebaseService } from 'src/app/services/anuncio.service';
+import { AnunciosService } from 'src/app/services/anuncio.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
@@ -25,7 +25,7 @@ export class CrearAnuncioPage implements OnInit {
 	};
 
 	constructor(
-		private fbService: FirebaseService,
+		private anunciosService: AnunciosService,
 		private AFauth: AngularFireAuth,
 		private router: Router
 	) {
@@ -48,7 +48,7 @@ export class CrearAnuncioPage implements OnInit {
 	}
 
 	addAnuncio() {
-		this.fbService.addAnuncio(this.anuncio).then(
+		this.anunciosService.addAnuncio(this.anuncio).then(
 			() => {
 				this.router.navigateByUrl('/');
 			},

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ModalController, AlertController } from "@ionic/angular";
-import { FirebaseService } from 'src/app/services/anuncio.service';
+import { ModalController } from "@ionic/angular";
+import { AnunciosService } from 'src/app/services/anuncio.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ActualizarPerfilComponent } from "../../components/actualizar-perfil/actualizar-perfil.component";
 import { Usuario } from 'src/app/model/usuario';
@@ -38,13 +38,12 @@ export class PerfilPage implements OnInit {
 
 	constructor(
 		private AFauth: AngularFireAuth,
-		private fbService: FirebaseService,
+		private anunciosService: AnunciosService,
 		private authServ: AuthService,
 		private usuarioServ: UsuarioService,
 		private activatedRoute: ActivatedRoute,
 		private router: Router,
 		private modal: ModalController,
-		private alertController: AlertController,
 	) { }
 
 	ngOnInit() {
@@ -81,7 +80,7 @@ export class PerfilPage implements OnInit {
 						}
 
 						// Obtener los anuncios del musico.
-						this.fbService.getAnunciosMusico(this.usuarioPerfil.id).get()
+						this.anunciosService.getAnunciosMusico(this.usuarioPerfil.id).get()
 							.then(snapshot => {
 								// Comprobar si no tiene anuncios creados.
 								if (snapshot.empty) {
@@ -138,32 +137,5 @@ export class PerfilPage implements OnInit {
 				uid: this.uid
 			}
 		}).then((modal) => modal.present())
-	}
-
-
-
-	async alertConfirmarEliminar() {
-		console.log('¿Eliminar usuario?');
-		const alert = await this.alertController.create({
-			header: 'Eliminar usuario.',
-			message: 'Esta acción será <strong>insalvable</strong>.',
-			buttons: [
-				{
-					text: 'Cancelar',
-					role: 'cancel',
-					cssClass: 'secondary',
-					handler: () => {
-						console.log('El usuario no se ha eliminado');
-					}
-				}, {
-					text: 'Eliminar',
-					handler: () => {
-						console.log('El usuario será eliminado');
-						this.authServ.eliminarPerfil(this.usuarioPerfil.id)
-					}
-				}
-			]
-		});
-		await alert.present();
 	}
 }

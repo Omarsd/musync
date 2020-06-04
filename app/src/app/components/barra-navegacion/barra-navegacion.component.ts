@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { UsuarioService } from "../../services/usuario.service";
 import { AuthService } from "../../services/auth.service";
-import { FirebaseService } from '../../services/anuncio.service';
 import { isNullOrUndefined } from 'util';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from "@angular/router";
@@ -38,7 +37,6 @@ export class BarraNavegacionComponent {
 		private splashScreen: SplashScreen,
 		private statusBar: StatusBar,
 		private userService: UsuarioService,
-		private fbService: FirebaseService,
 		private authservice: AuthService,
 		private AFauth: AngularFireAuth,
 		private router: Router

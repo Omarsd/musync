@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Anuncio } from 'src/app/model/Anuncio';
 import { Usuario } from 'src/app/model/usuario';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
-import { FirebaseService } from 'src/app/services/anuncio.service';
+import { AnunciosService } from 'src/app/services/anuncio.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { ActualizarAnuncioComponent } from "../../components/actualizar-anuncio/actualizar-anuncio.component";
@@ -49,12 +49,11 @@ export class VerAnuncioPage implements OnInit {
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
-		private fbService: FirebaseService,
+		private anunciosService: AnunciosService,
 		private router: Router,
 		private AFauth: AngularFireAuth,
 		private modal: ModalController,
 		private usuarioService: UsuarioService,
-		private alertController: AlertController,
 	) { }
 
 	ngOnInit() {
@@ -73,7 +72,7 @@ export class VerAnuncioPage implements OnInit {
 
 		const id = this.activatedRoute.snapshot.paramMap.get('id');
 		if (id) {
-			this.fbService.getAnuncio(id).subscribe(
+			this.anunciosService.getAnuncio(id).subscribe(
 				data => {
 					if (data) {		// Si data tiene un valor valido
 						this.anuncio = data;
@@ -114,18 +113,10 @@ export class VerAnuncioPage implements OnInit {
 	ngAfterViewInit(): void {
 	}
 
-	deleteAnuncio() {
-		this.fbService.deleteAnuncio(this.anuncio.id).then(
-			() => {
-				this.router.navigateByUrl('/');
-			},
-			err => {
-				console.error("Error:")
-				console.error(err);
-			}
-		);
+	eliminarAnuncio() {
+		this.anunciosService.alertConfirmarEliminar(this.anuncio.id)
 	}
-
+	
 	actualizarAnuncio() {
 		this.modal.create({
 			component: ActualizarAnuncioComponent,
@@ -159,28 +150,4 @@ export class VerAnuncioPage implements OnInit {
 
 	}
 
-	async alertConfirmarEliminar() {
-		const alert = await this.alertController.create({
-			header: 'Eliminar anuncio.',
-			message: 'Esta acción será <strong>insalvable</strong>.',
-			buttons: [
-				{
-					text: 'Cancelar',
-					role: 'cancel',
-					cssClass: 'secondary',
-					handler: () => {
-						console.log('El anuncio no se ha eliminado');
-					}
-				}, {
-					text: 'Eliminar',
-					handler: () => {
-						console.log('El anuncio será eliminado');
-						this.fbService.deleteAnuncio(this.anuncio.id)
-						this.router.navigate(['/home']);
-					}
-				}
-			]
-		});
-		await alert.present();
-	}
 }

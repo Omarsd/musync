@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Anuncio } from '../model/Anuncio';
-import { FirebaseService } from '../services/anuncio.service';
+import { AnunciosService } from '../services/anuncio.service';
 import { UsuarioService } from "../services/usuario.service";
 import { Usuario } from '../model/usuario';
 import { AuthService } from "../services/auth.service";
@@ -59,7 +59,8 @@ export class HomePage implements OnInit {
 	private anuncios: Observable<Anuncio[]>;
 	private anunciosFiltrados: Observable<Anuncio[]>;
 
-	constructor(private fbService: FirebaseService,
+	constructor(
+		private anunciosService: AnunciosService,
 		public authservice: AuthService,
 		private AFauth: AngularFireAuth,
 		private router: Router,
@@ -67,7 +68,7 @@ export class HomePage implements OnInit {
 
 	ngOnInit(): void {
 
-		this.anuncios = this.fbService.getAllAnuncio();
+		this.anuncios = this.anunciosService.getAllAnuncio();
 		this.anunciosFiltrados = this.anuncios
 
 		//Si esta logueado, pone logedout a false. esto cambia los botones "registrarse", "login" y "logout"
