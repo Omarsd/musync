@@ -6,6 +6,10 @@
 		</ion-card-header>
 
 		<ion-card-content>
+			<ion-card-subtitle>{{anuncio.instrumento}}</ion-card-subtitle>
+		</ion-card-content>
+
+		<ion-card-content>
 			<p class="ion-text-justify">{{anuncio.descripcion}}</p>
 		</ion-card-content>
 
@@ -75,5 +79,5 @@
 		</ion-card-content>
 	</ion-card>
 
-	<ion-button color="primary" expand="full" (click)="enviarMensaje()">Enviar mensaje</ion-button>
+	<ion-button *ngIf="!owned" color="primary" expand="full" (click)="enviarMensaje()">Enviar mensaje</ion-button>
 </ion-content>

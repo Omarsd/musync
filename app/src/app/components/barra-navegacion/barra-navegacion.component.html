@@ -23,7 +23,11 @@
 		<ion-buttons slot="start">
 			<ion-menu-button></ion-menu-button>
 		</ion-buttons>
-		<ion-title class="ion-text-left">Musync</ion-title>
+		
+			<ion-avatar routerLink="/home/" slot="start">
+				<img src="https://i.imgur.com/nKIjsNZ.jpg" alt="Musync">
+			</ion-avatar>
+
 		<ion-chip routerLink="/perfil/{{usuario.id}}" slot="end" *ngIf="!logedout">
 			<ion-icon ios="ios-person" md="md-person"></ion-icon>
 			<ion-label>{{usuario.nombreCompleto}}</ion-label>
@@ -33,6 +37,6 @@
 			<ion-icon ios="ios-exit" md="md-exit"></ion-icon>
 		</ion-button>
 		<ion-button *ngIf="logedout" slot="end" color="success" [routerLink]="['/registrarse']">Registrarse</ion-button>
-		<ion-button *ngIf="logedout" slot="end" color="blue" [routerLink]="['/login']">Login</ion-button>
+		<ion-button *ngIf="logedout" slot="end" color="blue" [routerLink]="['/login']" style="padding-right:1.5%">Login</ion-button>
 	</ion-toolbar>
 </ion-header>
