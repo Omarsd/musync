@@ -23,6 +23,7 @@ export class ActualizarPerfilComponent implements OnInit {
 		nick: '',
 		cp: '',
 		descripcion: '',
+		imagenPerfil: '',
 		rol: '',
 		baneado: '',
 		fechaBaneo: null,
@@ -36,6 +37,7 @@ export class ActualizarPerfilComponent implements OnInit {
 		nick: '',
 		cp: '',
 		descripcion: '',
+		imagenPerfil: '',
 		rol: '',
 		baneado: '',
 		fechaBaneo: null,
@@ -55,7 +57,8 @@ export class ActualizarPerfilComponent implements OnInit {
 		this.owned = this.navparams.get('owned')
 		this.uid = this.navparams.get('uid')
 		Object.assign(this.perfilTMP, this.perfil)
-		console.log(this.perfil)
+		console.log('perfil', this.perfil)
+		console.log('perifl temporal', this.perfil)
 	}
 
 	salir() {

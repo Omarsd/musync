@@ -1,18 +1,62 @@
-<ion-header>
-	<ion-toolbar color="primary">
-		<ion-title>Perfil</ion-title>
-	</ion-toolbar>
-</ion-header>
 <ion-content>
 	<ion-card color="primary">
 
 		<ion-card-header>
-			<ion-card-title><ion-icon name="person"></ion-icon>{{usuarioPerfil.nick}}</ion-card-title>
-			<ion-card-title>{{usuarioPerfil.nombreCompleto}}</ion-card-title>
-			<ion-card-title><ion-icon name="albums"></ion-icon>{{anuncios.length}} anuncios creados</ion-card-title>
-			<ion-card-title><ion-icon name="checkmark"></ion-icon>{{anunciosDisponibles}} anuncios disponibles</ion-card-title>
-			<ion-card-title><ion-icon name="pin"></ion-icon> {{usuarioPerfil.cp}}</ion-card-title>
-			<ion-card-title><ion-icon name="document"></ion-icon>{{usuarioPerfil.descripcion}}</ion-card-title>
+			<ion-grid>
+				<ion-row>
+					<ion-col>
+						<div size="12">
+							<ion-card-title>{{usuarioPerfil.nick}}</ion-card-title>
+						</div>
+					</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col size="4">
+						<div>
+							<ion-avatar>
+								<img *ngIf="esValido(usuarioPerfil.imagenPerfil)" src="{{usuarioPerfil.imagenPerfil}}">
+								<img *ngIf="!esValido(usuarioPerfil.imagenPerfil)"
+									src="../../../assets/img/noImagenPerfil.png">
+							</ion-avatar>
+						</div>
+					</ion-col>
+					<ion-col size="4">
+						<div>
+							<ion-card-title>{{anuncios.length}} anuncios</ion-card-title>
+						</div>
+					</ion-col>
+					<ion-col size="4">
+						<div>
+							<ion-card-title *ngIf="anuncios.length != anunciosDisponibles">{{anunciosDisponibles}}
+								disponibles</ion-card-title>
+						</div>
+					</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col>
+						<div size="12">
+							<ion-card-title>{{usuarioPerfil.nombreCompleto}}</ion-card-title>
+						</div>
+					</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col>
+						<div size="12">
+							<ion-card-title *ngIf="esValido(usuarioPerfil.cp)">
+								<ion-icon name="pin"></ion-icon> {{usuarioPerfil.cp}}
+							</ion-card-title>
+						</div>
+					</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col>
+						<div size="12">
+							<ion-card-subtitle *ngIf="esValido(usuarioPerfil.descripcion)" class="ion-text-justify">
+								{{usuarioPerfil.descripcion}}</ion-card-subtitle>
+						</div>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
 		</ion-card-header>
 
 		<ion-card-content>
@@ -22,29 +66,34 @@
 			<ion-button *ngIf="owned" slot="end" color="danger">
 				<ion-icon name="trash"></ion-icon> Eliminar Perfil
 			</ion-button>
-			<ion-list *ngIf="hayAnuncios">
+			<ion-list *ngIf="anuncios.length != 0" class="ion-no-padding">
 				<ion-list-header>
 					<ion-label>Anuncios:</ion-label>
 				</ion-list-header>
-				<ion-item *ngFor="let anuncio of anuncios">
+				<ion-item *ngFor="let anuncio of anuncios" class="anuncio" color="primary">
 					<ion-thumbnail slot="start">
 						<img src="../../assets/img/music.png">
 					</ion-thumbnail>
 					<ion-label>
-						<h1>{{anuncio.titulo}}</h1>
-						<ion-text *ngIf="anuncio.fechaEvento < today" color="danger">
-							<h2>anuncio caducado</h2>
-						</ion-text>
-						<h2>Fecha: {{anuncio.fechaEvento |  date:'dd/MM/yyyy'}}</h2>
-						<h2>Instrumento: {{anuncio.instrumento}}</h2>
-						<h2><ion-icon name="pin"></ion-icon>{{anuncio.ubicacion}}</h2>
-						<p *ngIf="anuncio.descripcion.length > 150">{{anuncio.descripcion | slice:0:150}}...</p>
-						<p *ngIf="anuncio.descripcion.length <= 150">{{anuncio.descripcion}}</p>
+						<ion-text><h1>{{anuncio.titulo}}</h1></ion-text>
+						<ion-text *ngIf="anuncio.fechaEvento < today" color="danger"><h2>anuncio caducado</h2></ion-text>
+						<ion-text><h2>Fecha del evento: {{anuncio.fechaEvento |  date:'dd/MM/yyyy'}}</h2></ion-text>
+						<ion-text><h2>Instrumento: {{anuncio.instrumento}}</h2></ion-text>
+						<ion-text><h2><ion-icon name="pin"></ion-icon>{{anuncio.ubicacion}}</h2></ion-text>
+						<ion-text><p *ngIf="anuncio.descripcion.length > 150">{{anuncio.descripcion | slice:0:150}}...</p></ion-text>
+						<ion-text><p *ngIf="anuncio.descripcion.length <= 150">{{anuncio.descripcion}}</p></ion-text>
 					</ion-label>
-					<ion-button fill="outline" slot="end" [routerLink]="'/ver-anuncio/'+anuncio.id">Ver</ion-button>
+					<ion-button color="light" fill="outline" slot="end" [routerLink]="'/ver-anuncio/'+anuncio.id">
+						Ver</ion-button>
 				</ion-item>
 			</ion-list>
-			<ion-text *ngIf="!hayAnuncios">El usuario todavia no ha creado anuncios.</ion-text>
+			<ion-list *ngIf="anuncios.length == 0" class="ion-no-padding">
+				<ion-list-header color="primary">
+					<ion-text>
+						<h2>El usuario todavia no ha creado anuncios.</h2>
+					</ion-text>
+				</ion-list-header>
+			</ion-list>
 		</ion-card-content>
 
 	</ion-card>

@@ -15,23 +15,9 @@ import { Anuncio } from 'src/app/model/Anuncio';
 })
 export class PerfilPage implements OnInit {
 	today: Date= new Date()
-	anunciosDisponibles = 0
 	uid: string;
 	owned: Boolean;
-
-	usuarioLogeado: Usuario = {
-		id: '',
-		nick: '',
-		nombreCompleto: '',
-		email: '',
-		cp: '',
-		descripcion: '',
-		rol: '',
-		baneado: '',
-		fechaBaneo: null,
-		fechaDesbaneo: null
-	}
-
+	
 	usuarioPerfil: Usuario = {
 		id: '',
 		nick: '',
@@ -39,14 +25,15 @@ export class PerfilPage implements OnInit {
 		email: '',
 		cp: '',
 		descripcion: '',
+		imagenPerfil: '',
 		rol: '',
 		baneado: '',
 		fechaBaneo: null,
 		fechaDesbaneo: null
 	}
 
-	hayAnuncios: Boolean;
 	anuncios: Anuncio[] = [];
+	anunciosDisponibles = 0
 
 	constructor(
 		private AFauth: AngularFireAuth,
@@ -59,82 +46,85 @@ export class PerfilPage implements OnInit {
 	) {}
 
 	ngOnInit() {
-
 		this.AFauth.auth.onAuthStateChanged(
 			user => {
 				if (user) {
 					// usuario logeado
 					this.uid = user.uid
-
-					this.usuarioServ.getUsuario(this.uid).subscribe(
-						busquedaUsuario => {
-							this.usuarioLogeado = busquedaUsuario;
-							console.log(this.usuarioLogeado)
-						}
-					);
 				}
 				else {
 					// usuario no logeado
-					this.router.navigate(['/home'])
+					this.router.navigate(['/login'])
 				}
+			},
+			err => {
+				console.log('Error en la consulta del inicio de sesión.', err)
 			}
 		);
-	}
-
-	ngAfterViewInit(): void {
 		const id = this.activatedRoute.snapshot.paramMap.get('id');
 		if (id) {
 			this.usuarioServ.getUsuario(id).subscribe(
 				busquedaUsuario => {
-					// Obtener usuario del link
-					this.usuarioPerfil = busquedaUsuario;
-					// Comprobar si es el propio perfil
-					if (busquedaUsuario.id == this.uid) {
-						this.owned = true
-					} else {
-						this.owned = false
-					}
+					if (busquedaUsuario) {
+						console.log('busquedaUsuario', busquedaUsuario)
+						// Obtener usuario del perfil
+						this.usuarioPerfil = busquedaUsuario;
 
-					// Obtener los anuncios del musico.
-					this.fbService.getAnunciosMusico(this.usuarioPerfil.id).get()
-						.then(snapshot => {
-							// Comprobar si no tiene anuncios creados.
-							if (snapshot.empty) {
-								console.log('No hay resultados.');
-								this.hayAnuncios = false;
-							}
-							// Obtener los anuncios en caso de si tener
-							else {
-								this.hayAnuncios = true;
-								var i = 0;
-								snapshot.forEach(doc => {
-									var anuncio : Anuncio = {
-										id: doc.id,
-										createdAt: doc.data().createdAt,
-										descripcion: doc.data().descripcion,
-										fechaEvento: new Date(doc.data().fechaEvento),
-										idMusico: doc.data().idMusico,
-										instrumento: doc.data().instrumento,
-										tipoDemanda: doc.data().tipoDemanda,
-										titulo: doc.data().titulo,
-										ubicacion: doc.data().ubicacion
-									}
-									if(anuncio.fechaEvento >= this.today) this.anunciosDisponibles++;
-									this.anuncios[i++] = anuncio;
-								});
-							}
-						})
-						// Capturar errores, en caso de haberlos a la hora de obtenerlos.
-						.catch(err => {
-							console.log('Error al obtener los resultados. ', err);
-						});
+						// Comprobar si el perfil es el propio
+						if (busquedaUsuario.id == this.uid) {
+							this.owned = true
+						}
+						else {
+							this.owned = false
+						}
+
+						// Obtener los anuncios del musico.
+						this.fbService.getAnunciosMusico(this.usuarioPerfil.id).get()
+							.then(snapshot => {
+								// Comprobar si no tiene anuncios creados.
+								if (snapshot.empty) {
+									console.log('No hay resultados.');
+								}
+								// Obtener los anuncios en caso de si tener
+								else {
+									var i = 0;
+									snapshot.forEach(doc => {
+										var anuncio : Anuncio = {
+											id: doc.id,
+											createdAt: doc.data().createdAt,
+											descripcion: doc.data().descripcion,
+											fechaEvento: new Date(doc.data().fechaEvento),
+											idMusico: doc.data().idMusico,
+											instrumento: doc.data().instrumento,
+											tipoDemanda: doc.data().tipoDemanda,
+											titulo: doc.data().titulo,
+											ubicacion: doc.data().ubicacion
+										}
+										if(anuncio.fechaEvento >= this.today) this.anunciosDisponibles++;
+										this.anuncios[i++] = anuncio;
+									});
+								}
+							})
+							// Capturar errores, en caso de haberlos a la hora de obtenerlos.
+							.catch(err => {
+								console.log('Error al obtener los resultados. ', err);
+							});
+					}
 				},
 				// Si no existe el musico al que se ha accedido, mandar a 404
 				err => {
+					console.log('Error en la consulta del perfil.', err)
 					this.router.navigate(['/no-encontrado'])
 				}
 			);
 		}
+	}
+
+	ngAfterViewInit(): void {
+	}
+
+	esValido(texto:String) : Boolean{
+		return (texto == null || texto == undefined || texto == '') ? false : true;
 	}
 
 	actualizarPerfil() {

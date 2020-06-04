@@ -17,6 +17,7 @@ export class AuthService {
 		email: '',
 		cp: '',
 		descripcion: '',
+		imagenPerfil: '',
 		rol: 'musico',
 		baneado: '0',
 		fechaBaneo: null,
@@ -41,14 +42,25 @@ export class AuthService {
 
 	loginGoogle(){
 		return new Promise((resolve, rejected) => {
-			this.AFauth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(user => {
+			this.AFauth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+			.then(user => {
 				resolve(user);
 				console.log(user)
-				this.usuario.nombreCompleto = user.user.displayName
-				this.usuario.email = user.user.email
-				this.usuarioService.addUsuario(this.usuario, user.user.uid)
+
+				if(user.additionalUserInfo.isNewUser){
+					this.usuario.nombreCompleto = user.user.displayName;
+					this.usuario.email = user.user.email;
+					this.usuario.nick = user.user.uid;
+					this.usuario.imagenPerfil = user.user.photoURL;
+					
+					this.usuarioService.addUsuario(this.usuario, user.user.uid)
+				}
+
 				this.router.navigate(['/home'])
-			}).catch(err => rejected(err))
+			})
+			.catch(err => {
+				rejected(err)
+			})
 		})
 	
 	

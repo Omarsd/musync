@@ -24,6 +24,7 @@ export class VerAnuncioPage implements OnInit {
 		email: '',
 		cp: '',
 		descripcion: '',
+		imagenPerfil: '',
 		rol: '',
 		baneado: '',
 		fechaBaneo: null,
@@ -69,35 +70,47 @@ export class VerAnuncioPage implements OnInit {
 			}
 		);
 
-	}
-
-	ngAfterViewInit(): void {
 		const id = this.activatedRoute.snapshot.paramMap.get('id');
 		if (id) {
 			this.fbService.getAnuncio(id).subscribe(
 				data => {
-					this.anuncio = data;
-					this.anuncio.id = id;
+					if (data) {		// Si data tiene un valor valido
+						this.anuncio = data;
+						this.anuncio.id = id;
 
-					if (data.idMusico == this.uid) {
-						this.owned = true
-					} else {
-						this.owned = false
-					}
-
-					this.usuarioService.getUsuario(this.anuncio.idMusico).subscribe(
-						data => {
-							this.usuario = data;
+						if (data.idMusico == this.uid) {
+							this.owned = true
 						}
-					);
+						else {
+							this.owned = false
+						}
 
+						this.usuarioService.getUsuario(this.anuncio.idMusico).subscribe(
+							data => {
+								this.usuario = data;
+							},
+							err => {
+								console.log('Usuario del Anuncio no encontrado: ', err)
+							}
+						);
+
+					}
+					else{		// Si data no tiene un valor valido. Ej: undefined, null...
+						console.log('Anuncio no encontrado: ')
+						this.router.navigate(['/no-encontrado'])
+					}
 				},
 				err => {
+					console.log('Error en la consulta del anuncio: ', err)
 					this.router.navigate(['/no-encontrado'])
 				}
 			);
 
 		}
+
+	}
+
+	ngAfterViewInit(): void {
 	}
 
 	deleteAnuncio() {
@@ -129,8 +142,6 @@ export class VerAnuncioPage implements OnInit {
 	}
 
 	enviarMensaje() {
-
-
 		let datos = {
 			idAnuncio: this.anuncio.id,
 			idReceptor: this.anuncio.idMusico,

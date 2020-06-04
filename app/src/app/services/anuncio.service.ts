@@ -51,11 +51,7 @@ export class FirebaseService {
 	}
 
 	getAnunciosMusico(idMusico: string): Query {
-
-		// Create a reference to the cities collection
 		var citiesRef = this.afs.firestore.collection("anuncios");
-
-		// Create a query against the collection.
 		var query = citiesRef.where("idMusico", "==", idMusico)
 		
 		return query
@@ -66,7 +62,6 @@ export class FirebaseService {
 	}
 
 	updateAnuncio(anuncio: Anuncio): Promise<void> {
-		console.log(anuncio.tipoDemanda)
 		return this.anuncioColl.doc(anuncio.id).update({
 			titulo: anuncio.titulo,
 			descripcion: anuncio.descripcion,

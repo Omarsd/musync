@@ -44,6 +44,7 @@ export class UsuarioService {
 	}
 
 	updateUsuario(usuario: Usuario, id: string): Promise<void> {
+		console.log('cambio de perfil:', usuario, id)
 		return this.usuarioColl.doc(id).update({
 			nick: usuario.nick,
 			nombreCompleto: usuario.nombreCompleto,
