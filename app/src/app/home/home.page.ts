@@ -91,6 +91,8 @@ export class HomePage implements OnInit {
 				);
 			}
 		})
+
+
 	}
 
 
@@ -114,12 +116,17 @@ export class HomePage implements OnInit {
 
 		// Esto es lo que filtra.
 		return this.anunciosFiltrados = this.anuncios.pipe(
-			map(items =>
-				items.filter(item =>
-					item.titulo.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-					item.instrumento.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-					item.descripcion.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-					item.ubicacion.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1)))
+			map(items =>{
+				var terminosBusqueda = searchTerm.split(" ")
+				for(var i of terminosBusqueda){
+					items = items.filter(item =>
+					item.titulo.toLowerCase().indexOf(i.toLowerCase()) > -1 ||
+					item.instrumento.toLowerCase().indexOf(i.toLowerCase()) > -1 ||
+					item.descripcion.toLowerCase().indexOf(i.toLowerCase()) > -1 ||
+					item.ubicacion.toLowerCase().indexOf(i.toLowerCase()) > -1)
+				}
+				return items
+			}))
 	}
 
 	reinicializarCriterios() {
