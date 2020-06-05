@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Anuncio } from '../model/Anuncio';
-import { FirebaseService } from '../services/anuncio.service';
+import { AnunciosService } from '../services/anuncio.service';
 import { UsuarioService } from "../services/usuario.service";
 import { Usuario } from '../model/usuario';
 import { AuthService } from "../services/auth.service";
@@ -28,11 +28,15 @@ interface criteriosBusqueda {
 
 export class HomePage implements OnInit {
 
+	today: Date= new Date();
+
 	usuario: Usuario = {
 		nick: '',
 		nombreCompleto: '',
 		email: '',
 		cp: '',
+		descripcion: '',
+		imagenPerfil: '',
 		rol: '',
 		baneado: '',
 		fechaBaneo: null,
@@ -40,6 +44,7 @@ export class HomePage implements OnInit {
 	}
 
 	logedout: boolean
+	expandido: boolean
 
 	criterios: criteriosBusqueda = {
 		titulo: '',
@@ -54,7 +59,8 @@ export class HomePage implements OnInit {
 	private anuncios: Observable<Anuncio[]>;
 	private anunciosFiltrados: Observable<Anuncio[]>;
 
-	constructor(private fbService: FirebaseService,
+	constructor(
+		private anunciosService: AnunciosService,
 		public authservice: AuthService,
 		private AFauth: AngularFireAuth,
 		private router: Router,
@@ -62,7 +68,7 @@ export class HomePage implements OnInit {
 
 	ngOnInit(): void {
 
-		this.anuncios = this.fbService.getAllAnuncio();
+		this.anuncios = this.anunciosService.getAllAnuncio();
 		this.anunciosFiltrados = this.anuncios
 
 		//Si esta logueado, pone logedout a false. esto cambia los botones "registrarse", "login" y "logout"
@@ -95,10 +101,10 @@ export class HomePage implements OnInit {
 		return this.anunciosFiltrados = this.anuncios.pipe(
 			map(items =>
 				items.filter(item =>
-					(item.titulo.toLowerCase().indexOf(this.criterios.titulo.toLowerCase()) > -1 || this.criterios.titulo == '') &&
-					(item.instrumento.toLowerCase().indexOf(this.criterios.instrumento.toLowerCase()) > -1 || this.criterios.instrumento == '') &&
-					(item.descripcion.toLowerCase().indexOf(this.criterios.descripcion.toLowerCase()) > -1 || this.criterios.descripcion == '') &&
-					(item.ubicacion.toLowerCase().indexOf(this.criterios.ubicacion.toLowerCase()) > -1 || this.criterios.ubicacion == '') &&
+					(item.titulo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(this.criterios.titulo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 || this.criterios.titulo == '') &&
+					(item.instrumento.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(this.criterios.instrumento.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 || this.criterios.instrumento == '') &&
+					(item.descripcion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(this.criterios.descripcion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 || this.criterios.descripcion == '') &&
+					(item.ubicacion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(this.criterios.ubicacion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 || this.criterios.ubicacion == '') &&
 					(item.fechaEvento <= this.criterios.aFecha || this.criterios.aFecha == null) && (item.fechaEvento >= this.criterios.deFecha || this.criterios.deFecha == null) &&
 					(item.tipoDemanda == this.criterios.tipoDemanda || this.criterios.tipoDemanda == null)
 				)))
@@ -110,12 +116,17 @@ export class HomePage implements OnInit {
 
 		// Esto es lo que filtra.
 		return this.anunciosFiltrados = this.anuncios.pipe(
-			map(items =>
-				items.filter(item =>
-					item.titulo.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-					item.instrumento.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-					item.descripcion.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ||
-					item.ubicacion.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1)))
+			map(items =>{
+				var terminosBusqueda = searchTerm.split(" ")
+				for(var i of terminosBusqueda){
+					items = items.filter(item =>
+					item.titulo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(i.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 ||
+					item.instrumento.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(i.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 ||
+					item.descripcion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(i.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 ||
+					item.ubicacion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(i.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1)
+				}
+				return items
+			}))
 	}
 
 	reinicializarCriterios() {
@@ -138,6 +149,14 @@ export class HomePage implements OnInit {
 	logout() {
 		this.authservice.logout()
 		this.logedout = true
+	}
+
+	expandir() {
+		if (this.expandido) {
+			this.expandido = false
+		} else {
+			this.expandido = true
+		}
 	}
 
 }

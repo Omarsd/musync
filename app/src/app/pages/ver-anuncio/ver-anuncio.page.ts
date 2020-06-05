@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Anuncio } from 'src/app/model/Anuncio';
 import { Usuario } from 'src/app/model/usuario';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
-import { FirebaseService } from 'src/app/services/anuncio.service';
+import { AnunciosService } from 'src/app/services/anuncio.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { ActualizarAnuncioComponent } from "../../components/actualizar-anuncio/actualizar-anuncio.component";
-import { ModalController } from "@ionic/angular";
+import { ModalController, AlertController } from "@ionic/angular";
 
 
 @Component({
@@ -23,6 +23,8 @@ export class VerAnuncioPage implements OnInit {
 		nombreCompleto: '',
 		email: '',
 		cp: '',
+		descripcion: '',
+		imagenPerfil: '',
 		rol: '',
 		baneado: '',
 		fechaBaneo: null,
@@ -47,11 +49,11 @@ export class VerAnuncioPage implements OnInit {
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
-		private fbService: FirebaseService,
+		private anunciosService: AnunciosService,
 		private router: Router,
 		private AFauth: AngularFireAuth,
 		private modal: ModalController,
-		private usuarioService: UsuarioService
+		private usuarioService: UsuarioService,
 	) { }
 
 	ngOnInit() {
@@ -68,49 +70,53 @@ export class VerAnuncioPage implements OnInit {
 			}
 		);
 
-	}
-
-	ngAfterViewInit(): void {
 		const id = this.activatedRoute.snapshot.paramMap.get('id');
 		if (id) {
-			this.fbService.getAnuncio(id).subscribe(
+			this.anunciosService.getAnuncio(id).subscribe(
 				data => {
-					this.anuncio = data;
-					this.anuncio.id = id;
+					if (data) {		// Si data tiene un valor valido
+						this.anuncio = data;
+						this.anuncio.id = id;
 
-					if (data.idMusico == this.uid) {
-						this.owned = true
-					} else {
-						this.owned = false
-					}
-
-					this.usuarioService.getUsuario(this.anuncio.idMusico).subscribe(
-						data => {
-							this.usuario = data;
+						if (data.idMusico == this.uid) {
+							this.owned = true
 						}
-					);
+						else {
+							this.owned = false
+						}
 
+						this.usuarioService.getUsuario(this.anuncio.idMusico).subscribe(
+							data => {
+								this.usuario = data;
+							},
+							err => {
+								console.log('Usuario del Anuncio no encontrado: ', err)
+							}
+						);
+
+					}
+					else{		// Si data no tiene un valor valido. Ej: undefined, null...
+						console.log('Anuncio no encontrado: ')
+						this.router.navigate(['/no-encontrado'])
+					}
 				},
 				err => {
+					console.log('Error en la consulta del anuncio: ', err)
 					this.router.navigate(['/no-encontrado'])
 				}
 			);
 
 		}
+
 	}
 
-	deleteAnuncio() {
-		this.fbService.deleteAnuncio(this.anuncio.id).then(
-			() => {
-				this.router.navigateByUrl('/');
-			},
-			err => {
-				console.error("Error:")
-				console.error(err);
-			}
-		);
+	ngAfterViewInit(): void {
 	}
 
+	eliminarAnuncio() {
+		this.anunciosService.alertConfirmarEliminar(this.anuncio.id)
+	}
+	
 	actualizarAnuncio() {
 		this.modal.create({
 			component: ActualizarAnuncioComponent,
@@ -128,12 +134,10 @@ export class VerAnuncioPage implements OnInit {
 	}
 
 	enviarMensaje() {
-
-
 		let datos = {
 			idAnuncio: this.anuncio.id,
 			idReceptor: this.anuncio.idMusico,
-			idEmisor: this.usuario.id
+			idEmisor: this.uid
 		}
 		let navigationExtras: NavigationExtras = {
 			state: {
@@ -145,4 +149,5 @@ export class VerAnuncioPage implements OnInit {
 		this.router.navigate(['/mensajes'], navigationExtras);
 
 	}
+
 }

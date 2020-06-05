@@ -13,11 +13,12 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class RegistrarsePage implements OnInit {
 
   usuario: Usuario = {
-    
     nick: '',
     nombreCompleto: '',
     email: '',
-    cp: '',
+	cp: '',
+	descripcion: '',
+	imagenPerfil: '',
     rol: 'musico',
     baneado: '0',
     fechaBaneo: null,

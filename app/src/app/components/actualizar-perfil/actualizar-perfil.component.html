@@ -1,0 +1,35 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-title>Actualizar perfil</ion-title>
+		<ion-title>email: {{perfil.email}}</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-list>
+		<ion-item>
+			<ion-label position="floating">nombre: </ion-label>
+			<ion-input placeholder="..." [(ngModel)]="perfilTMP.nombreCompleto"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">nick: </ion-label>
+			<ion-input placeholder="..." [(ngModel)]="perfilTMP.nick"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Ubicación: </ion-label>
+			<ion-input placeholder="..." [(ngModel)]="perfilTMP.cp"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Descripcion: </ion-label>
+			<ion-textarea rows="6" [(ngModel)]="perfilTMP.descripcion" placeholder="..."></ion-textarea>
+		</ion-item>
+	</ion-list>
+	<div>
+		<ion-button fill="solid" color="danger" (click)="salir()">
+			<ion-icon name="close" color="warning"></ion-icon> Cancelar
+		</ion-button>
+		<ion-button fill="solid" color="warning" (click)="updatePerfil()">
+			<ion-icon name="create"></ion-icon> Editar
+		</ion-button>
+	</div>
+</ion-content>
