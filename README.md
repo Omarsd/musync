@@ -19,8 +19,7 @@
 | ----------------------- | ------------------------- |
 | Omar Serrano Doukkali   | Jefe de Proyecto          |
 | Oscar Díaz              | Programador               |
-| Juan Manuel Salas Pérez | Analista de Datos         |
 | Adrián Laguna Machuca   | Responsable de Requisitos |
-| Oscar Bracero Ramírez   | Tester                    |                   
-| Francesca Ugazio        | Diseñadora                |
+| Oscar Bracero Ramírez   | Tester                    |
+| Juan Manuel Salas Pérez | Diseñador                 |
 | Rubén Castro Ruiz       | Programador               |
