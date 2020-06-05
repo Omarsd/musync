@@ -4,17 +4,21 @@ import { Anuncio } from '../model/Anuncio';
 import { AngularFirestore, AngularFirestoreCollection, DocumentReference, DocumentData, Query } from '@angular/fire/firestore';
 import { map, take } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 @Injectable({
 	providedIn: 'root'
 })
-export class FirebaseService {
+export class AnunciosService {
 	private anuncios: Observable<Anuncio[]>;
 	private anuncioColl: AngularFirestoreCollection<Anuncio>;
 
 	constructor(
 		private afs: AngularFirestore,
+		private alertController: AlertController,
+		private router: Router,
 	) {
 		//console.log(this.datepipe.transform(Date.now()),'')
 		this.anuncioColl = this.afs.collection<Anuncio>('anuncios', ref => {
@@ -51,11 +55,7 @@ export class FirebaseService {
 	}
 
 	getAnunciosMusico(idMusico: string): Query {
-
-		// Create a reference to the cities collection
 		var citiesRef = this.afs.firestore.collection("anuncios");
-
-		// Create a query against the collection.
 		var query = citiesRef.where("idMusico", "==", idMusico)
 		
 		return query
@@ -68,11 +68,41 @@ export class FirebaseService {
 	updateAnuncio(anuncio: Anuncio): Promise<void> {
 		return this.anuncioColl.doc(anuncio.id).update({
 			titulo: anuncio.titulo,
-			descripcion: anuncio.descripcion
+			descripcion: anuncio.descripcion,
+			ubicacion: anuncio.ubicacion,
+			instrumento: anuncio.instrumento,
+			fechaEvento: anuncio.fechaEvento,
+			tipoDemanda: anuncio.tipoDemanda
+
 		});
 	}
 
 	deleteAnuncio(id: string): Promise<void> {
 		return this.anuncioColl.doc(id).delete();
+	}
+
+	async alertConfirmarEliminar(id) {
+		const alert = await this.alertController.create({
+			header: 'Eliminar anuncio.',
+			message: 'Esta acción será <strong>insalvable</strong>.',
+			buttons: [
+				{
+					text: 'Cancelar',
+					role: 'cancel',
+					cssClass: 'secondary',
+					handler: () => {
+						console.log('El anuncio no se ha eliminado');
+					}
+				}, {
+					text: 'Eliminar',
+					handler: () => {
+						console.log('El anuncio será eliminado');
+						this.deleteAnuncio(id)
+						this.router.navigate(['/home']);
+					}
+				}
+			]
+		});
+		await alert.present();
 	}
 }

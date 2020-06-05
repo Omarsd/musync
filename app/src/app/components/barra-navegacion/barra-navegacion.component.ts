@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { UsuarioService } from "../../services/usuario.service";
 import { AuthService } from "../../services/auth.service";
-import { FirebaseService } from '../../services/anuncio.service';
 import { isNullOrUndefined } from 'util';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from "@angular/router";
@@ -16,7 +15,7 @@ import { Router } from "@angular/router";
 	styleUrls: ['./barra-navegacion.component.scss'],
 })
 export class BarraNavegacionComponent {
-	navigate : any;
+	navigate: any;
 
 	uid: String;
 	usuario: Usuario = {
@@ -24,39 +23,40 @@ export class BarraNavegacionComponent {
 		nombreCompleto: '',
 		email: '',
 		cp: '',
+		descripcion: '',
+		imagenPerfil: '',
 		rol: '',
 		baneado: '',
 		fechaBaneo: null,
 		fechaDesbaneo: null
-	  }
-	logedout:boolean
+	}
+	logedout: boolean
 
 	constructor(
 		private platform: Platform,
 		private splashScreen: SplashScreen,
 		private statusBar: StatusBar,
 		private userService: UsuarioService,
-		private fbService: FirebaseService,
-        public authservice : AuthService,
-        private AFauth : AngularFireAuth,
-		private router : Router
+		private authservice: AuthService,
+		private AFauth: AngularFireAuth,
+		private router: Router
 	) {
 		this.sideMenu();
 		this.initializeApp();
 
 		//Si esta logueado, pone logedout a false. esto cambia los botones "registrarse", "login" y "logout"
-		if(this.authservice.isAuthenticated){
+		if (this.authservice.isAuthenticated) {
 			this.logedout = false
 		}
-		else{
+		else {
 			this.logedout = true
 		}
-		
+
 		this.AFauth.authState.subscribe(auth => {
-			if (isNullOrUndefined(auth)){
+			if (isNullOrUndefined(auth)) {
 				this.logedout = true
 			}
-			else{
+			else {
 				this.uid = auth.uid
 				this.logedout = false
 				// Obtener usuario
@@ -64,10 +64,10 @@ export class BarraNavegacionComponent {
 				console.log(this.usuario) */
 				this.userService.getUsuario(auth.uid).subscribe(
 					data => {
-					  this.usuario = data;
-					  console.log(this.usuario.rol)
+						this.usuario = data;
+						console.log(this.usuario.rol)
 					}
-				  );
+				);
 			}
 		})
 	}
@@ -80,21 +80,35 @@ export class BarraNavegacionComponent {
 	}
 
 	sideMenu() {
-		this.navigate = [
-			{
-				title : "Home",
-				url   : "/home",
-				icon  : "home"
+		this.navigate = [				// he añadido la propiedad rol, con 3 estados: "", "musico" y "administrador"
+			{							// "" es para ambos roles y los otros dos, exclusivos para cada rol.
+				title: "Menú",
+				url: "/home",
+				icon: "home",
+				rol: ""
 			},
 			{
-				title : "About",
-				url   : "/about",
-				icon  : "chatboxes"
-			}
+				title: "Mensajes",
+				url: "/mensajes",
+				icon: "chatboxes",
+				rol: "musico"
+			},
+			{
+				title: "Administración",
+				url: "/administrador",
+				icon: "bug",
+				rol: "administrador"
+			},
+			{
+				title: "Sobre nosotros",
+				url: "/about",
+				icon: "people",
+				rol: ""
+			},
 		]
 	}
 
-	logout(){
+	logout() {
 		this.authservice.logout()
 		this.logedout = true
 		this.usuario = {
@@ -102,10 +116,14 @@ export class BarraNavegacionComponent {
 			nombreCompleto: '',
 			email: '',
 			cp: '',
+			descripcion: '',
+			imagenPerfil: '',
 			rol: '',
 			baneado: '',
 			fechaBaneo: null,
 			fechaDesbaneo: null
-		  }
+		}
 	}
+
+
 }
