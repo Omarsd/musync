@@ -101,10 +101,10 @@ export class HomePage implements OnInit {
 		return this.anunciosFiltrados = this.anuncios.pipe(
 			map(items =>
 				items.filter(item =>
-					(item.titulo.toLowerCase().indexOf(this.criterios.titulo.toLowerCase()) > -1 || this.criterios.titulo == '') &&
-					(item.instrumento.toLowerCase().indexOf(this.criterios.instrumento.toLowerCase()) > -1 || this.criterios.instrumento == '') &&
-					(item.descripcion.toLowerCase().indexOf(this.criterios.descripcion.toLowerCase()) > -1 || this.criterios.descripcion == '') &&
-					(item.ubicacion.toLowerCase().indexOf(this.criterios.ubicacion.toLowerCase()) > -1 || this.criterios.ubicacion == '') &&
+					(item.titulo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(this.criterios.titulo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 || this.criterios.titulo == '') &&
+					(item.instrumento.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(this.criterios.instrumento.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 || this.criterios.instrumento == '') &&
+					(item.descripcion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(this.criterios.descripcion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 || this.criterios.descripcion == '') &&
+					(item.ubicacion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(this.criterios.ubicacion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 || this.criterios.ubicacion == '') &&
 					(item.fechaEvento <= this.criterios.aFecha || this.criterios.aFecha == null) && (item.fechaEvento >= this.criterios.deFecha || this.criterios.deFecha == null) &&
 					(item.tipoDemanda == this.criterios.tipoDemanda || this.criterios.tipoDemanda == null)
 				)))
@@ -120,10 +120,10 @@ export class HomePage implements OnInit {
 				var terminosBusqueda = searchTerm.split(" ")
 				for(var i of terminosBusqueda){
 					items = items.filter(item =>
-					item.titulo.toLowerCase().indexOf(i.toLowerCase()) > -1 ||
-					item.instrumento.toLowerCase().indexOf(i.toLowerCase()) > -1 ||
-					item.descripcion.toLowerCase().indexOf(i.toLowerCase()) > -1 ||
-					item.ubicacion.toLowerCase().indexOf(i.toLowerCase()) > -1)
+					item.titulo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(i.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 ||
+					item.instrumento.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(i.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 ||
+					item.descripcion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(i.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 ||
+					item.ubicacion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(i.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1)
 				}
 				return items
 			}))
