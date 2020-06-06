@@ -43,8 +43,8 @@
 			<ion-item>
 				<ion-label slot="start">Fecha: </ion-label>
 				<ion-item slot="start">
-					<ion-datetime displayFormat="DD MM YYYY" placeholder="Fecha desde..." [(ngModel)]="criterios.deFecha" min="{{today.getFullYear()}}" max="{{today.getFullYear()+2}}"></ion-datetime>
-					<ion-datetime displayFormat="DD MM YYYY" placeholder="Fecha hasta..." [(ngModel)]="criterios.aFecha" min="{{today.getFullYear()}}" max="{{today.getFullYear()+2}}"></ion-datetime>
+					<ion-datetime displayFormat="DD MM YYYY" placeholder="Fecha desde..." [(ngModel)]="criterios.deFecha" min="{{today.toISOString()}}" max="{{today.getFullYear()+2}}"></ion-datetime>
+					<ion-datetime displayFormat="DD MM YYYY" placeholder="Fecha hasta..." [(ngModel)]="criterios.aFecha" min="{{today.toISOString()}}" max="{{today.getFullYear()+2}}"></ion-datetime>
 				</ion-item>
 			</ion-item>
 			<ion-button fill="solid" expand="block" color="dark" (click)="busquedaAnuncios()">
