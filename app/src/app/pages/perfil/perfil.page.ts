@@ -104,6 +104,16 @@ export class PerfilPage implements OnInit {
 										if (anuncio.fechaEvento >= this.today) this.anunciosDisponibles++;
 										this.anuncios[i++] = anuncio;
 									});
+									this.anuncios = this.anuncios.sort((a1,a2) =>{
+										if(a1.fechaEvento < a2.fechaEvento){
+											return 1;
+										}
+										if(a1.fechaEvento > a2.fechaEvento){
+											return -1;
+										}
+										
+										return 0
+									})
 								}
 							})
 							// Capturar errores, en caso de haberlos a la hora de obtenerlos.
