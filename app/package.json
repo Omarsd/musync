@@ -1,6 +1,6 @@
 {
-  "name": "musync",
-  "version": "0.0.1",
+  "name": "Musync",
+  "version": "1.0.0",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
@@ -56,5 +56,5 @@
     "tslint": "~5.15.0",
     "typescript": "~3.4.3"
   },
-  "description": "An Ionic project"
+  "description": "Musync es un proyecto desrrollado en Ionic por un grupo de alumnos de la Universidad de Málaga"
 }
