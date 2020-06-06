@@ -33,17 +33,42 @@ export class AuthService {
 	//El login lo controlamos aqui. Lo hace diferente. Me he copiado de este video https://www.youtube.com/watch?v=frm49cIPp_0
 	//Ya pondremos los errores que vayan saliendo
 
+	async presentAlert(header: string, message: string) {
+		const alert = await this.alertController.create({
+			header: header,
+			message: message,
+			buttons: ['OK']
+		});
+
+		await alert.present();
+	}
+
 	login(email: string, password: string) {
-		return new Promise((resolve, rejected) => {
+		return new Promise((resolve) => {
 			this.AFauth.auth.signInWithEmailAndPassword(email, password).then(user => {
 				resolve(user);
 				this.router.navigate(['/home'])
-			}).catch(err => rejected(err))
+			}).catch(err => {
+
+				switch (err.message) {
+					case "The email address is badly formatted.":
+						this.presentAlert("Error email", "Por favor, escriba un email válido")
+						break;
+					case "The password is invalid or the user does not have a password.":
+						this.presentAlert("Error login", "Contraseña o email incorrectos")
+					case "There is no user record corresponding to this identifier. The user may have been deleted.":
+						this.presentAlert("Error login", "Contraseña o email incorrectos")
+					default:
+						break;
+				}
+
+				console.log(err)
+			})
 		})
 	}
 
 	loginGoogle(){
-		return new Promise((resolve, rejected) => {
+		return new Promise((resolve) => {
 			this.AFauth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
 			.then(user => {
 				resolve(user);
@@ -61,22 +86,9 @@ export class AuthService {
 				this.router.navigate(['/home'])
 			})
 			.catch(err => {
-				rejected(err)
+				
 			})
 		})
-	
-	
-		/* try{
-		const user = this.AFauth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-		console.log(user.)
-		this.router.navigate(['/home'])
-	} catch (err) {
-		console.log(err)
-		if(err.code == "auth/web-storage-unsupported"){
-		  console.log("error ya sabes navegador")
-			//this.presentAlert("Error navegador", "Este navegador no permite guardar cookies de terceros")
-		}
-	  } */
 		
 	}
 
