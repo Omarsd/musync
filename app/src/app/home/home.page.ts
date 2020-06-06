@@ -98,6 +98,7 @@ export class HomePage implements OnInit {
 
 	async busquedaAnuncios() {
 		// Esto es lo que filtra.
+		this.expandir()
 		return this.anunciosFiltrados = this.anuncios.pipe(
 			map(items =>
 				items.filter(item =>
@@ -144,6 +145,7 @@ export class HomePage implements OnInit {
 	borrarFiltro() {
 		this.reinicializarCriterios();
 		this.anunciosFiltrados = this.anuncios
+		this.expandir()
 	}
 
 	logout() {
