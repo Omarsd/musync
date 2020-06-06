@@ -66,7 +66,10 @@
 			</ion-thumbnail>
 			<ion-label>
 				<h1>{{anuncio.titulo}}</h1>
-				<h2>Fecha: {{anuncio.fechaEvento |  date:'dd/MM/yyyy'}}</h2>
+				<h2>
+					<ion-icon name="calendar"></ion-icon>
+				 	{{anuncio.fechaEvento |  date:'dd/MM/yyyy'}}
+				</h2>
 				<h2>Instrumento: {{anuncio.instrumento}}</h2>
 				<h2><ion-icon name="pin"></ion-icon> {{anuncio.ubicacion}}</h2>
 				<p *ngIf="anuncio.descripcion.length > 150">{{anuncio.descripcion | slice:0:150}}...</p>

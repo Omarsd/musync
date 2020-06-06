@@ -35,15 +35,12 @@ export class LoginPage implements OnInit {
 	}
 
 	async login() {
-		try {
+		if(this.password == ''){
+			this.presentAlert("Contraseña vacía", "Por favor, ingrese una contraseña")
+		} else{
 			this.AFauth.login(this.email, this.password)
-		} catch (err) {
-			console.dir(err)
-			if (err.code = "auth/user-not-found") {
-				this.presentAlert("Error", "usuario no encontrado")
-			}
-
 		}
+		
 	}
 
 	loginGoogle() {

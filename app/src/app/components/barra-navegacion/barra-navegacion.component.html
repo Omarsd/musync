@@ -28,12 +28,12 @@
 				<img src="https://i.imgur.com/nKIjsNZ.jpg" alt="Musync">
 			</ion-avatar>
 
-		<ion-chip routerLink="/perfil/{{usuario.id}}" slot="end" *ngIf="!logedout">
+		<ion-chip routerLink="/perfil/{{usuario.id}}" slot="end" *ngIf="!logedout && usuario.rol != 'administrador'">
 			<ion-icon ios="ios-person" md="md-person"></ion-icon>
 			<ion-label>{{usuario.nombreCompleto}}</ion-label>
 		</ion-chip>
 		<!-- Estos son los botones que cambian con respecto a la variable "logedout" -->
-		<ion-button *ngIf="!logedout" slot="end" color="danger" (click)="logout()">
+		<ion-button *ngIf="!logedout" slot="end" color="danger" style="padding-right:1%" (click)="logout()">
 			<ion-icon ios="ios-exit" md="md-exit"></ion-icon>
 		</ion-button>
 		<ion-button *ngIf="logedout" slot="end" color="success" [routerLink]="['/registrarse']">Registrarse</ion-button>
