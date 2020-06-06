@@ -46,6 +46,7 @@ export class VerAnuncioPage implements OnInit {
 	rate: number = 3;
 	owned: boolean;
 	uid: string;
+	rol: string;
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
@@ -62,6 +63,11 @@ export class VerAnuncioPage implements OnInit {
 				if (user) {
 					// User is signed in.
 					this.uid = user.uid
+					this.usuarioService.getUsuario(user.uid).subscribe(
+						data => {
+							this.rol = data.rol;
+						}
+					);
 				}
 				else {
 					// No user is signed in.
