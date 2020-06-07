@@ -18,7 +18,7 @@ describe('ExpandableComponent', () => {
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
+  it('Debe crear componente', () => {
     expect(component).toBeTruthy();
   });
 });
