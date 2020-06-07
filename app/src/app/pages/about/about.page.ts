@@ -44,7 +44,7 @@ export class AboutPage implements OnInit {
 			rol: 'Tester',
 			email: 'oscarbr@uma.es',
 			git: 'oscarbr97'
-		},
+		}
 
 		
 	]
