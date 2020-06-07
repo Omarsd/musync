@@ -36,7 +36,17 @@ export class AboutPage implements OnInit {
 			rol: 'Diseño',
 			email: 'juanma.salas94@uma.es',
 			git: 'JuanmaKsp'
-		}
+		},
+		{
+			imagen: 'Óscar.png',
+			nombre: 'Óscar',
+			apellidos: 'Bracero Ramírez',
+			rol: 'Tester',
+			email: 'oscarbr@uma.es',
+			git: 'oscarbr97'
+		},
+
+		
 	]
 
 }
