@@ -19,7 +19,7 @@
       <ion-col size="9">
         <div>
           <ion-item>
-            <ion-label>Anuncio: {{conversacion.nombreAnuncio}}</ion-label>
+              <h2>Anuncio: {{conversacion.nombreAnuncio}}</h2>
           </ion-item>
           <ion-item *ngFor="let mens of conversacion.mensajes" >
             <ion-label *ngIf="conversacion.idEmisor == mens.emisor">{{conversacion.nombreEmisor}}: {{mens.texto}}</ion-label>
