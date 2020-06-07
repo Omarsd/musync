@@ -55,11 +55,17 @@ const routes: Routes = [
 		loadChildren: () => import('./pages/mensajes/mensajes.module').then( m => m.MensajesPageModule),
 		canActivate : [AuthGuard]
 	},
+	{
+		path: 'mensajes/:id',
+		loadChildren: () => import('./pages/mensajes/mensajes.module').then( m => m.MensajesPageModule),
+		canActivate : [AuthGuard]
+	},
 	//'**' Es para cuando se entra en una ruta que no está declarada
 	{
 		path: '**',
 		redirectTo: 'no-encontrado'
 	}
+
 ];
 
 @NgModule({
