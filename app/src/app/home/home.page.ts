@@ -28,7 +28,7 @@ interface criteriosBusqueda {
 
 export class HomePage implements OnInit {
 
-	today: Date= new Date();
+	today: Date = new Date();
 
 	usuario: Usuario = {
 		nick: '',
@@ -44,7 +44,7 @@ export class HomePage implements OnInit {
 	}
 
 	logedout: boolean
-	expandido: boolean
+	expandido: boolean = false;
 
 	criterios: criteriosBusqueda = {
 		titulo: '',
@@ -61,10 +61,10 @@ export class HomePage implements OnInit {
 
 	constructor(
 		private anunciosService: AnunciosService,
-		public authservice: AuthService,
-		private AFauth: AngularFireAuth,
-		private router: Router,
-		private userService: UsuarioService) { }
+		private userService: UsuarioService,
+		private authservice: AuthService,
+		private AFauth: AngularFireAuth
+	) { }
 
 	ngOnInit(): void {
 
@@ -92,7 +92,6 @@ export class HomePage implements OnInit {
 			}
 		})
 
-
 	}
 
 
@@ -108,8 +107,7 @@ export class HomePage implements OnInit {
 					(item.ubicacion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(this.criterios.ubicacion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 || this.criterios.ubicacion == '') &&
 					(item.fechaEvento <= this.criterios.aFecha || this.criterios.aFecha == null) && (item.fechaEvento >= this.criterios.deFecha || this.criterios.deFecha == null) &&
 					(item.tipoDemanda == this.criterios.tipoDemanda || this.criterios.tipoDemanda == null)
-				)))
-
+				)));
 	}
 
 	async busquedaRapida(evt) {
@@ -117,14 +115,14 @@ export class HomePage implements OnInit {
 
 		// Esto es lo que filtra.
 		return this.anunciosFiltrados = this.anuncios.pipe(
-			map(items =>{
+			map(items => {
 				var terminosBusqueda = searchTerm.split(" ")
-				for(var i of terminosBusqueda){
+				for (var i of terminosBusqueda) {
 					items = items.filter(item =>
-					item.titulo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(i.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 ||
-					item.instrumento.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(i.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 ||
-					item.descripcion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(i.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 ||
-					item.ubicacion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(i.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1)
+						item.titulo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(i.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 ||
+						item.instrumento.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(i.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 ||
+						item.descripcion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(i.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1 ||
+						item.ubicacion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(i.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1)
 				}
 				return items
 			}))
@@ -154,11 +152,7 @@ export class HomePage implements OnInit {
 	}
 
 	expandir() {
-		if (this.expandido) {
-			this.expandido = false
-		} else {
-			this.expandido = true
-		}
+		this.expandido = !this.expandido
 	}
 
 }

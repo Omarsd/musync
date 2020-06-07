@@ -26,6 +26,7 @@ describe('PerfilPage', () => {
 		let texto : String;
 		it('texto = null => false', async(() => {
 			texto = null;
+			console.log('null')
 			expect( perfilPage.esValido(texto) ).toBe(false);
 		}))
 		it('texto = undefined => false', async(() => {

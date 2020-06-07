@@ -1,7 +1,9 @@
 import { Mensaje } from './mensaje';
 
 describe('Mensaje', () => {
-  it('should create an instance', () => {
-    expect(new Mensaje()).toBeTruthy();
-  });
+
+	it('Debe rear una instacia', () => {
+		expect(new Mensaje()).toBeTruthy();
+	});
+
 });
