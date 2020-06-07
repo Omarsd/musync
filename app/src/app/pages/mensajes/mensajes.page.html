@@ -8,8 +8,9 @@
               <ion-label>Conversaciones
               </ion-label>
             </ion-list-header>
-            <ion-item *ngFor="let conv of conversaciones" (click)="verConv(conv.idConversacion)">
-              <ion-label>{{conv.idAnuncio}}</ion-label>
+            <ion-item *ngFor="let conv of conversaciones" [routerLink]="'/mensajes/'+conv.idConversacion">
+              <ion-label *ngIf="conv.idEmisor == uid">{{conv.nombreAnuncio}}</ion-label>
+              <ion-label *ngIf="conv.idEmisor != uid">{{conv.nombreAnuncio}} - {{conv.nombreEmisor}}</ion-label>
             </ion-item>
           </ion-list>
 
@@ -18,10 +19,11 @@
       <ion-col size="9">
         <div>
           <ion-item>
-            <ion-label>Anuncio: {{conversacion.idAnuncio}}</ion-label>
+            <ion-label>Anuncio: {{conversacion.nombreAnuncio}}</ion-label>
           </ion-item>
           <ion-item *ngFor="let mens of conversacion.mensajes" >
-            <ion-label>{{mens.texto}}</ion-label>
+            <ion-label *ngIf="conversacion.idEmisor == mens.emisor">{{conversacion.nombreEmisor}}: {{mens.texto}}</ion-label>
+            <ion-label *ngIf="conversacion.idReceptor == mens.emisor">{{conversacion.nombreReceptor}}: {{mens.texto}}</ion-label>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Mensaje: </ion-label>

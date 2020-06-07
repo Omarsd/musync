@@ -6,7 +6,7 @@ import { AnunciosService } from 'src/app/services/anuncio.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { ActualizarAnuncioComponent } from "../../components/actualizar-anuncio/actualizar-anuncio.component";
-import { ModalController, AlertController } from "@ionic/angular";
+import { ModalController } from "@ionic/angular";
 
 
 @Component({
@@ -46,6 +46,8 @@ export class VerAnuncioPage implements OnInit {
 	rate: number = 3;
 	owned: boolean;
 	uid: string;
+	nombreUsuario: string
+	rol: string;
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
@@ -62,6 +64,12 @@ export class VerAnuncioPage implements OnInit {
 				if (user) {
 					// User is signed in.
 					this.uid = user.uid
+					this.usuarioService.getUsuario(user.uid).subscribe(
+						data => {
+							this.rol = data.rol;
+							this.nombreUsuario = data.nombreCompleto
+						}
+					);
 				}
 				else {
 					// No user is signed in.
@@ -77,7 +85,7 @@ export class VerAnuncioPage implements OnInit {
 					if (data) {		// Si data tiene un valor valido
 						this.anuncio = data;
 						this.anuncio.id = id;
-
+						
 						if (data.idMusico == this.uid) {
 							this.owned = true
 						}
@@ -136,8 +144,11 @@ export class VerAnuncioPage implements OnInit {
 	enviarMensaje() {
 		let datos = {
 			idAnuncio: this.anuncio.id,
+			nombreAnuncio: this.anuncio.titulo,
 			idReceptor: this.anuncio.idMusico,
-			idEmisor: this.uid
+			nombreReceptor: this.usuario.nombreCompleto,
+			idEmisor: this.uid,
+			nombreEmisor: this.nombreUsuario
 		}
 		let navigationExtras: NavigationExtras = {
 			state: {

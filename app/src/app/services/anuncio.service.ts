@@ -54,11 +54,20 @@ export class AnunciosService {
 		return this.anuncioColl.doc<Anuncio>(id).valueChanges().pipe(take(1));
 	}
 
-	getAnunciosMusico(idMusico: string): Query {
-		var citiesRef = this.afs.firestore.collection("anuncios");
-		var query = citiesRef.where("idMusico", "==", idMusico)
+	getAnunciosMusico(idMusico: string): Observable<Anuncio[]> {
+		var anunciosRef : AngularFirestoreCollection<Anuncio> = this.afs.collection<Anuncio>("anuncios", ref => {
+			return ref.where("idMusico", "==", idMusico)
+		});
 		
-		return query
+		return anunciosRef.snapshotChanges().pipe(
+			map(actions => {
+				return actions.map(a => {
+					const data = a.payload.doc.data();
+					const id = a.payload.doc.id;
+					return { id, ...data };
+				});
+			})
+		);
 	}
 
 	addAnuncio(anuncio: Anuncio): Promise<DocumentReference> {
