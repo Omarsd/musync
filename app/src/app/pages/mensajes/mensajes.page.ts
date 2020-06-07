@@ -136,14 +136,16 @@ export class MensajesPage implements OnInit {
     console.log(id)
     this.mensajeriaServ.getConversacion(id).subscribe(
       data =>{
-        this.conversacion.idConversacion = data.idConversacion,
+        this.conversacion = data
+        
+        /*.idConversacion = data.idConversacion,
         this.conversacion.idEmisor = data.idEmisor,
         this.conversacion.nombreEmisor = data.nombreEmisor,
         this.conversacion.idReceptor = data.idReceptor,
         this.conversacion.nombreReceptor = data.nombreReceptor,
         this.conversacion.idAnuncio = data.idAnuncio,
         this.conversacion.nombreAnuncio = data.nombreAnuncio
-        this.conversacion.mensajes = data.mensajes
+        this.conversacion.mensajes = data.mensajes*/
       }
     )
   }

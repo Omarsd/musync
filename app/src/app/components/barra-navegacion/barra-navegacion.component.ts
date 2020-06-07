@@ -94,6 +94,12 @@ export class BarraNavegacionComponent {
 				rol: "musico"
 			},
 			{
+				title: "Crear anuncio",
+				url: "/crear-anuncio",
+				icon: "add-circle-outline",
+				rol: "musico"
+			},
+			{
 				title: "Administración",
 				url: "/administrador",
 				icon: "bug",

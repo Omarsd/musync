@@ -9,7 +9,8 @@
               </ion-label>
             </ion-list-header>
             <ion-item *ngFor="let conv of conversaciones" [routerLink]="'/mensajes/'+conv.idConversacion">
-              <ion-label>{{conv.nombreAnuncio}}</ion-label>
+              <ion-label *ngIf="conv.idEmisor == uid">{{conv.nombreAnuncio}}</ion-label>
+              <ion-label *ngIf="conv.idEmisor != uid">{{conv.nombreAnuncio}} - {{conv.nombreEmisor}}</ion-label>
             </ion-item>
           </ion-list>
 
