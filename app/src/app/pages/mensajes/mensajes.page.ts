@@ -12,7 +12,7 @@ import { Mensaje } from 'src/app/model/mensaje';
   styleUrls: ['./mensajes.page.scss'],
 })
 export class MensajesPage implements OnInit {
-
+  id : string
   datos: any
   private uid: string
   private conversaciones: Conversacion[] = [];
@@ -74,7 +74,8 @@ export class MensajesPage implements OnInit {
 
 
   ngOnInit() {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
+	const id = this.activatedRoute.snapshot.paramMap.get('id');
+	this.id = id
 		if (id != undefined) {
       this.verConv(id)
     }
