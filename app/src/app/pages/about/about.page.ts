@@ -14,10 +14,12 @@ export class AboutPage implements OnInit {
 
 	Creadores = [
 		{
+			imagen: 'ruben.png',
 			nombre: 'Rubén',
 			apellidos: 'Castro Ruiz',
 			rol: 'Desarrollador',
-			imagen: 'ruben.png'
+			email: 'ruben@musync.com',
+			git: 'rubencastro24'
 		}
 	]
 
