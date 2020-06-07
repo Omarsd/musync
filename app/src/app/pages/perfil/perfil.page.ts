@@ -78,48 +78,29 @@ export class PerfilPage implements OnInit {
 						else {
 							this.owned = false
 						}
-
 						// Obtener los anuncios del musico.
-						this.anunciosService.getAnunciosMusico(this.usuarioPerfil.id).get()
-							.then(snapshot => {
-								// Comprobar si no tiene anuncios creados.
-								if (snapshot.empty) {
-									console.log('No hay resultados.');
-								}
-								// Obtener los anuncios en caso de si tener
-								else {
-									var i = 0;
-									snapshot.forEach(doc => {
-										var anuncio: Anuncio = {
-											id: doc.id,
-											createdAt: doc.data().createdAt,
-											descripcion: doc.data().descripcion,
-											fechaEvento: new Date(doc.data().fechaEvento),
-											idMusico: doc.data().idMusico,
-											instrumento: doc.data().instrumento,
-											tipoDemanda: doc.data().tipoDemanda,
-											titulo: doc.data().titulo,
-											ubicacion: doc.data().ubicacion
-										}
+						this.anunciosService.getAnunciosMusico(this.usuarioPerfil.id)
+							.subscribe(
+								data => {
+									this.anunciosDisponibles = 0
+									data.forEach(anuncio => {
+										anuncio.fechaEvento = new Date(anuncio.fechaEvento)
 										if (anuncio.fechaEvento >= this.today) this.anunciosDisponibles++;
-										this.anuncios[i++] = anuncio;
 									});
-									this.anuncios = this.anuncios.sort((a1,a2) =>{
-										if(a1.fechaEvento < a2.fechaEvento){
+									data.sort((a1, a2) => {
+										if (a1.fechaEvento < a2.fechaEvento) {
 											return 1;
 										}
-										if(a1.fechaEvento > a2.fechaEvento){
+										if (a1.fechaEvento > a2.fechaEvento) {
 											return -1;
 										}
-										
 										return 0
 									})
-								}
+									this.anuncios = data;
+								}, err => {
+									// Capturar errores, en caso de haberlos a la hora de obtenerlos.
+									console.log('Error al obtener los resultados. ', err);
 							})
-							// Capturar errores, en caso de haberlos a la hora de obtenerlos.
-							.catch(err => {
-								console.log('Error al obtener los resultados. ', err);
-							});
 					}
 				},
 				// Si no existe el musico al que se ha accedido, mandar a 404
