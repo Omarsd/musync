@@ -18,7 +18,7 @@ export class AboutPage implements OnInit {
 			nombre: 'Rubén',
 			apellidos: 'Castro Ruiz',
 			rol: 'Desarrollador',
-			email: 'ruben@musync.com',
+			email: 'rubencastro@uma.es',
 			git: 'rubencastro24'
 		}
 	]
