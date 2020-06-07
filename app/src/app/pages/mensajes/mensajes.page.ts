@@ -19,8 +19,11 @@ export class MensajesPage implements OnInit {
   conversacion: Conversacion = {
 
     idAnuncio: '',
+    nombreAnuncio: '',
     idEmisor: '',
+    nombreEmisor: '',
     idReceptor: '',
+    nombreReceptor: '',
     mensajes: []
   }
   mensaje: Mensaje ={
@@ -32,20 +35,35 @@ export class MensajesPage implements OnInit {
   constructor(private route:ActivatedRoute,
     private router: Router, 
     private mensajeriaServ: MensajeriaService,
-    private AFauth: AngularFireAuth) { 
+    private AFauth: AngularFireAuth,
+    private activatedRoute: ActivatedRoute) { 
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.datos = this.router.getCurrentNavigation().extras.state.datos;
         this.conversacion.idAnuncio = this.datos.idAnuncio
+        this.conversacion.nombreAnuncio = this.datos.nombreAnuncio
         this.conversacion.idEmisor = this.datos.idEmisor
+        this.conversacion.nombreEmisor = this.datos.nombreEmisor
         this.conversacion.idReceptor = this.datos.idReceptor
+        this.conversacion.nombreReceptor = this.datos.nombreReceptor
         this.mensajeriaServ.getNumConversaciones(this.conversacion.idAnuncio, this.conversacion.idEmisor).get()
         .then( snapshot => {
+          console.log(snapshot)
           if(snapshot.empty){
-            this.mensajeriaServ.addConversacion(this.conversacion)
-            console.log(snapshot)
+            this.mensajeriaServ.addConversacion(this.conversacion).then(
+              ok=>{
+                console.log(ok.id)
+                this.router.navigate(['/mensajes/'+ok.id])
+              }
+            ).catch(
+              err=>{
+                console.log("conversacion no creada")
+              }
+            )
+            console.log(this.conversacion)
           }else{
-            //por implementar
+            console.log('anuncio creado')
+            this.router.navigate(['/mensajes'])
           }
         }).catch(err =>{
           console.log(err)
@@ -56,6 +74,10 @@ export class MensajesPage implements OnInit {
 
 
   ngOnInit() {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+		if (id != undefined) {
+      this.verConv(id)
+    }
 
     this.AFauth.auth.onAuthStateChanged(
 			user => {
@@ -71,8 +93,11 @@ export class MensajesPage implements OnInit {
               var conversacion : Conversacion = {
                 idConversacion: doc.id,
                 idAnuncio: doc.data().idAnuncio,
+                nombreAnuncio: doc.data().nombreAnuncio,
                 idEmisor: doc.data().idEmisor,
+                nombreEmisor:doc.data().nombreEmisor,
                 idReceptor: doc.data().idReceptor,
+                nombreReceptor: doc.data().idReceptor,
                 mensajes: doc.data().mensajes
               }
               this.conversaciones[i++] = conversacion;
@@ -87,8 +112,11 @@ export class MensajesPage implements OnInit {
               var conversacion : Conversacion = {
                 idConversacion: doc.id,
                 idAnuncio: doc.data().idAnuncio,
+                nombreAnuncio: doc.data().nombreAnuncio,
                 idEmisor: doc.data().idEmisor,
+                nombreEmisor:doc.data().nombreEmisor,
                 idReceptor: doc.data().idReceptor,
+                nombreReceptor: doc.data().idReceptor,
                 mensajes: doc.data().mensajes
               }
               this.conversaciones[i++] = conversacion;
@@ -108,11 +136,16 @@ export class MensajesPage implements OnInit {
     console.log(id)
     this.mensajeriaServ.getConversacion(id).subscribe(
       data =>{
-        this.conversacion.idConversacion = data.idConversacion,
+        this.conversacion = data
+        
+        /*.idConversacion = data.idConversacion,
         this.conversacion.idEmisor = data.idEmisor,
+        this.conversacion.nombreEmisor = data.nombreEmisor,
         this.conversacion.idReceptor = data.idReceptor,
+        this.conversacion.nombreReceptor = data.nombreReceptor,
         this.conversacion.idAnuncio = data.idAnuncio,
-        this.conversacion.mensajes = data.mensajes
+        this.conversacion.nombreAnuncio = data.nombreAnuncio
+        this.conversacion.mensajes = data.mensajes*/
       }
     )
   }
@@ -129,9 +162,5 @@ export class MensajesPage implements OnInit {
     this.mensaje.texto = ''
     this.verConv(this.conversacion.idConversacion)
   }
-
-
-
-  
 
 }
