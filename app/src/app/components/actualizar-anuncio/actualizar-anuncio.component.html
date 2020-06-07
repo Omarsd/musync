@@ -35,7 +35,7 @@
 		</ion-item>
 		<ion-item>
 			<ion-label position="floating">Fecha del evento: </ion-label>
-			<ion-datetime [(ngModel)]="anuncioTMP.fechaEvento" min="{{today.getFullYear()}}" max="{{today.getFullYear()+2}}" displayFormat="DD MM YYYY" placeholder="Fecha del evento..."></ion-datetime>
+			<ion-datetime [(ngModel)]="anuncioTMP.fechaEvento" min="{{today.toISOString()}}" max="{{today.getFullYear()+2}}" displayFormat="DD MM YYYY" placeholder="Fecha del evento..."></ion-datetime>
 		</ion-item>
 	</ion-list>
 	<div>
