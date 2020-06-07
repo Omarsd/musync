@@ -38,7 +38,7 @@ export class AboutPage implements OnInit {
 			git: 'JuanmaKsp'
 		},
 		{
-			imagen: 'Oscar.png',
+			imagen: 'Oscarbr.png',
 			nombre: 'Óscar',
 			apellidos: 'Bracero Ramírez',
 			rol: 'Tester',
