@@ -29,6 +29,11 @@
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
+              },
+              {
+                "glob": "_redirects",
+                "input": "src",
+                "output": "/"
               }
             ],
             "styles": [
@@ -98,6 +103,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
+			"codeCoverage": true,
             "styles": [],
             "scripts": [],
             "assets": [

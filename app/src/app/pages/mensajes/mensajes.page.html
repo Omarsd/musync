@@ -1,0 +1,60 @@
+<ion-content>
+	<ion-grid>
+		<ion-row>
+
+			<ion-col size="3">
+				<ion-list>
+					<ion-item [routerLink]="'/mensajes'">
+						<ion-text>Conversaciones:</ion-text>
+					</ion-item>
+					<ion-item *ngFor="let conv of conversaciones" [routerLink]="'/mensajes/'+conv.idConversacion">
+						<ion-text *ngIf="conv.idEmisor == uid" color="secondary">{{conv.nombreAnuncio}}</ion-text>
+						<ion-text *ngIf="conv.idEmisor != uid" color="primary">{{conv.nombreAnuncio}} -
+							{{conv.nombreEmisor}}</ion-text>
+					</ion-item>
+				</ion-list>
+			</ion-col>
+
+			<ion-col size="9">
+				<div *ngIf="!id">
+					<ion-text color="primary" class="ion-text-center">
+						<h1>Sistema de mensajería de Musync</h1>
+						<h4>Envia un mensaje desde un anuncio del que estés interesado.</h4>
+					</ion-text>
+				</div>
+
+				<div *ngIf="id">
+					<ion-text>
+						<h2>Anuncio: {{conversacion.nombreAnuncio}}</h2>
+						<h2 *ngIf="uid == conversacion.idEmisor">Usuario: {{conversacion.nombreReceptor}}</h2>
+						<h2 *ngIf="uid == conversacion.idReceptor">Usuario: {{conversacion.nombreEmisor}}</h2>
+					</ion-text>
+					<ion-item *ngFor="let mens of conversacion.mensajes">
+						<ion-label *ngIf="mens.emisor == conversacion.idEmisor">
+							<ion-text>
+								<ion-text color="danger">
+									{{conversacion.nombreEmisor}}:
+								</ion-text>
+								{{mens.texto}}
+							</ion-text>
+						</ion-label>
+						<ion-label *ngIf="mens.emisor == conversacion.idReceptor">
+							<ion-text>
+								<ion-text color="primary">
+									{{conversacion.nombreReceptor}}:
+								</ion-text>
+								{{mens.texto}}
+							</ion-text>
+						</ion-label>
+					</ion-item>
+					<ion-item>
+						<ion-label position="floating">Mensaje: </ion-label>
+						<ion-textarea rows="6" [(ngModel)]="mensaje.texto"></ion-textarea>
+					</ion-item>
+					<ion-button color="primary" expand="full" (click)="enviarMensaje()">Enviar</ion-button>
+				</div>
+			</ion-col>
+
+		</ion-row>
+	</ion-grid>
+</ion-content>

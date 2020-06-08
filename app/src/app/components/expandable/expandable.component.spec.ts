@@ -1,24 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ActAnuncioPage } from './act-anuncio.page';
+import { ExpandableComponent } from './expandable.component';
 
-describe('ActAnuncioPage', () => {
-  let component: ActAnuncioPage;
-  let fixture: ComponentFixture<ActAnuncioPage>;
+describe('ExpandableComponent', () => {
+  let component: ExpandableComponent;
+  let fixture: ComponentFixture<ExpandableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ActAnuncioPage ],
+      declarations: [ ExpandableComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ActAnuncioPage);
+    fixture = TestBed.createComponent(ExpandableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
+  it('Debe crear componente', () => {
     expect(component).toBeTruthy();
   });
 });

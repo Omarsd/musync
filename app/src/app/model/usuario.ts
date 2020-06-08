@@ -6,10 +6,12 @@ export interface Usuario {
     nick: string,
     nombreCompleto: string,
     email: string,
-    cp: string,
+	cp: string,
+	descripcion: string,
+	imagenPerfil: string,
     rol: string,
-    baneado: string,
-    fechaBaneo: Date,
-    fechaDesbaneo: Date
+    baneado?: string,
+    fechaBaneo?: Date,
+    fechaDesbaneo?: Date
 
 }

@@ -1,0 +1,49 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-title>Actualizar: {{anuncio.titulo}}</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-list>
+		<ion-item>
+			<ion-label position="floating">Titulo: </ion-label>
+			<ion-input placeholder="..." [(ngModel)]="anuncioTMP.titulo"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Descripcion: </ion-label>
+			<ion-textarea rows="6" [(ngModel)]="anuncioTMP.descripcion" placeholder="..."></ion-textarea>
+		</ion-item>
+		<ion-item>
+			<ion-segment [(ngModel)]="anuncioTMP.tipoDemanda">
+				<ion-label>Tipo: </ion-label>
+				<ion-segment-button value="0">
+					<ion-label>Oferta</ion-label>
+				</ion-segment-button>
+				<ion-segment-button value="1">
+					<ion-label>Demanda</ion-label>
+				</ion-segment-button>
+			</ion-segment>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Ubicación: </ion-label>
+			<ion-input placeholder="..." [(ngModel)]="anuncioTMP.ubicacion"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Instrumento: </ion-label>
+			<ion-input placeholder="..." [(ngModel)]="anuncioTMP.instrumento"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label position="floating">Fecha del evento: </ion-label>
+			<ion-datetime [(ngModel)]="anuncioTMP.fechaEvento" min="{{today.toISOString()}}" max="{{today.getFullYear()+2}}" displayFormat="DD MM YYYY" placeholder="Fecha del evento..."></ion-datetime>
+		</ion-item>
+	</ion-list>
+	<div>
+		<ion-button fill="solid" color="danger" (click)="salir()">
+			<ion-icon name="close" color="warning"></ion-icon> Cancelar
+		</ion-button>
+		<ion-button fill="solid" color="warning" (click)="updateAnuncio()">
+			<ion-icon name="create"></ion-icon> Editar
+		</ion-button>
+	</div>
+</ion-content>

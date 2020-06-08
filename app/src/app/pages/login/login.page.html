@@ -1,25 +1,25 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
 
-  <ion-list>
+	<ion-list>
+		<ion-text color="primary">
+			<h1>Inicia sesion en Musync</h1>
+		</ion-text>
+		<ion-item>
+			<ion-label position="floating">Email</ion-label>
+			<ion-input type="email" [(ngModel)]="email"></ion-input>
+		</ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" [(ngModel)]="email"></ion-input>
-    </ion-item>
+		<ion-item>
+			<ion-label position="floating">Contraseña</ion-label>
+			<ion-input type="password" [(ngModel)]="password"></ion-input>
+		</ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input type="password" [(ngModel)]="password"></ion-input>
-    </ion-item>
+	</ion-list>
 
-  </ion-list>
+	<ion-button fill="solid" expand="block" color="blue" (click)="login()">Iniciar sesion</ion-button>
 
-  <ion-button fill="solid" expand="block" color="dark" (click)="login()">Enviar</ion-button>
-
+	<ion-text color="primary">
+		<h1>Tambien puedes hacerlo mediante tu correo de Google</h1>
+	</ion-text>
+	<ion-button fill="solid" expand="block" color="blue" (click)="loginGoogle()">Iniciar sesion con Google</ion-button>
 </ion-content>

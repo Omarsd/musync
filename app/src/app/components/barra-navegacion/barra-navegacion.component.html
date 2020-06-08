@@ -1,0 +1,43 @@
+<ion-menu side="start" menuId="first" type="push" contentId="content1">
+	<ion-header>
+		<ion-toolbar>
+			<ion-title>Navegación</ion-title>
+		</ion-toolbar>
+	</ion-header>
+	<ion-content>
+		<div *ngFor="let pages of navigate">
+			<ion-list *ngIf="pages.rol == '' || usuario.rol == pages.rol">
+				<ion-menu-toggle auto-hide="true">
+					<ion-item [routerLink]="pages.url" routerDirection="forward">
+						<ion-icon [name]="pages.icon" slot="start"></ion-icon>
+						{{pages.title}}
+					</ion-item>
+				</ion-menu-toggle>
+			</ion-list>
+		</div>
+	</ion-content>
+</ion-menu>
+
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+
+		<ion-avatar routerLink="/home/" slot="start" mode="md">
+			<img src="https://i.imgur.com/nKIjsNZ.jpg" alt="Musync">
+		</ion-avatar>
+
+		<ion-chip routerLink="/perfil/{{usuario.id}}" slot="end" *ngIf="!logedout && usuario.rol != 'administrador'">
+			<ion-icon ios="ios-person" md="md-person"></ion-icon>
+			<ion-label>{{usuario.nombreCompleto}}</ion-label>
+		</ion-chip>
+		<!-- Estos son los botones que cambian con respecto a la variable "logedout" -->
+		<ion-button *ngIf="!logedout" slot="end" color="danger" style="padding-right:1%" (click)="logout()">
+			<ion-icon ios="ios-exit" md="md-exit"></ion-icon>
+		</ion-button>
+		<ion-button *ngIf="logedout" slot="end" color="success" [routerLink]="['/registrarse']">Registrarse</ion-button>
+		<ion-button *ngIf="logedout" slot="end" color="blue" [routerLink]="['/login']" style="padding-right:1.5%">Login
+		</ion-button>
+	</ion-toolbar>
+</ion-header>

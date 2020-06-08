@@ -5,6 +5,7 @@ import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/model/usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-registrarse',
@@ -14,22 +15,22 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class RegistrarsePage implements OnInit {
 
   usuario: Usuario = {
-    
     nick: '',
     nombreCompleto: '',
     email: '',
-    cp: '',
+	  cp: '',
+	  descripcion: '',
+	  imagenPerfil: '',
     rol: 'musico',
     baneado: '0',
     fechaBaneo: null,
     fechaDesbaneo: null
-    
-
   };
   password: string = ''
   confirm_password: string = ''
 
   constructor(public auth: AngularFireAuth, 
+    private authSer: AuthService,
     public alertController: AlertController, 
     public router: Router, 
     public usuarioService: UsuarioService) { }
@@ -50,9 +51,53 @@ export class RegistrarsePage implements OnInit {
   async registrarse(){
     const { password, confirm_password } = this
 
-    if (password !== confirm_password){
-      this.presentAlert("Error","Contraseñas don't match")//this.presentAlert("Error","Las contraseñas no son iguales.")
+    var error: string = ''
+
+		if(this.usuario.nick == ''){
+			error += "nick"
+			
+		}
+		if(this.usuario.nombreCompleto == ''){
+			if(error == ''){
+				error += "nombre completo"
+			} else{
+				error += ", nombre completo"
+			}
+    }
+    
+    if(this.usuario.cp == ''){
+			if(error == ''){
+				error += "ubicación"
+			} else{
+				error += ", ubicación"
+			}
+    }
+    
+    if(this.usuario.email == ''){
+			if(error == ''){
+				error += "email"
+			} else{
+				error += ", email"
+			}
+    }
+
+    if(this.password == '' || this.confirm_password == ''){
+			if(error == ''){
+				error += "contraseña"
+			} else{
+				error += ", contraseña"
+			}
+    }
+
+    if(error != ''){
+
+      this.presentAlert("Error","Debe rellenar los siguientes datos: "+error)
+
+    }else if (password !== confirm_password){
+      this.presentAlert("Error","Las contraseñas no son iguales.")
         console.log("error")
+  
+
     }else{
 
       try {
@@ -63,15 +108,46 @@ export class RegistrarsePage implements OnInit {
         this.usuarioService.addUsuario(this.usuario, res.user.uid)
         console.log(res)
 
+        this.password = ''
+        this.confirm_password = ''
+
         this.router.navigate(['/login']);
       } catch (err) {
         console.dir(err)
         
-        // Hay que crear un if para "auth/weak-password" y alert
-        // "auth/email-already-in-use" y alert
-      }
-      
+        this.password = ''
+        this.confirm_password = ''
+        switch (err.message) {
+          case "The email address is badly formatted.":
+            this.presentAlert("Error","Escriba un email correcto.")
+            break;
+
+          case "The password must be 6 characters long or more.":
+            this.presentAlert("Error","La contraseña debe tener más de 6 caracteres.")
+            break;
+          
+          case "Password should be at least 6 characters":
+            this.presentAlert("Error","La contraseña debe tener más de 6 caracteres.")
+            break;
+
+          case "The email address is already in use by another account.":
+            this.presentAlert("Error","El email ya está en uso. Pruebe a hacer login")
+
+          default:
+            break;
+        }
+      }  
     }
   }
+  loginGoogle() {
+		try {
+			this.authSer.loginGoogle()
+		} catch (err) {
+			if (err.code == "auth/web-storage-unsupported") {
+				this.presentAlert("Error navegador", "Este navegador no permite guardar cookies de terceros")
+			}
+		}
+
+	}
 
 }

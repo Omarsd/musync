@@ -1,12 +1,24 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FirebaseService } from './anuncio.service';
+import { AnunciosService } from './anuncio.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
-describe('FirebaseService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+describe('AnunciosService', () => {
+	/*
+	const afs = <AngularFirestore> {}
+	const alertController = <AlertController> {}
+	const router = <Router> {}
 
-  it('should be created', () => {
-    const service: FirebaseService = TestBed.get(FirebaseService);
-    expect(service).toBeTruthy();
-  });
+	let anunciosService : AnunciosService = new AnunciosService(afs, alertController, router);
+
+	*/
+	describe('PruebaCantidadAnuncios', () =>{
+		/*
+		let cantidadInicial = anunciosService.getAllAnuncio().subscribe(data =>{return data.length;})
+		console.log(cantidadInicial);
+		*/
+	})
+
 });
