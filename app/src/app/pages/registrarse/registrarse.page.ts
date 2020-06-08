@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/model/usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-registrarse',
@@ -28,6 +29,7 @@ export class RegistrarsePage implements OnInit {
   confirm_password: string = ''
 
   constructor(public auth: AngularFireAuth, 
+    private authSer: AuthService,
     public alertController: AlertController, 
     public router: Router, 
     public usuarioService: UsuarioService) { }
@@ -136,5 +138,15 @@ export class RegistrarsePage implements OnInit {
       }  
     }
   }
+  loginGoogle() {
+		try {
+			this.authSer.loginGoogle()
+		} catch (err) {
+			if (err.code == "auth/web-storage-unsupported") {
+				this.presentAlert("Error navegador", "Este navegador no permite guardar cookies de terceros")
+			}
+		}
+
+	}
 
 }
