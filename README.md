@@ -1,17 +1,6 @@
 # Musync
-![MuSync](https://i.imgur.com/nKIjsNZ.jpg)
-## Tareas a realizar
-- [X] Login
-- [X] Registrarse
-- [X] Cerrar sesión
-- [ ] Listar anuncios
-- [X] Crear anuncio
-- [X] Ver anuncio
-- [X] Eliminar anuncio
-- [X] Editar anuncio 
-- [X] `Una X para tachar una tarea` 
-- [ ] 
 
+![MuSync](https://i.imgur.com/nKIjsNZ.jpg)
 
 ## Integrantes
 
@@ -23,3 +12,8 @@
 | Oscar Bracero Ramírez   | Tester                    |
 | Juan Manuel Salas Pérez | Diseñador                 |
 | Rubén Castro Ruiz       | Programador               |
+
+
+
+Para ir a la aplicación, pulse [aquí](https://pensive-heyrovsky-6bdf03.netlify.app/home).
+
