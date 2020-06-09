@@ -2,6 +2,7 @@
 
 ![MuSync](https://i.imgur.com/nKIjsNZ.jpg)
 
+
 ## Integrantes
 
 | Integrante              | Rol                       |
@@ -14,6 +15,6 @@
 | Rubén Castro Ruiz       | Programador               |
 
 
+## Aplicación
 
 Para ir a la aplicación, pulse [aquí](https://pensive-heyrovsky-6bdf03.netlify.app/home).
-
